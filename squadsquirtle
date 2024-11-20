@@ -1,1 +1,126 @@
-<h1>Squad Squirtle</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squad Squirtle - Processamento de Vídeo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+        }
+        header {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #00509e; /* Azul médio */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+        }
+        .section-title {
+            margin-top: 20px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+        ul {
+            margin: 10px 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul li {
+            margin: 5px 0;
+        }
+        ul li a {
+            color: #00509e; /* Azul médio */
+            text-decoration: none;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="#equipe">Equipe</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#relatorios">Relatórios</a>
+        <a href="#trabalhos">Trabalhos</a>
+    </nav>
+    <main>
+        <section id="equipe">
+            <h2 class="section-title">Equipe</h2>
+            <p><strong>Membros:</strong> Christian Fuentes, Henrique Soares, Vitoria Angusso</p>
+        </section>
+        <section id="introducao">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                Este site foi desenvolvido como parte da matéria <strong>Processamento de Vídeo</strong>, ministrada pelo professor 
+                <strong>Celso Kurashima</strong> na <strong>Universidade Federal do ABC</strong>, durante o terceiro quadrimestre de 2024.
+            </p>
+        </section>
+        <section id="relatorios">
+            <h2 class="section-title">Relatórios</h2>
+            <ul>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab1.html">Lab 1: Captura de Imagem e Vídeo</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab2.html">Lab 2: Filtragem: "Sal e Pimenta"</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab3.html">Lab 3: Teoria de Cores</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab4.html">Lab 4: Histograma e Limiarização</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab5.html">Lab 5: Subtração de Fundo</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab6.html">Lab 6: Features</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab7.html">Lab 7: Detecção de Objetos</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab8.html">Lab 8: Rastreamento de Objetos</a></li>
+            </ul>
+        </section>
+        <section id="trabalhos">
+            <h2 class="section-title">Trabalhos</h2>
+            <p><strong>Tema:</strong> Sistema de Reconhecimento de Gestos</p>
+            <ul>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/ca.html">Parte 1: Contexto e Cenário de Aplicação (CA)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/mf.html">Parte 2: Modelagem Funcional do Sistema de Processamento Visual (MF)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/spv.html">Parte 3: Desenvolvimento do Sistema de Processamento Visual (SPV)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lex.html">Parte 4: Elaboração de Laboratório Experimental do SPV (LEx)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/tc.html">Parte 5: Teste de Campo do SPV (TC)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/rft.html">Parte 6: Elaboração do Relatório Final do Trabalho (RFT)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/dem.html">Parte 7: Elaboração de Apresentação – ppt, vídeos documentais, e demo final (DEM)</a></li>
+                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/seminar.html">Parte 8: Apresentação no Seminário da Disciplina (SEMINAR)</a></li>
+            </ul>
+        </section>
+	<div style="height: 50px;"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank" style="color: white;">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
