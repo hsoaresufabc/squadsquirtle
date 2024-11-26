@@ -5,65 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Squad Squirtle - Processamento de Vídeo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset básico */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
             background-color: #f0f8ff; /* Azul claro */
             color: #003366; /* Azul escuro */
+            line-height: 1.6;
         }
+
         header {
             background-color: #003366; /* Azul escuro */
             color: white;
             padding: 20px;
             text-align: center;
         }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
+        }
+
+        header p {
+            font-size: 1rem;
+        }
+
         nav {
             background-color: #00509e; /* Azul médio */
             display: flex;
             justify-content: center;
-            padding: 10px 0;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
+
         nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
         nav a:hover {
-            text-decoration: underline;
+            background-color: #003366;
         }
+
         main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
             padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-        footer {
-            background-color: #003366; /* Azul escuro */
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            width: 100%;
-        }
+
         .section-title {
-            margin-top: 20px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             border-bottom: 2px solid #00509e;
             display: inline-block;
             color: #003366;
         }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
         ul {
-            margin: 10px 0;
-            padding: 0;
-            list-style: none;
+            padding-left: 20px;
         }
+
         ul li {
-            margin: 5px 0;
+            margin-bottom: 8px;
         }
-        ul li a {
-            color: #00509e; /* Azul médio */
-            text-decoration: none;
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
         }
-        ul li a:hover {
+
+        footer a {
+            color: white;
             text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -79,18 +125,18 @@
         <a href="#trabalhos">Trabalhos</a>
     </nav>
     <main>
-        <section id="equipe">
+        <div id="equipe" class="card">
             <h2 class="section-title">Equipe</h2>
             <p><strong>Membros:</strong> Christian Fuentes, Henrique Soares, Vitoria Angusso</p>
-        </section>
-        <section id="introducao">
+        </div>
+        <div id="introducao" class="card">
             <h2 class="section-title">Introdução</h2>
             <p>
                 Este site foi desenvolvido como parte da matéria <strong>Processamento de Vídeo</strong>, ministrada pelo professor 
                 <strong>Celso Kurashima</strong> na <strong>Universidade Federal do ABC</strong>, durante o terceiro quadrimestre de 2024.
             </p>
-        </section>
-        <section id="relatorios">
+        </div>
+        <div id="relatorios" class="card">
             <h2 class="section-title">Relatórios</h2>
             <ul>
                 <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab1.html">Lab 1: Captura de Imagem e Vídeo</a></li>
@@ -102,8 +148,8 @@
                 <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab7.html">Lab 7: Detecção de Objetos</a></li>
                 <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab8.html">Lab 8: Rastreamento de Objetos</a></li>
             </ul>
-        </section>
-        <section id="trabalhos">
+        </div>
+        <div id="trabalhos" class="card">
             <h2 class="section-title">Trabalhos</h2>
             <p><strong>Tema:</strong> Sistema de Reconhecimento de Gestos</p>
             <ul>
@@ -116,11 +162,10 @@
                 <li><a href="https://hsoaresufabc.github.io/squadsquirtle/dem.html">Parte 7: Elaboração de Apresentação – ppt, vídeos documentais, e demo final (DEM)</a></li>
                 <li><a href="https://hsoaresufabc.github.io/squadsquirtle/seminar.html">Parte 8: Apresentação no Seminário da Disciplina (SEMINAR)</a></li>
             </ul>
-        </section>
-	<div style="height: 50px;"></div>
+        </div>
     </main>
     <footer>
-        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank" style="color: white;">GitHub Repo</a></p>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
 </body>
 </html>
