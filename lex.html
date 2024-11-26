@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Fora do Ar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #003366; /* Cor de fundo do cabeçalho */
+			color: white;
+			padding: 20px; /* Espaçamento interno para igualar a proporção */
+			text-align: center; /* Centraliza o texto */
+			display: flex;
+			flex-direction: column; /* Empilha os itens verticalmente */
+			justify-content: center; /* Centraliza verticalmente */
+			align-items: center; /* Centraliza horizontalmente */
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #00509e; /* Azul médio */
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        .content {
+            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+    </nav>
+
+    <div class="content">
+        <div class="card">
+            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
+            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
+            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
