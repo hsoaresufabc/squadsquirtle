@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parte 2: Modelagem Funcional do Sistema de Processamento Visual (MF)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #00509e;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+		
+		ul {
+			padding-left: 30px; /* Indenta as listas para dentro do card */
+		}
+		
+		ul li {
+			margin-bottom: 10px; /* Espaçamento entre os itens */
+		}
+		
+		ul ul {
+			padding-left: 20px; /* Sublistas mais indentadas */
+		}
+		
+		ul ul li {
+			margin-bottom: 8px; /* Espaçamento menor para subitens */
+		}
+		
+		ul {
+			padding-left: 30px; /* Indentação dos bullets */
+			margin-top: 10px; /* Espaço entre o parágrafo e os bullets */
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#arquitetura">Arquitetura</a>
+        <a href="#diagrama">Diagrama</a>
+        <a href="#consideracoes">Considerações</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Parte 2: Modelagem Funcional do Sistema de Processamento Visual (MF)</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                Nesta etapa, o sistema proposto será detalhado em termos de sua concepção funcional, utilizando diagramas, fluxogramas e descrições técnicas. A modelagem funcional busca esclarecer o comportamento esperado do sistema e como ele executará as tarefas de reconhecimento de gestos em tempo real.
+            </p>
+        </div>
+        <div id="arquitetura" class="card">
+            <h2 class="section-title">Arquitetura do Sistema</h2>
+            <p>O sistema será dividido em quatro módulos principais, que interagem entre si:</p>
+            <ul>
+                <li><strong>Captura de Vídeo:</strong> Captura os frames em tempo real da câmera, garantindo atualização fluida.</li>
+                <li><strong>Pré-processamento de Imagem:</strong> Conversão para HSV, segmentação da pele (<code>inRange()</code>), e redução de ruídos usando <code>morphologyEx()</code>.</li>
+                <li><strong>Processamento e Reconhecimento:</strong> Identificação de contornos (<code>findContours()</code>), casca convexa (<code>convexHull()</code>), e contagem de dedos baseando-se em <code>convexityDefects()</code>.</li>
+                <li><strong>Interface com o Usuário:</strong> Exibe feedback visual e associa gestos a comandos.</li>
+            </ul>
+        </div>
+        <div id="diagrama" class="card">
+            <h2 class="section-title">Diagrama de Blocos</h2>
+            <p>O diagrama de blocos abaixo representa a estrutura funcional do sistema:</p>
+            <img src="diagrama-mf.png" alt="Diagrama de Blocos do Sistema" style="display: block; margin: 20px auto; max-width: 100%;">
+        </div>
+        <div id="fluxograma" class="card">
+            <h2 class="section-title">Fluxograma Funcional</h2>
+            <p>Segue o funcionamento passo a passo:</p>
+            <ul>
+                <li>Início: Iniciar a captura de vídeo e configurar parâmetros.</li>
+                <li>Captura e Pré-processamento: Captura de frames, conversão para HSV e redução de ruídos.</li>
+                <li>Processamento: Contornos, casca convexa e contagem de dedos.</li>
+                <li>Reconhecimento e Feedback: Associação de gestos a comandos e exibição.</li>
+                <li>Repetição ou Encerramento: Repetir para novos frames ou encerrar.</li>
+            </ul>
+        </div>
+        <div id="algoritmos" class="card">
+            <h2 class="section-title">Estruturas de Dados e Algoritmos</h2>
+            <ul>
+                <li><strong>Estruturas:</strong> <code>Matriz de Frames</code>, <code>Vetores de Contornos</code>, e <code>Vetores Convexos</code>.</li>
+                <li><strong>Algoritmos:</strong></li>
+                <ul>
+                    <li><strong>Segmentação:</strong> Ajuste da faixa HSV e aplicação de filtros morfológicos.</li>
+                    <li><strong>Detecção de Contornos:</strong> Uso de <code>findContours()</code> para identificar áreas de interesse.</li>
+                    <li><strong>Cálculo de Convexidade:</strong> Casca convexa com <code>convexHull()</code> e defeitos com <code>convexityDefects()</code>.</li>
+                    <li><strong>Contagem de Dedos:</strong> Análise de ângulos e profundidade dos defeitos detectados.</li>
+                </ul>
+            </ul>
+        </div>
+        <div id="consideracoes" class="card">
+            <h2 class="section-title">Considerações Finais</h2>
+            <p>
+                Esta modelagem funcional fornece uma visão clara de como o sistema será desenvolvido. Com base nesse modelo, a implementação será iniciada utilizando as funções disponíveis na biblioteca OpenCV. Ajustes poderão ser feitos conforme o sistema evolui.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>

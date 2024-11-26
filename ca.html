@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parte 1: Contexto e Cenário de Aplicação (CA)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #00509e;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        ul {
+            padding-left: 30px; /* Indentação corrigida */
+        }
+
+        ul li {
+            margin-bottom: 10px; /* Espaçamento entre os itens */
+        }
+		
+		ul {
+			padding-left: 30px; /* Indentação dos bullets */
+			margin-top: 10px; /* Espaço entre o parágrafo e os bullets */
+		}
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#tema">Tema</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#aplicacoes">Aplicações</a>
+        <a href="#beneficios">Benefícios</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Parte 1: Contexto e Cenário de Aplicação (CA)</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                Este trabalho apresenta o desenvolvimento de um Sistema de Reconhecimento de Gestos utilizando a linguagem de programação C++ e a biblioteca OpenCV, como parte dos estudos na disciplina de Processamento de Vídeo do curso de Engenharia de Informação. O objetivo principal é aplicar conceitos fundamentais de processamento de imagens e vídeos, como filtragem, processamento de cores, segmentação e análise de movimento, para criar um sistema funcional e robusto que reconheça gestos manuais em tempo real.
+            </p>
+            <p>
+                A crescente demanda por interfaces naturais e sem toque em diversos ambientes, como residências, empresas e instituições educacionais, motiva o desenvolvimento desta solução. Com isso, pretende-se demonstrar uma aplicação prática das técnicas abordadas em aula, contribuindo para a formação acadêmica e profissional dos integrantes.
+            </p>
+        </div>
+        <div id="tema" class="card">
+            <h2 class="section-title">Tema do Sistema</h2>
+            <p>
+                O sistema proposto visa fornecer uma interface interativa, intuitiva e sem contato físico, permitindo o controle de dispositivos por meio de gestos manuais. Tal abordagem pode ser empregada em diversos cenários, como automação residencial, apresentações corporativas ou educacionais, e em ambientes onde o toque físico deve ser evitado por questões de higiene ou segurança.
+            </p>
+        </div>
+        <div id="objetivos" class="card">
+            <h2 class="section-title">Objetivos</h2>
+            <h3>Objetivo Geral</h3>
+            <p>Desenvolver uma aplicação capaz de:</p>
+            <ul>
+                <li>Reconhecer e interpretar gestos básicos, como a exibição de um número específico de dedos.</li>
+                <li>Oferecer uma interface gráfica de fácil entendimento que apresente feedback visual ao usuário.</li>
+                <li>Garantir confiabilidade e desempenho em diferentes condições de iluminação e ruído no ambiente.</li>
+            </ul>
+            <h3>Objetivos Específicos</h3>
+            <ul>
+                <li>Implementar técnicas de segmentação de imagem para detecção de regiões da pele.</li>
+                <li>Identificar contornos da mão e calcular pontos de convexidade para contagem de dedos.</li>
+                <li>Aplicar conceitos de análise de movimento para assegurar que o gesto está estável antes do reconhecimento.</li>
+                <li>Demonstrar o funcionamento do sistema em tempo real usando uma webcam.</li>
+            </ul>
+        </div>
+        <div id="aplicacoes" class="card">
+            <h2 class="section-title">Aplicações Potenciais</h2>
+            <ul>
+                <li>
+                    <strong>Automação Residencial:</strong> Controle de dispositivos como televisores, sistemas de som ou iluminação, utilizando gestos para ações como "ligar/desligar", "avançar" ou "retroceder".
+                </li>
+                <li>
+                    <strong>Ambientes Educacionais:</strong> Navegação em apresentações, manipulação de vídeos e interação com sistemas multimídia durante aulas ou palestras.
+                </li>
+                <li>
+                    <strong>Ambientes Estéreis:</strong> Controle de equipamentos em hospitais, laboratórios ou cozinhas industriais, onde minimizar o toque físico é essencial.
+                </li>
+            </ul>
+        </div>
+        <div id="beneficios" class="card">
+            <h2 class="section-title">Benefícios</h2>
+            <ul>
+                <li><strong>Acessibilidade:</strong> Facilita o uso por pessoas com limitações motoras ou dificuldades em operar dispositivos físicos.</li>
+                <li><strong>Segurança:</strong> Reduz o contato físico, importante em ambientes onde a higiene é uma prioridade.</li>
+                <li><strong>Interatividade:</strong> Oferece uma forma moderna e intuitiva de interação com dispositivos e sistemas.</li>
+            </ul>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
