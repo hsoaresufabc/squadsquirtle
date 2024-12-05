@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Parte 3: Desenvolvimento do Sistema de Processamento Visual (SPV)</title>
     <style>
         * {
             margin: 0;
@@ -13,33 +13,20 @@
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f0f8ff; /* Azul claro */
-            color: #003366; /* Azul escuro */
+            background-color: #f0f8ff;
+            color: #003366;
             line-height: 1.6;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: #003366; /* Cor de fundo do cabeçalho */
-			color: white;
-			padding: 20px; /* Espaçamento interno para igualar a proporção */
-			text-align: center; /* Centraliza o texto */
-			display: flex;
-			flex-direction: column; /* Empilha os itens verticalmente */
-			justify-content: center; /* Centraliza verticalmente */
-			align-items: center; /* Centraliza horizontalmente */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         nav {
-            background-color: #00509e; /* Azul médio */
+            background-color: #00509e;
             display: flex;
             justify-content: center;
             padding: 15px 0;
@@ -63,13 +50,10 @@
             background-color: #003366;
         }
 
-        .content {
-            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .card {
@@ -78,25 +62,33 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            max-width: 600px;
-            text-align: center;
         }
 
-        img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
         }
 
-        h1 {
-            font-size: 2rem;
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
             margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
         }
 
         footer {
@@ -104,7 +96,7 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            margin-top: 20px;
         }
 
         footer a {
@@ -124,16 +116,163 @@
     </header>
     <nav>
         <a href="index.html">Página Inicial</a>
+        <a href="#codigo">Código</a>
+        <a href="#descricao">Descrição</a>
+        <a href="#conceitos">Conceitos Utilizados</a>
     </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Parte 3: Desenvolvimento do Sistema de Processamento Visual (SPV)</h2>
+        <div id="codigo" class="card">
+            <h2 class="section-title">Código</h2>
+            <pre><code>
+/*
+ * Nome: Christian Fuentes, Henrique Soares, Vitoria Angusso
+ * RA: 11071116, 11201812009, 11202020150
+ * Data do Programa: 29/11/2024
+ * Nome do Squad: Squad Squirtle
+ * Nome do Programa: Gesture Detection
+ * Exemplo de execução no Linux: ./GestureDetection
+ */
 
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
+#include <opencv2/opencv.hpp>
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+// Função auxiliar para contar dedos
+int contarDedos(const vector<Vec4i>& defeitos, const vector<Point>& contorno) {
+    int quantidadeDedos = 0;
+
+    for (const auto& defeito : defeitos) {
+        Point ptInicio = contorno[defeito[0]];
+        Point ptFim = contorno[defeito[1]];
+        Point ptDistante = contorno[defeito[2]];
+
+        // Usa geometria de triângulo para contar os dedos
+        double a = norm(ptInicio - ptDistante);
+        double b = norm(ptFim - ptDistante);
+        double c = norm(ptInicio - ptFim);
+        double angulo = acos((a * a + b * b - c * c) / (2 * a * b));
+
+        if (angulo < CV_PI / 2 && a > 50 && b > 50) {
+            quantidadeDedos++;
+        }
+    }
+    return quantidadeDedos;
+}
+
+int main() {
+    VideoCapture cap(0); // Abre a câmera padrão
+    if (!cap.isOpened()) {
+        cerr << "Erro: Não foi possível acessar a câmera" << endl;
+        return -1;
+    }
+
+    Mat frame, hsv, mask, gray, roi;
+    Rect regiaoMao(200, 100, 200, 200); // Define a região quadrada para a mão
+
+    namedWindow("Gesture Detection - Squad Squirtle - Detecção de Gestos", WINDOW_AUTOSIZE);
+
+    while (true) {
+        cap >> frame;
+        if (frame.empty()) break;
+
+        // Desenha a região quadrada no quadro
+        rectangle(frame, regiaoMao, Scalar(255, 0, 0), 2);
+
+        // Extrai a região de interesse (ROI)
+        roi = frame(regiaoMao);
+
+        // Converte ROI para HSV e filtra a cor da pele
+        cvtColor(roi, hsv, COLOR_BGR2HSV);
+        inRange(hsv, Scalar(0, 30, 60), Scalar(20, 150, 255), mask);
+
+        // Suaviza e processa a máscara
+        GaussianBlur(mask, mask, Size(5, 5), 0);
+
+        // Encontra os contornos na máscara
+        vector<vector<Point>> contornos;
+        vector<Vec4i> hierarquia;
+        findContours(mask, contornos, hierarquia, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+        // Identifica o maior contorno
+        int maiorIndice = -1;
+        double maiorArea = 0;
+        for (int i = 0; i < contornos.size(); i++) {
+            double area = contourArea(contornos[i]);
+            if (area > maiorArea) {
+                maiorArea = area;
+                maiorIndice = i;
+            }
+        }
+
+        if (maiorIndice != -1) {
+            vector<Point> pontosConvexos;
+            vector<int> indicesConvexos;
+            vector<Vec4i> defeitos;
+
+            // Envoltória convexa e defeitos de convexidade
+            convexHull(contornos[maiorIndice], pontosConvexos);
+            convexHull(contornos[maiorIndice], indicesConvexos);
+            if (indicesConvexos.size() > 3) {
+                convexityDefects(contornos[maiorIndice], indicesConvexos, defeitos);
+            }
+
+            // Desenha contornos e envoltória no ROI
+            drawContours(roi, contornos, maiorIndice, Scalar(0, 255, 0), 2);
+            polylines(roi, pontosConvexos, true, Scalar(255, 0, 0), 2);
+
+            // Conta os dedos
+            int quantidadeDedos = contarDedos(defeitos, contornos[maiorIndice]);
+            putText(frame, "Dedos: " + to_string(quantidadeDedos), Point(10, 50),
+                    FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+        }
+
+        imshow("Gesture Detection - Squad Squirtle - Detecção de Gestos", frame);
+        imshow("Gesture Detection - Squad Squirtle - Região da Mão", mask);
+
+        // Encerra ao pressionar a tecla 'q'
+        if (waitKey(30) == 'q') break;
+    }
+
+    cap.release();
+    destroyAllWindows();
+    return 0;
+}
+            </code></pre>
         </div>
-    </div>
+        <div id="descricao" class="card">
+		<h2 class="section-title">Descrição</h2>
+		<p>
+			Este sistema foi desenvolvido para detectar gestos utilizando uma webcam e algoritmos de processamento de imagens da biblioteca OpenCV. A detecção baseia-se em etapas essenciais de pré-processamento, extração de características e análise geométrica:
+		</p>
+		<ul>
+			<li><strong>Captura de Imagens:</strong> Os frames são capturados da webcam em tempo real usando a classe <code>VideoCapture</code>, permitindo uma atualização contínua.</li>
+			<li><strong>Definição da Região de Interesse (ROI):</strong> Uma área retangular (ROI) é destacada na imagem para isolar a mão, facilitando o processamento e reduzindo o ruído de outras regiões.</li>
+			<li><strong>Conversão de Cores:</strong> A imagem na ROI é convertida para o espaço de cores HSV (<code>cvtColor()</code>), que é mais adequado para segmentar tons de pele em diferentes condições de iluminação.</li>
+			<li><strong>Segmentação por Cor:</strong> A função <code>inRange()</code> é usada para criar uma máscara binária, destacando apenas os pixels correspondentes à tonalidade da pele.</li>
+			<li><strong>Filtragem:</strong> A máscara binária passa por um filtro gaussiano (<code>GaussianBlur()</code>) para suavizar a imagem e reduzir ruídos.</li>
+			<li><strong>Extração de Contornos:</strong> A função <code>findContours()</code> detecta os contornos presentes na máscara, permitindo identificar a mão e suas características geométricas.</li>
+			<li><strong>Contagem de Dedos:</strong> A função <code>contarDedos()</code> analisa os defeitos de convexidade da mão (como os espaços entre os dedos) para determinar quantos dedos estão levantados.</li>
+		</ul>
+		<p>
+			O sistema utiliza conceitos fundamentais de processamento de imagem, como filtragem, segmentação de cor e análise geométrica, para alcançar resultados precisos. Além disso, o retângulo da ROI facilita o controle da área de análise e melhora a eficiência do processamento.
+		</p>
+		</div>
 
+        <div id="conceitos" class="card">
+            <h2 class="section-title">Conceitos Utilizados</h2>
+            <ul>
+                <li><strong>Filtragem de imagens:</strong> A função <code>GaussianBlur()</code> é utilizada para reduzir ruídos.</li>
+                <li><strong>Processamento de cores:</strong> A função <code>cvtColor()</code> converte a imagem para o espaço de cores HSV.</li>
+                <li><strong>Subtração de fundo:</strong> A função <code>inRange()</code> segmenta a mão com base nos tons de pele.</li>
+                <li><strong>Detecção de objetos:</strong> Contornos são encontrados utilizando <code>findContours()</code>.</li>
+                <li><strong>Histograma e equalização:</strong> Não aplicado explicitamente neste código.</li>
+                <li><strong>Análise de movimento:</strong> Indiretamente considerada pela posição da ROI.</li>
+            </ul>
+        </div>
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
