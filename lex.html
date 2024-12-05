@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Parte 4: Elaboração do Laboratório Experimental do SPV (Lex)</title>
     <style>
         * {
             margin: 0;
@@ -13,33 +13,20 @@
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f0f8ff; /* Azul claro */
-            color: #003366; /* Azul escuro */
+            background-color: #f0f8ff;
+            color: #003366;
             line-height: 1.6;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: #003366; /* Cor de fundo do cabeçalho */
-			color: white;
-			padding: 20px; /* Espaçamento interno para igualar a proporção */
-			text-align: center; /* Centraliza o texto */
-			display: flex;
-			flex-direction: column; /* Empilha os itens verticalmente */
-			justify-content: center; /* Centraliza verticalmente */
-			align-items: center; /* Centraliza horizontalmente */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         nav {
-            background-color: #00509e; /* Azul médio */
+            background-color: #00509e;
             display: flex;
             justify-content: center;
             padding: 15px 0;
@@ -63,13 +50,10 @@
             background-color: #003366;
         }
 
-        .content {
-            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .card {
@@ -78,25 +62,29 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            max-width: 600px;
-            text-align: center;
         }
 
-        img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
         }
 
-        h1 {
-            font-size: 2rem;
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
             margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
         }
 
         footer {
@@ -104,7 +92,7 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            margin-top: 20px;
         }
 
         footer a {
@@ -124,16 +112,52 @@
     </header>
     <nav>
         <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#procedimentos">Procedimentos</a>
+        <a href="#consideracoes">Considerações</a>
     </nav>
-
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Parte 4: Elaboração do Laboratório Experimental do SPV (Lex)</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                Este roteiro detalha os passos para utilizar o programa de <strong>detecção de gestos</strong>, que identifica a quantidade de dedos levantados em tempo real por meio de uma webcam. O sistema foi desenvolvido para atender a usuários leigos e possui instruções claras e intuitivas para sua operação. A configuração adequada do ambiente e a correta interação com o programa são fundamentais para alcançar os melhores resultados.
+            </p>
         </div>
-    </div>
-
+        <div id="procedimentos" class="card">
+            <h2 class="section-title">Procedimentos</h2>
+            <h3>Preparação do Ambiente</h3>
+            <ul>
+                <li>Conecte uma webcam funcional ao computador e certifique-se de que ela está corretamente reconhecida pelo sistema operacional.</li>
+                <li>Escolha um local bem iluminado, evitando sombras ou luzes fortes que possam interferir na detecção da mão.</li>
+                <li>Certifique-se de que o fundo da <strong>Região de Interesse (ROI)</strong>, o retângulo azul exibido na tela, esteja <strong>plano, limpo e uniforme</strong>, sem elementos visuais que possam distrair o sistema de detecção.</li>
+                <li>Abra um terminal e navegue até o diretório onde o programa está localizado.</li>
+                <li>Execute o programa com o seguinte comando: <code>./GestureDetection</code></li>
+            </ul>
+            <h3>Calibração Inicial</h3>
+            <ul>
+                <li>Ao iniciar o programa, posicione sua mão dentro da <strong>Região de Interesse (ROI)</strong>, o retângulo azul exibido na tela.</li>
+                <li>Certifique-se de que a mão está <strong>alinhada e paralela ao retângulo</strong>, com os dedos esticados e separados. O objetivo é que a mão fique posicionada de forma estável, garantindo que todos os dedos sejam visíveis dentro da ROI.</li>
+                <li>Observe a contagem de dedos exibida na tela principal, identificada pela mensagem "Dedos: X". Caso a contagem esteja incorreta, reposicione a mão, ajuste sua orientação ou reinicie o processo de calibração.</li>
+                <li>Evite movimentos bruscos durante a calibração, permitindo que o sistema estabilize a detecção da mão.</li>
+            </ul>
+            <h3>Realização do Experimento</h3>
+            <ul>
+                <li>Com a calibração concluída, realize gestos simples, levantando diferentes números de dedos (de 0 a 5).</li>
+                <li>Mova lentamente os dedos, testando a resposta do sistema à movimentação gradual.</li>
+                <li>Experimente fechar completamente a mão e depois abri-la novamente, verificando a consistência da contagem exibida.</li>
+                <li>Preste atenção à janela "Região da Mão", que exibe a máscara da área detectada, garantindo que a segmentação da mão esteja precisa.</li>
+            </ul>
+        </div>
+        <div id="consideracoes" class="card">
+            <h2 class="section-title">Considerações Finais</h2>
+            <ul>
+                <li>O programa foi projetado para detectar com precisão os gestos realizados na ROI. Para melhores resultados, ajuste o fundo, iluminação e a posição da mão conforme necessário.</li>
+                <li>Em caso de contagem incorreta ou instável, repita a calibração inicial, verificando os detalhes do posicionamento da mão.</li>
+                <li>Para encerrar o programa, pressione a tecla <code>'q'</code>. Após finalizar, desconecte a webcam, se necessário.</li>
+            </ul>
+        </div>
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
