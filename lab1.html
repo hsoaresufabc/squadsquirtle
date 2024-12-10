@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Laboratório 1: Introdução ao OpenCV</title>
     <style>
         * {
             margin: 0;
@@ -16,36 +16,20 @@
             background-color: #f0f8ff; /* Azul claro */
             color: #003366; /* Azul escuro */
             line-height: 1.6;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: #003366; /* Cor de fundo do cabeçalho */
-			color: white;
-			padding: 20px; /* Espaçamento interno para igualar a proporção */
-			text-align: center; /* Centraliza o texto */
-			display: flex;
-			flex-direction: column; /* Empilha os itens verticalmente */
-			justify-content: center; /* Centraliza verticalmente */
-			align-items: center; /* Centraliza horizontalmente */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         nav {
-            background-color: #00509e; /* Azul médio */
+            background-color: #00509e;
             display: flex;
             justify-content: center;
             padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         nav a {
@@ -63,13 +47,10 @@
             background-color: #003366;
         }
 
-        .content {
-            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .card {
@@ -78,25 +59,14 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            max-width: 600px;
-            text-align: center;
         }
 
-        img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
         }
 
         footer {
@@ -104,36 +74,303 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            margin-top: 20px;
         }
+		ul {
+    padding-left: 20px;
+	margin-top: 10px; /* Espaçamento entre o parágrafo e os bullets */
+    margin-bottom: 20px;
+    list-style-type: disc; /* Estilo do bullet (pode ser 'circle', 'square', etc.) */
+	}
 
-        footer a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        footer a:hover {
-            text-decoration: none;
-        }
+	ul li {
+    margin-bottom: 10px; /* Espaçamento entre itens */
+    line-height: 1.5; /* Melhora a legibilidade */
+	}
+	p {
+    margin-bottom: 15px; /* Adiciona espaçamento abaixo dos parágrafos */
+	}
     </style>
 </head>
 <body>
     <header>
         <h1>Squad Squirtle</h1>
-        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
     </header>
     <nav>
-        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#configuracao">Configuração do Ambiente</a>
+        <a href="#processamento">Processamento Básico</a>
+        <a href="#obterfotosvideos">Obtenção de Fotos e Vídeos</a>
+		<a href="#codigos">Códigos Utilizados</a>
+        <a href="#conclusao">Conclusão</a>
     </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 1</h2>
 
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
-        </div>
-    </div>
+        <div id="introducao" class="card">
+		<h2 class="section-title">Introdução</h2>
+		<p>
+			O Laboratório 1 introduz conceitos fundamentais de visão computacional utilizando a biblioteca OpenCV, 
+			que é amplamente empregada em aplicações de processamento de imagens e vídeos. Durante este laboratório, 
+			foram explorados métodos básicos para capturar, exibir e gravar imagens e vídeos, estabelecendo as bases para 
+			aplicações práticas e avançadas em áreas como segurança, entretenimento e análise visual.
+		</p>
+		<p>
+			O laboratório foi dividido em três partes principais. A primeira concentrou-se na configuração do ambiente de desenvolvimento, 
+			garantindo que todos os recursos necessários estivessem prontos para uso. A segunda parte explorou operações básicas em imagens e vídeos, 
+			utilizando exemplos práticos para manipular arquivos visuais. Por fim, a terceira parte focou na gravação de imagens e vídeos, incluindo 
+			experimentos com fontes como a webcam e sequências de imagens.
+		</p>
+		<p>
+			Este laboratório serve como uma introdução prática e técnica, consolidando conhecimentos que serão aplicados em projetos futuros. 
+			As atividades desenvolvidas são essenciais para criar familiaridade com a biblioteca OpenCV e entender como utilizá-la para solucionar problemas 
+			do mundo real em visão computacional.
+		</p>
+		</div>
+        <div id="configuracao" class="card">
+		<h2 class="section-title">Configuração do Ambiente</h2>
+		<p>
+			A configuração do ambiente de desenvolvimento é um passo crucial para garantir que os programas possam ser executados corretamente. 
+			Neste laboratório, o foco foi na instalação e validação do OpenCV, utilizando ferramentas disponíveis em sistemas baseados em Linux. 
+			O processo incluiu os seguintes passos:
+		</p>
+		<ul>
+			<li>Instalação do OpenCV por meio do comando <code>sudo apt-get install libopencv-dev</code>, garantindo a disponibilidade das bibliotecas necessárias.</li>
+			<li>Configuração do compilador g++ com suporte à biblioteca OpenCV, utilizando as flags <code>-lopencv_core</code>, <code>-lopencv_highgui</code> e outras relevantes.</li>
+			<li>Criação e compilação de um programa básico para validar a instalação, incluindo a exibição de uma imagem simples para confirmar o funcionamento das bibliotecas.</li>
+		</ul>
+		<p>
+			Além disso, foram utilizados arquivos de instruções específicos fornecidos no Moodle, como o arquivo <strong>L1_parte1_instalar_opencv.txt</strong>, 
+			para guiar os participantes durante a configuração. Essa etapa garantiu que todos os participantes tivessem um ambiente funcional para a execução das atividades do laboratório.
+		</p>
+		</div>
 
+        <div id="processamento-basico" class="card">
+    <h2 class="section-title">Processamento Básico de Imagens e Vídeos</h2>
+    <p>
+        Na segunda etapa do laboratório, os participantes exploraram operações fundamentais para a manipulação de imagens e vídeos utilizando o OpenCV. 
+        O objetivo foi entender as funções básicas que permitem realizar a leitura, exibição e gravação desses dados visuais, servindo como base para aplicações mais avançadas.
+    </p>
+    <h3>Atividades Realizadas</h3>
+    <ul>
+        <li>
+            <strong>Leitura e Exibição de Imagens:</strong> A partir do tutorial <em>Getting Started with Images</em>, os participantes desenvolveram um programa para carregar uma imagem 
+            (arquivo <code>messi5.jpg</code>), exibi-la em uma janela e salvá-la no formato <code>.png</code>. Essa atividade demonstrou o funcionamento básico das classes <code>cv::Mat</code> e <code>imshow</code>.
+        </li>
+        <li>
+            <strong>Leitura e Gravação de Vídeos:</strong> Utilizando o tutorial <em>Reading and Writing Videos using OpenCV</em>, os participantes adaptaram um programa para reproduzir o vídeo 
+            fornecido (<code>big_buck_bunny.mp4</code>). Além disso, exploraram métodos para gravar vídeos com a classe <code>VideoWriter</code>.
+        </li>
+        <li>
+            <strong>Captura de Frames:</strong> Foram estudados programas para capturar frames em tempo real da webcam e exibi-los, permitindo interação direta com dispositivos visuais.
+        </li>
+    </ul>
+    <p>
+        Essas atividades introduziram conceitos importantes, como a estrutura de dados <code>cv::Mat</code>, que armazena imagens e vídeos, 
+        e as funções de leitura e gravação que facilitam o processamento de arquivos multimídia. Além disso, os participantes compreenderam como manipular 
+        a taxa de quadros (FPS) e as dimensões dos vídeos, o que é crucial para otimização em aplicações de visão computacional.
+    </p>
+	</div>
+	<div id="obterfotosvideos" class="card">
+    <h2 class="section-title">Obtenção de Fotos e Vídeos</h2>
+    <p>
+        A última etapa do laboratório focou na criação e manipulação de imagens e vídeos capturados em tempo real. 
+        Os participantes utilizaram programas desenvolvidos para interagir com a webcam, possibilitando a captura de fotos, gravação de vídeos e realização de experimentos práticos.
+    </p>
+    <h3>Atividades Realizadas</h3>
+    <ul>
+        <li>
+            <strong>Captura de Fotos:</strong> Cada grupo realizou a captura de uma foto geral com todos os integrantes, 
+            utilizando roupas de cores distintas (Vermelho, Verde e Azul) para destacar os participantes. As fotos foram ajustadas para melhorar a iluminação, 
+            utilizando editores de imagem quando necessário.
+        </li>
+        <li>
+            <strong>Foto-Montagem com Avatares:</strong> Os integrantes do grupo criaram uma imagem unificada, incorporando avatares personalizados para representar cada participante. 
+            Essa atividade promoveu a familiarização com editores de imagem para composição criativa.
+        </li>
+        <li>
+            <strong>Gravação de Vídeos:</strong> Foram gravados dois vídeos com pessoas e dois vídeos com objetos, simulando diferentes condições:
+            <ul>
+                <li>Movimentos lentos para capturar detalhes progressivos.</li>
+                <li>Movimentos rápidos para avaliar a taxa de quadros e resposta do sistema.</li>
+            </ul>
+            Cada vídeo foi analisado para verificar a qualidade da gravação e a eficiência da captura em tempo real.
+        </li>
+    </ul>
+    <p>
+        Essas atividades consolidaram o uso de dispositivos de captura e reforçaram a importância de ajustar fatores como iluminação e posicionamento para melhorar os resultados.
+        Os códigos utilizados na prática serão discutidos na seção seguinte.
+    </p>
+	</div>
+	<div id="codigos" class="card">
+    <h2 class="section-title">Leitura de Vídeos a Partir de Arquivos</h2>
+    <p>
+        O código <code>video_read_from_file.cpp</code> permite carregar e reproduzir vídeos armazenados localmente. 
+        Ele utiliza a classe <code>VideoCapture</code> para abrir o arquivo, verificar sua disponibilidade e reproduzir frame por frame na tela. 
+        Além disso, exibe informações sobre a taxa de quadros (<code>fps</code>) e o número total de frames. 
+        Esse método é particularmente útil para validar vídeos e realizar análises frame a frame em aplicações como esportes e segurança.
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>// Inicializa o objeto de captura de vídeo
+VideoCapture vid_capture("Resources/Cars.mp4");
+
+// Verifica se o vídeo foi aberto com sucesso
+if (!vid_capture.isOpened()) {
+    cout &lt;&lt; "Erro ao abrir o vídeo" &lt;&lt; endl;
+}
+
+// Obtém informações sobre o vídeo
+int fps = vid_capture.get(CAP_PROP_FPS);
+int frame_count = vid_capture.get(CAP_PROP_FRAME_COUNT);
+cout &lt;&lt; "FPS: " &lt;&lt; fps &lt;&lt; ", Frames: " &lt;&lt; frame_count &lt;&lt; endl;
+
+// Reproduz os frames
+while (vid_capture.isOpened()) {
+    Mat frame;
+    if (!vid_capture.read(frame)) break;
+    imshow("Frame", frame);
+    if (waitKey(20) == 'q') break;
+}
+    </code></pre>
+	</div>
+	<div id="leitura-sequencias-imagens" class="card">
+    <h2 class="section-title">Leitura de Sequências de Imagens</h2>
+    <p>
+        O código <code>video_read_from_image_sequence.cpp</code> utiliza sequências de imagens para simular um vídeo. 
+        Essa técnica é amplamente usada em áreas como efeitos visuais e reconstrução 3D, onde cada frame é tratado como um arquivo de imagem independente.
+    </p>
+    <p>
+        Usando o padrão <code>Cars%04d.jpg</code>, o programa carrega cada imagem na sequência e a exibe na tela como frames. 
+        Isso permite processar ou editar cada imagem separadamente antes de criar um vídeo final.
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>// Inicializa o objeto de captura de vídeo com a sequência de imagens
+VideoCapture vid_capture("Resources/Image_sequence/Cars%04d.jpg");
+
+// Verifica se a sequência foi carregada
+if (!vid_capture.isOpened()) {
+    cout &lt;&lt; "Erro ao abrir a sequência de imagens" &lt;&lt; endl;
+}
+
+// Reproduz os frames
+while (vid_capture.isOpened()) {
+    Mat frame;
+    if (!vid_capture.read(frame)) break;
+    imshow("Frame", frame);
+    if (waitKey(20) == 'q') break;
+}
+    </code></pre>
+	</div>
+	<div id="leitura-webcam" class="card">
+    <h2 class="section-title">Leitura de Vídeo Diretamente da Webcam</h2>
+    <p>
+        O código <code>video_read_from_webcam.cpp</code> utiliza a webcam como fonte de entrada para capturar frames em tempo real. 
+        Essa funcionalidade é ideal para aplicações interativas, como vigilância ao vivo, videoconferências ou sistemas de reconhecimento em tempo real.
+    </p>
+    <p>
+        Ele cria um objeto <code>VideoCapture</code> que acessa a webcam padrão do sistema. 
+        Os frames capturados são exibidos na tela, e o programa permanece em execução até que o usuário pressione a tecla <code>q</code>.
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>// Inicializa a captura de vídeo pela webcam (0 indica a câmera padrão)
+VideoCapture vid_capture(0);
+
+// Verifica se a webcam está acessível
+if (!vid_capture.isOpened()) {
+    cout &lt;&lt; "Erro ao acessar a webcam" &lt;&lt; endl;
+}
+
+// Captura e exibe os frames
+while (vid_capture.isOpened()) {
+    Mat frame;
+    if (!vid_capture.read(frame)) break;
+    imshow("Frame", frame);
+    if (waitKey(20) == 'q') break;
+}
+    </code></pre>
+	</div>
+	<div id="gravacao-webcam" class="card">
+    <h2 class="section-title">Gravação de Vídeo a Partir da Webcam</h2>
+    <p>
+        O código <code>video_write_from_webcam.cpp</code> combina a captura de frames da webcam com a funcionalidade de gravação em vídeo. 
+        Ele utiliza a classe <code>VideoWriter</code> para salvar os frames capturados em um arquivo de vídeo no formato <code>.avi</code>.
+    </p>
+    <p>
+        O programa captura os frames em tempo real, permitindo que o usuário visualize e armazene o vídeo simultaneamente. 
+        Essa funcionalidade é útil em cenários como monitoramento em tempo real ou gravação de reuniões e apresentações.
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>// Inicializa a captura de vídeo pela webcam
+VideoCapture vid_capture(0);
+
+// Obtém largura e altura dos frames capturados
+int frame_width = static_cast&lt;int&gt;(vid_capture.get(CAP_PROP_FRAME_WIDTH));
+int frame_height = static_cast&lt;int&gt;(vid_capture.get(CAP_PROP_FRAME_HEIGHT));
+
+// Inicializa o gravador de vídeo
+VideoWriter output("output.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 20, Size(frame_width, frame_height));
+
+// Captura e grava os frames
+while (vid_capture.isOpened()) {
+    Mat frame;
+    if (!vid_capture.read(frame)) break;
+    output.write(frame);
+    imshow("Frame", frame);
+    if (waitKey(20) == 'q') break;
+}
+    </code></pre>
+	</div>
+	<div id="gravacao-arquivos" class="card">
+    <h2 class="section-title">Gravação de Vídeos de Arquivos</h2>
+    <p>
+        O código <code>video_write_to_file.cpp</code> permite ler frames de um vídeo existente e gravá-los em um novo arquivo. 
+        Ele combina a funcionalidade de leitura da classe <code>VideoCapture</code> com a gravação por meio de <code>VideoWriter</code>, 
+        possibilitando salvar modificações feitas nos frames originais.
+    </p>
+    <p>
+        Essa abordagem é útil para operações como alteração de resolução, aplicação de filtros ou edição de vídeos para criar novos conteúdos. 
+        O exemplo abaixo mostra como isso é feito:
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>// Inicializa a captura de vídeo a partir de um arquivo
+VideoCapture vid_capture("Resources/Cars.mp4");
+
+// Obtém largura, altura e inicializa o gravador de vídeo
+int frame_width = static_cast&lt;int&gt;(vid_capture.get(CAP_PROP_FRAME_WIDTH));
+int frame_height = static_cast&lt;int&gt;(vid_capture.get(CAP_PROP_FRAME_HEIGHT));
+VideoWriter output("Resources/output.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 20, Size(frame_width, frame_height));
+
+// Lê os frames e grava no novo arquivo
+while (vid_capture.isOpened()) {
+    Mat frame;
+    if (!vid_capture.read(frame)) break;
+    output.write(frame);
+    imshow("Frame", frame);
+    if (waitKey(20) == 'q') break;
+}
+    </code></pre>
+	</div>
+	<div id="conclusao" class="card">
+    <h2 class="section-title">Conclusão</h2>
+    <p>
+        Este laboratório apresentou uma introdução prática e detalhada ao uso do OpenCV para processamento de imagens e vídeos, 
+        abordando conceitos fundamentais e fornecendo uma base sólida para o desenvolvimento de aplicações em visão computacional. 
+        As atividades realizadas permitiram compreender e aplicar operações essenciais, como leitura, exibição e gravação de dados visuais, 
+        além de explorar a interação com dispositivos de captura, como webcams.
+    </p>
+    <p>
+        A configuração do ambiente, o estudo de operações básicas e a implementação de programas práticos consolidaram o aprendizado, 
+        permitindo aos participantes trabalhar com diferentes formatos de entrada e saída, tanto em imagens estáticas quanto em vídeos. 
+        A análise dos vídeos gravados mostrou a importância de fatores como iluminação, posicionamento e taxa de quadros para garantir a qualidade do material produzido.
+    </p>
+    <p>
+        Em conclusão, as habilidades adquiridas neste laboratório servirão como referência para projetos futuros, 
+        tanto no contexto acadêmico quanto profissional. As técnicas exploradas são essenciais para aplicações modernas, 
+        como monitoramento, reconhecimento de padrões e sistemas interativos baseados em visão computacional.
+    </p>
+	</div>
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
