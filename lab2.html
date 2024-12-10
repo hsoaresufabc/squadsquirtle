@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Laboratório 1: Introdução ao OpenCV</title>
     <style>
         * {
             margin: 0;
@@ -16,36 +16,20 @@
             background-color: #f0f8ff; /* Azul claro */
             color: #003366; /* Azul escuro */
             line-height: 1.6;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: #003366; /* Cor de fundo do cabeçalho */
-			color: white;
-			padding: 20px; /* Espaçamento interno para igualar a proporção */
-			text-align: center; /* Centraliza o texto */
-			display: flex;
-			flex-direction: column; /* Empilha os itens verticalmente */
-			justify-content: center; /* Centraliza verticalmente */
-			align-items: center; /* Centraliza horizontalmente */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         nav {
-            background-color: #00509e; /* Azul médio */
+            background-color: #00509e;
             display: flex;
             justify-content: center;
             padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         nav a {
@@ -63,13 +47,10 @@
             background-color: #003366;
         }
 
-        .content {
-            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .card {
@@ -78,25 +59,14 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            max-width: 600px;
-            text-align: center;
         }
 
-        img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
         }
 
         footer {
@@ -104,36 +74,317 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            margin-top: 20px;
         }
+		ul {
+    padding-left: 20px;
+	margin-top: 10px; /* Espaçamento entre o parágrafo e os bullets */
+    margin-bottom: 20px;
+    list-style-type: disc; /* Estilo do bullet (pode ser 'circle', 'square', etc.) */
+	}
 
-        footer a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        footer a:hover {
-            text-decoration: none;
-        }
+	ul li {
+    margin-bottom: 10px; /* Espaçamento entre itens */
+    line-height: 1.5; /* Melhora a legibilidade */
+	}
+	p {
+    margin-bottom: 15px; /* Adiciona espaçamento abaixo dos parágrafos */
+	}
     </style>
 </head>
 <body>
     <header>
         <h1>Squad Squirtle</h1>
-        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
     </header>
     <nav>
-        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#experimental">Parte Experimental</a>
+		<a href="#codigos">Códigos Utilizados</a>
+        <a href="#analise">Análise dos Resultados</a>
+        <a href="#conclusao">Conclusão</a>
     </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 1</h2>
+	<div id="introducao" class="card">
+    <h2 class="section-title">Introdução</h2>
+    <p>
+        O Laboratório 2 tem como objetivo explorar as técnicas de filtragem de imagens utilizando a biblioteca OpenCV. 
+        A filtragem é uma operação essencial no processamento de imagens, permitindo reduzir ruídos, suavizar detalhes ou destacar elementos importantes para análises futuras.
+    </p>
+    <p>
+        Durante este laboratório, serão estudadas e implementadas quatro principais técnicas de filtragem: 
+        <strong>filtro de média</strong>, <strong>filtro Gaussiano</strong>, <strong>filtro mediano</strong> e <strong>filtro bilateral</strong>. 
+        Cada técnica será aplicada em imagens previamente capturadas no Laboratório 1, com diferentes tamanhos de kernel, 
+        para analisar os efeitos das alterações nos parâmetros de filtragem.
+    </p>
+    <p>
+        A parte experimental inclui a aplicação dessas técnicas em imagens com e sem ruído, a análise dos resultados e o desenvolvimento de programas interativos para capturar imagens da webcam e aplicar os filtros em tempo real.
+    </p>
+    <p>
+        Este laboratório visa não apenas aprofundar o conhecimento sobre filtros em processamento de imagens, mas também fornecer ferramentas práticas para resolver problemas como redução de ruídos e preparação de imagens para algoritmos mais avançados, como segmentação e reconhecimento.
+    </p>
+	</div>
+	<div id="objetivos" class="card">
+    <h2 class="section-title">Objetivos</h2>
+    <p>
+        O objetivo deste laboratório é explorar técnicas de filtragem de imagens, utilizando funções específicas do OpenCV para suavização e redução de ruídos. 
+        A filtragem é uma etapa fundamental no processamento de imagens, permitindo melhorar a qualidade visual e preparar os dados para operações posteriores, 
+        como segmentação e reconhecimento.
+    </p>
+    <p>
+        Este laboratório visa atingir os seguintes objetivos específicos:
+    </p>
+    <ul>
+        <li>Implementar os filtros de média, Gaussiano, mediano e bilateral em imagens obtidas no Lab 1, utilizando diferentes tamanhos de kernel.</li>
+        <li>Analisar os efeitos da variação do tamanho do kernel na suavização e preservação de detalhes da imagem.</li>
+        <li>Estudar a eficácia dos filtros em imagens com ruído do tipo sal-e-pimenta.</li>
+        <li>Desenvolver programas interativos para capturar imagens em tempo real pela webcam e aplicar os filtros de forma dinâmica.</li>
+        <li>Proporcionar uma compreensão prática das diferenças entre os filtros e suas aplicações em problemas reais.</li>
+    </ul>
+	</div>
+	<div id="experimental" class="card">
+    <h2 class="section-title">Parte Experimental</h2>
+    <p>
+        Nesta seção, foram realizados experimentos para entender e aplicar os diferentes tipos de filtragem em imagens capturadas no Laboratório 1. 
+        Os filtros utilizados incluem: <strong>filtro de média</strong>, <strong>filtro Gaussiano</strong>, <strong>filtro mediano</strong> e <strong>filtro bilateral</strong>.
+    </p>
+    <h3>Etapas Realizadas:</h3>
+        <li>
+            <strong>Aplicação de Filtros:</strong> Foram aplicados os filtros mencionados em imagens com diferentes tamanhos de kernel 
+            (3x3, 5x5, 7x7 e 11x11), analisando os resultados obtidos e salvando as imagens resultantes em formato <code>.jpg</code>.
+        </li>
+        <li>
+            <strong>Adição de Ruído:</strong> A mesma filtragem foi repetida após a adição de ruído tipo sal-e-pimenta nas imagens originais. 
+            Essa etapa foi importante para avaliar a eficácia de cada técnica na redução de ruídos.
+        </li>
+        <li>
+            <strong>Captura de Imagem em Tempo Real:</strong> Um programa foi desenvolvido para capturar imagens da webcam, aplicar dois dos filtros 
+            mais relevantes identificados anteriormente e permitir o salvamento da imagem filtrada pressionando a tecla <code>S</code>.
+        </li>
+        <li>
+            <strong>Desafio Interativo:</strong> Foi implementado um programa avançado que permite ao usuário selecionar o tipo de filtragem e o tamanho do kernel 
+            por meio de teclas no teclado, oferecendo maior flexibilidade na análise dos filtros.
+        </li>
+    <p>
+        Cada experimento foi realizado com base no roteiro fornecido e utilizando funções do OpenCV, como <code>blur()</code>, <code>GaussianBlur()</code>, <code>medianBlur()</code> e <code>bilateralFilter()</code>. 
+        Os resultados obtidos foram avaliados quanto à suavização, preservação de bordas e eficácia na remoção de ruídos.
+    </p>
+	</div>
+	
+	<div id="codigos" class="card">
+    <h2 class="section-title">Códigos Utilizados</h2>
+	<div id="codigo-filtro-media" class="card">
+    <h2 class="section-title">Código: Aplicação do Filtro de Média</h2>
+    <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
 
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
-        </div>
-    </div>
+using namespace cv;
+using namespace std;
 
+int main() {
+    // Carregar a imagem original
+    Mat img = imread("input.jpg");
+    if (img.empty()) {
+        cout &lt;&lt; "Erro ao carregar a imagem" &lt;&lt; endl;
+        return -1;
+    }
+
+    // Aplicar o filtro de média com diferentes tamanhos de kernel
+    Mat img_blur_3x3, img_blur_5x5, img_blur_7x7;
+    blur(img, img_blur_3x3, Size(3, 3));
+    blur(img, img_blur_5x5, Size(5, 5));
+    blur(img, img_blur_7x7, Size(7, 7));
+
+    // Exibir os resultados
+    imshow("Original", img);
+    imshow("Filtro de Média - 3x3", img_blur_3x3);
+    imshow("Filtro de Média - 5x5", img_blur_5x5);
+    imshow("Filtro de Média - 7x7", img_blur_7x7);
+
+    // Salvar as imagens resultantes
+    imwrite("media_3x3.jpg", img_blur_3x3);
+    imwrite("media_5x5.jpg", img_blur_5x5);
+    imwrite("media_7x7.jpg", img_blur_7x7);
+
+    waitKey(0);
+    return 0;
+}
+    </code></pre>
+	</div>
+	<div id="codigo-filtro-gaussiano" class="card">
+    <h2 class="section-title">Código: Aplicação do Filtro Gaussiano</h2>
+    <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main() {
+    // Carregar a imagem original
+    Mat img = imread("input.jpg");
+    if (img.empty()) {
+        cout &lt;&lt; "Erro ao carregar a imagem" &lt;&lt; endl;
+        return -1;
+    }
+
+    // Aplicar o filtro Gaussiano com diferentes tamanhos de kernel
+    Mat img_gaussian_3x3, img_gaussian_5x5, img_gaussian_7x7;
+    GaussianBlur(img, img_gaussian_3x3, Size(3, 3), 0);
+    GaussianBlur(img, img_gaussian_5x5, Size(5, 5), 0);
+    GaussianBlur(img, img_gaussian_7x7, Size(7, 7), 0);
+
+    // Exibir os resultados
+    imshow("Original", img);
+    imshow("Filtro Gaussiano - 3x3", img_gaussian_3x3);
+    imshow("Filtro Gaussiano - 5x5", img_gaussian_5x5);
+    imshow("Filtro Gaussiano - 7x7", img_gaussian_7x7);
+
+    // Salvar as imagens resultantes
+    imwrite("gaussian_3x3.jpg", img_gaussian_3x3);
+    imwrite("gaussian_5x5.jpg", img_gaussian_5x5);
+    imwrite("gaussian_7x7.jpg", img_gaussian_7x7);
+
+    waitKey(0);
+    return 0;
+}
+    </code></pre>
+	</div>
+	<div id="codigo-filtro-mediano" class="card">
+    <h2 class="section-title">Código: Aplicação do Filtro Mediano</h2>
+    <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main() {
+    // Carregar a imagem original
+    Mat img = imread("input.jpg");
+    if (img.empty()) {
+        cout &lt;&lt; "Erro ao carregar a imagem" &lt;&lt; endl;
+        return -1;
+    }
+
+    // Aplicar o filtro mediano com diferentes tamanhos de kernel
+    Mat img_median_3x3, img_median_5x5, img_median_7x7;
+    medianBlur(img, img_median_3x3, 3);
+    medianBlur(img, img_median_5x5, 5);
+    medianBlur(img, img_median_7x7, 7);
+
+    // Exibir os resultados
+    imshow("Original", img);
+    imshow("Filtro Mediano - 3x3", img_median_3x3);
+    imshow("Filtro Mediano - 5x5", img_median_5x5);
+    imshow("Filtro Mediano - 7x7", img_median_7x7);
+
+    // Salvar as imagens resultantes
+    imwrite("median_3x3.jpg", img_median_3x3);
+    imwrite("median_5x5.jpg", img_median_5x5);
+    imwrite("median_7x7.jpg", img_median_7x7);
+
+    waitKey(0);
+    return 0;
+}
+    </code></pre>
+	</div>
+	<div id="codigo-filtro-bilateral" class="card">
+    <h2 class="section-title">Código: Aplicação do Filtro Bilateral</h2>
+    <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main() {
+    // Carregar a imagem original
+    Mat img = imread("input.jpg");
+    if (img.empty()) {
+        cout &lt;&lt; "Erro ao carregar a imagem" &lt;&lt; endl;
+        return -1;
+    }
+
+    // Aplicar o filtro bilateral com diferentes parâmetros
+    Mat img_bilateral_9, img_bilateral_15, img_bilateral_25;
+    bilateralFilter(img, img_bilateral_9, 9, 75, 75);
+    bilateralFilter(img, img_bilateral_15, 15, 100, 100);
+    bilateralFilter(img, img_bilateral_25, 25, 150, 150);
+
+    // Exibir os resultados
+    imshow("Original", img);
+    imshow("Filtro Bilateral - d=9", img_bilateral_9);
+    imshow("Filtro Bilateral - d=15", img_bilateral_15);
+    imshow("Filtro Bilateral - d=25", img_bilateral_25);
+
+    // Salvar as imagens resultantes
+    imwrite("bilateral_9.jpg", img_bilateral_9);
+    imwrite("bilateral_15.jpg", img_bilateral_15);
+    imwrite("bilateral_25.jpg", img_bilateral_25);
+
+    waitKey(0);
+    return 0;
+}
+    </code></pre>
+	</div>
+	</div>
+	
+	<div id="analise" class="card">
+    <h2 class="section-title">Análise de Resultados</h2>
+    <p>
+        A aplicação dos diferentes filtros em imagens com e sem ruído apresentou resultados distintos, reforçando as características específicas de cada técnica de filtragem. 
+        Abaixo, analisamos os principais aspectos observados durante os experimentos:
+    </p>
+    <h3>1. Comparação Entre Filtros</h3>
+    <p>
+        O <strong>filtro de média</strong> suavizou as imagens de forma eficiente, mas apresentou perda significativa de detalhes, especialmente em bordas. 
+        O <strong>filtro Gaussiano</strong> mostrou-se superior na preservação de bordas, sendo mais robusto para imagens sem ruído extremo. 
+        Já o <strong>filtro mediano</strong> destacou-se na remoção de ruídos do tipo sal-e-pimenta, preservando detalhes estruturais importantes. 
+        Por fim, o <strong>filtro bilateral</strong> proporcionou uma boa suavização ao mesmo tempo em que preservou bordas e detalhes, sendo mais adequado para aplicações onde é necessário equilíbrio entre suavização e nitidez.
+    </p>
+    <h3>2. Variação do Tamanho do Kernel</h3>
+    <p>
+        O aumento do tamanho do kernel impactou diretamente a intensidade da suavização. Para kernels maiores (como 11x11), 
+        todos os filtros apresentaram maior suavização, mas com perda significativa de detalhes. Kernels menores (como 3x3) 
+        preservaram mais detalhes, mas foram menos eficazes na redução de ruídos. O filtro bilateral mostrou-se mais estável mesmo com kernels maiores, mantendo as bordas bem definidas.
+    </p>
+    <h3>3. Resultados em Imagens com Ruído</h3>
+    <p>
+        Em imagens com ruído do tipo sal-e-pimenta, o <strong>filtro mediano</strong> foi o mais eficaz, eliminando a maior parte do ruído enquanto preservava as bordas. 
+        O filtro Gaussiano também reduziu o ruído, mas com menor eficiência. Já o filtro de média apresentou boa suavização, mas não foi eficiente em casos de ruído intenso. 
+        O filtro bilateral manteve um equilíbrio entre remoção de ruídos e preservação de detalhes, mas com maior custo computacional.
+    </p>
+    <h3>4. Aplicação em Imagens em Tempo Real</h3>
+    <p>
+        A aplicação dos filtros em imagens capturadas pela webcam permitiu a análise dinâmica dos resultados. 
+        Os filtros bilaterais e medianos foram os mais relevantes devido à sua eficácia em lidar com ruídos e preservar bordas. 
+        O programa interativo desenvolvido possibilitou uma melhor visualização das diferenças entre os filtros, contribuindo para o entendimento prático.
+    </p>
+    <p>
+        Em resumo, a escolha do filtro e do tamanho do kernel deve ser orientada pelo objetivo da aplicação, considerando fatores como a necessidade de suavização, preservação de detalhes e o tipo de ruído presente.
+    </p>
+	</div>
+	
+	<div id="conclusao" class="card">
+    <h2 class="section-title">Conclusão</h2>
+    <p>
+        Este laboratório proporcionou uma compreensão prática e teórica sobre as diferentes técnicas de filtragem de imagens, destacando suas aplicações, benefícios e limitações. 
+        A análise comparativa dos filtros de média, Gaussiano, mediano e bilateral demonstrou que cada método possui características específicas, sendo adequado para diferentes contextos e objetivos.
+    </p>
+    <p>
+        Os experimentos realizados evidenciaram a importância de ajustar parâmetros, como o tamanho do kernel, para alcançar os resultados desejados. 
+        Filtros como o mediano mostraram-se especialmente eficazes na remoção de ruídos sal-e-pimenta, enquanto o filtro bilateral foi mais versátil ao equilibrar suavização e preservação de bordas.
+    </p>
+    <p>
+        A implementação de programas interativos com captura em tempo real reforçou o aprendizado prático, permitindo aos participantes explorar os efeitos dos filtros de forma dinâmica e intuitiva. 
+        Esse tipo de abordagem contribui para o desenvolvimento de habilidades aplicáveis em projetos reais de visão computacional.
+    </p>
+    <p>
+        Em síntese, este laboratório consolidou os fundamentos do processamento de imagens por meio de filtragem, preparando os participantes para enfrentar desafios mais complexos em aplicações de segmentação, reconhecimento de padrões e análise visual.
+    </p>
+	</div>
+
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
