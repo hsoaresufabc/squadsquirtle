@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Relatório Final do Trabalho (RFT)</title>
     <style>
         * {
             margin: 0;
@@ -13,33 +13,20 @@
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f0f8ff; /* Azul claro */
-            color: #003366; /* Azul escuro */
+            background-color: #f0f8ff;
+            color: #003366;
             line-height: 1.6;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: #003366; /* Cor de fundo do cabeçalho */
-			color: white;
-			padding: 20px; /* Espaçamento interno para igualar a proporção */
-			text-align: center; /* Centraliza o texto */
-			display: flex;
-			flex-direction: column; /* Empilha os itens verticalmente */
-			justify-content: center; /* Centraliza verticalmente */
-			align-items: center; /* Centraliza horizontalmente */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         nav {
-            background-color: #00509e; /* Azul médio */
+            background-color: #00509e;
             display: flex;
             justify-content: center;
             padding: 15px 0;
@@ -63,13 +50,10 @@
             background-color: #003366;
         }
 
-        .content {
-            flex: 1; /* Expande o conteúdo para empurrar o footer para baixo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .card {
@@ -78,25 +62,14 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            max-width: 600px;
-            text-align: center;
         }
 
-        img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
         }
 
         footer {
@@ -104,7 +77,7 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            margin-top: 20px;
         }
 
         footer a {
@@ -115,6 +88,43 @@
         footer a:hover {
             text-decoration: none;
         }
+		ul {
+    padding-left: 20px;
+	margin-top: 10px; /* Espaçamento entre o parágrafo e os bullets */
+    margin-bottom: 20px;
+    list-style-type: disc; /* Estilo do bullet (pode ser 'circle', 'square', etc.) */
+	}
+
+	ul li {
+    margin-bottom: 10px; /* Espaçamento entre itens */
+    line-height: 1.5; /* Melhora a legibilidade */
+	}
+	p {
+    margin-bottom: 15px; /* Adiciona espaçamento abaixo dos parágrafos */
+	}
+	.card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card .inner-card {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+p {
+    text-align: justify;
+}
+header p {
+    margin: 0;
+    text-align: center; /* Garante a centralização do texto no <p> */
+}
+
     </style>
 </head>
 <body>
@@ -123,17 +133,228 @@
         <p>Processamento de Vídeo - Universidade Federal do ABC</p>
     </header>
     <nav>
-        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#cenario">Cenário de Aplicação</a>
+        <a href="#metodos">Materiais e Métodos</a>
+        <a href="#conclusoes">Conclusões</a>
     </nav>
-
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
-        </div>
+    <main>
+    <div id="introducao" class="card">
+	<h2 class="section-title">Introdução</h2>
+	<p>
+        O avanço tecnológico nos últimos anos tem levado a uma crescente demanda por interfaces naturais e intuitivas, capazes de interagir com os usuários de forma simples e eficiente. 
+        Em especial, os sistemas de processamento visual destacam-se como uma abordagem promissora para suprir essa necessidade, permitindo que gestos sejam utilizados como um meio de comunicação entre pessoas e dispositivos. 
+        Esse tipo de interação abre caminho para aplicações inovadoras em diversas áreas, como automação, educação e saúde.
+    </p>
+    <p>
+        O objetivo deste trabalho foi desenvolver um Sistema de Processamento Visual (SPV) utilizando a linguagem C++ e a biblioteca OpenCV, aplicando conceitos fundamentais de processamento de vídeo e imagens. 
+        O sistema foi projetado para realizar a detecção de gestos, com foco na contagem de dedos, oferecendo uma interface funcional e adaptável a diferentes cenários. 
+        Essa abordagem reflete a crescente relevância de sistemas capazes de processar e interpretar imagens em tempo real, proporcionando maior interatividade e conveniência.
+    </p>
+    <p>
+        A escolha do tema foi motivada pela observação de necessidades reais em ambientes domésticos, educacionais e industriais, onde a interação sem toque físico é uma vantagem significativa. 
+        Além disso, a simplicidade e a eficiência foram pilares do desenvolvimento do sistema, assegurando que ele pudesse ser utilizado por usuários leigos sem a necessidade de treinamentos extensivos. 
+        A implementação também buscou alinhar-se às demandas da disciplina, explorando conceitos teóricos e práticos de processamento visual.
+    </p>
+    <p>
+        Para atingir esses objetivos, o trabalho incorporou técnicas como filtragem de imagens para redução de ruídos, segmentação de cores utilizando o espaço HSV para detecção da pele, e análise de contornos e convexidade para identificação e contagem de dedos. 
+        Cada etapa do desenvolvimento foi cuidadosamente planejada e executada, garantindo a integração de conceitos teóricos e a aplicabilidade prática do sistema.
+    </p>
+    <p>
+        Este relatório apresenta em detalhes todas as fases do projeto, desde a concepção inicial até os resultados obtidos durante os testes de campo. 
+        Ele também busca destacar a relevância do trabalho no contexto atual, onde a automação e a interação digital são elementos fundamentais do cotidiano. 
+        Por fim, são discutidas as limitações encontradas e propostas melhorias para futuras versões do sistema, com o intuito de torná-lo ainda mais robusto e versátil.
+    </p>
+	</div>
+	<div id="cenario" class="card">
+    <h2 class="section-title">Cenário de Aplicação</h2>
+    <p>
+        O sistema foi projetado para atender à crescente demanda por interfaces naturais e intuitivas em ambientes diversos. 
+        Com a popularização da automação residencial e a introdução de tecnologias interativas em espaços educacionais e industriais, 
+        soluções baseadas em gestos ganharam destaque como alternativas práticas e acessíveis para eliminar a necessidade de interação física direta com dispositivos.
+    </p>
+    <p>
+        Em ambientes domésticos, o sistema pode ser empregado para controlar dispositivos eletrônicos, como lâmpadas, televisores e sistemas de som, 
+        apenas por meio de gestos. Essa funcionalidade oferece maior conforto, acessibilidade para pessoas com limitações motoras e maior segurança em situações onde o toque físico pode ser inconveniente, como ao cozinhar ou realizar tarefas domésticas.
+    </p>
+    <p>
+        No contexto educacional, a utilização do sistema como ferramenta interativa permite que professores controlem apresentações, acessem conteúdos digitais e promovam maior engajamento dos alunos, 
+        especialmente em disciplinas que exigem demonstrações visuais. A interface baseada em gestos também facilita o aprendizado em ambientes colaborativos, permitindo que múltiplos usuários interajam simultaneamente.
+    </p>
+    <p>
+        Em ambientes estéreis, como laboratórios e hospitais, o sistema reduz o risco de contaminação ao evitar contato físico com superfícies, tornando-se uma ferramenta essencial para o controle de equipamentos e acesso a informações críticas. 
+        Além disso, sua aplicação pode ser expandida para outros setores, como a indústria, onde operadores podem utilizar gestos para manipular máquinas ou navegar por interfaces enquanto permanecem em movimento.
+    </p>
+    <p>
+        A proposta também inclui a integração do sistema em dispositivos móveis e sistemas embarcados, ampliando seu alcance e viabilizando seu uso em cenários onde a mobilidade é essencial. 
+        O projeto, portanto, demonstra versatilidade, podendo ser adaptado a diferentes contextos, sempre com o objetivo de melhorar a eficiência e a experiência do usuário.
+    </p>
+	</div>
+	<div id="fundamentacao" class="card">
+    <h2 class="section-title">Fundamentação Teórica</h2>
+    <p>
+        O desenvolvimento deste sistema baseou-se em conceitos fundamentais de processamento de imagens e vídeos, que são pilares da visão computacional. 
+        Esses conceitos foram implementados de maneira prática, visando a aplicação em tempo real para detecção de gestos, o que requer um equilíbrio entre eficiência computacional e precisão.
+    </p>
+    <p>
+        Uma das técnicas centrais empregadas foi a <strong>filtragem de imagens</strong>, essencial para reduzir ruídos presentes nas capturas da webcam. 
+        Esse processo melhora a qualidade das imagens ao destacar as características relevantes para a detecção dos gestos. A filtragem foi combinada com o uso de máscaras de cor para separar a mão do fundo, facilitando a segmentação.
+    </p>
+    <p>
+        A <strong>segmentação de cores</strong> foi realizada utilizando o espaço de cores HSV (Hue, Saturation, Value), que é mais robusto em condições de iluminação variadas, 
+        comparado ao espaço RGB. Essa escolha foi fundamental para identificar a pele da mão com precisão, mesmo sob diferentes condições de luz. 
+        Essa etapa gera uma máscara binária que diferencia os pixels pertencentes à mão dos demais, formando a base para as etapas subsequentes.
+    </p>
+    <p>
+        Após a segmentação, a <strong>detecção de contornos</strong> foi utilizada para identificar os limites da mão dentro da região de interesse (ROI). 
+        A partir dos contornos, aplicou-se o conceito de <strong>hull convexo</strong>, que permite detectar pontos específicos de convexidade e concavidade ao longo do contorno da mão. 
+        Esses pontos são usados para calcular os defeitos de convexidade, responsáveis pela identificação do número de dedos levantados.
+    </p>
+    <p>
+        Outro aspecto relevante foi a aplicação do <strong>histograma e equalização</strong>, que ajusta o brilho e contraste da imagem, garantindo maior consistência nos resultados. 
+        Essa técnica é especialmente útil para lidar com variações de iluminação ambiente, um dos principais desafios enfrentados pelo sistema.
+    </p>
+    <p>
+        Por fim, o sistema incorpora técnicas básicas de análise geométrica para interpretar os gestos detectados. 
+        Essa abordagem integra conceitos matemáticos e computacionais para traduzir características visuais em informações significativas, como a contagem de dedos. 
+        A combinação dessas técnicas demonstra como a visão computacional pode ser utilizada de forma eficiente para solucionar problemas do mundo real.
+    </p>
+	</div>
+	<div id="metodos" class="card">
+    <h2 class="section-title">Materiais e Métodos</h2>
+    <div class="card">
+        <h3 class="section-title">Modelagem Funcional do SPV (MF)</h3>
+        <p>
+        A modelagem funcional do sistema foi estruturada com o objetivo de garantir uma execução eficiente e modular, permitindo que cada componente do sistema desempenhasse uma função específica dentro do fluxo de processamento. 
+        O sistema foi dividido em módulos principais que interagem de maneira sequencial, cobrindo desde a captura de vídeo até a interface de saída para o usuário.
+    </p>
+    <h3>Arquitetura Modular</h3>
+    <p>
+        A arquitetura do sistema foi concebida para integrar quatro módulos principais:
+    </p>
+    <ul>
+        <li>
+            <strong>Captura de Vídeo:</strong> Este módulo utiliza a webcam como fonte de entrada. Ele é responsável por capturar quadros em tempo real e fornecer os dados brutos para os módulos subsequentes. 
+            A implementação prioriza a eficiência para evitar atrasos durante a transmissão de dados.
+        </li>
+        <li>
+            <strong>Pré-processamento:</strong> Após a captura, os quadros passam por uma etapa de conversão para o espaço de cores HSV, que oferece maior robustez em condições de iluminação variáveis. 
+            Nesta etapa, também são aplicados filtros, como desfoque Gaussiano, para reduzir ruídos e destacar a região de interesse (ROI) contendo a mão.
+        </li>
+        <li>
+            <strong>Processamento:</strong> Este módulo é responsável pela segmentação da imagem, extraindo os contornos da mão na ROI. 
+            Técnicas como `findContours` e `convexHull` são empregadas para identificar os pontos de convexidade e concavidade, essenciais para a contagem de dedos. 
+            Além disso, cálculos geométricos são realizados para medir distâncias entre os pontos detectados, garantindo maior precisão na detecção dos gestos.
+        </li>
+        <li>
+            <strong>Interface:</strong> O módulo final apresenta os resultados ao usuário em tempo real, exibindo os dados processados sobrepostos ao vídeo capturado. 
+            Isso inclui a contagem de dedos e a visualização da máscara da segmentação da mão, permitindo que o usuário avalie a eficácia do sistema.
+        </li>
+    </ul>
+    <h3>Fluxograma</h3>
+    <p>
+        O fluxo de processamento foi projetado para ser linear, com cada etapa alimentando a próxima. Abaixo está um resumo do fluxo lógico:
+    </p>
+        <li>Captura do quadro pela webcam.</li>
+        <li>Conversão do quadro para o espaço de cores HSV.</li>
+        <li>Aplicação de filtros para destacar a mão.</li>
+        <li>Segmentação da região de interesse (ROI).</li>
+        <li>Extração de contornos e cálculo dos defeitos de convexidade.</li>
+        <li>Contagem de dedos e exibição do resultado ao usuário.</li>
+		<br>
+    <h3>Principais Decisões Técnicas</h3>
+    <p>
+        A escolha do espaço de cores HSV e o uso de filtros como o desfoque Gaussiano foram cruciais para minimizar erros causados por iluminação variável e ruídos. 
+        Além disso, a modularidade da arquitetura permite que cada componente seja ajustado ou substituído independentemente, garantindo maior flexibilidade para futuras melhorias no sistema.
+    </p>
     </div>
-
+    <div class="card">
+        <h3 class="section-title">Descrição da Implementação do SPV</h3>
+        <p>
+        A implementação do Sistema de Processamento Visual (SPV) foi realizada utilizando a linguagem de programação C++ e a biblioteca OpenCV. 
+        O projeto foi estruturado para funcionar no sistema operacional Linux (Ubuntu), aproveitando a robustez e compatibilidade oferecidas por este ambiente para aplicações em visão computacional.
+    </p>
+    <p>
+        O sistema inicia com a captura de quadros em tempo real da webcam, utilizando a funcionalidade integrada da OpenCV. 
+        Em seguida, cada quadro é processado para identificar a região de interesse (ROI), onde a mão do usuário é localizada. 
+        Para garantir a eficiência, o sistema aplica um filtro Gaussiano para suavizar a imagem, seguido pela conversão para o espaço de cores HSV. 
+        Essa abordagem foi escolhida por sua maior resiliência a mudanças de iluminação em comparação ao espaço RGB.
+    </p>
+    <p>
+        Após a segmentação da mão utilizando limiares de cor, a imagem é convertida para uma máscara binária que isola a mão do fundo. 
+        Técnicas de análise de contornos, como <code>findContours</code> e <code>convexHull</code>, são aplicadas para identificar os limites da mão e calcular os defeitos de convexidade. 
+        Estes defeitos são essenciais para determinar os pontos entre os dedos e, assim, realizar a contagem de dedos levantados.
+    </p>
+    <p>
+        A saída do sistema consiste na exibição em tempo real dos resultados processados sobre o vídeo capturado. 
+        Os dados incluem a contagem de dedos detectada e uma visualização da máscara da segmentação da mão. 
+        A interface foi projetada para ser clara e intuitiva, permitindo que usuários leigos interajam com o sistema sem dificuldades.
+    </p>
+    <p>
+        Durante o desenvolvimento, foi priorizada a modularidade do código para facilitar futuras melhorias ou expansões do sistema. 
+        Todas as bibliotecas e dependências utilizadas são de código aberto e amplamente documentadas, garantindo a acessibilidade do projeto a outros desenvolvedores ou pesquisadores interessados.
+    </p>
+    </div>
+    <div class="card">
+        <h3 class="section-title">Laboratório Experimental (LEx)</h3>
+        <p>
+        O laboratório experimental teve como objetivo validar o funcionamento do Sistema de Processamento Visual (SPV) com voluntários, 
+        avaliando a precisão do sistema na detecção de gestos, facilidade de uso e identificação de possíveis limitações. O experimento foi conduzido em condições controladas, 
+        com seis voluntários que interagiram com o sistema para realizar gestos de contagem de dedos (de 0 a 5) enquanto suas respostas foram registradas por meio de um formulário.
+    </p>
+    <h3>Procedimentos</h3>
+    <p>
+        Antes do início do experimento, cada voluntário foi instruído a posicionar sua mão na Região de Interesse (ROI) delimitada na tela, garantindo que todos os dedos fossem visíveis. 
+        A calibração inicial foi realizada para ajustar o sistema ao tom de pele do usuário e à iluminação do ambiente. Os voluntários foram orientados a realizar os gestos lentamente 
+        e evitar movimentos bruscos que pudessem interferir na precisão da detecção.
+    </p>
+    <p>
+        Após a execução do experimento, cada participante preencheu um formulário de avaliação contendo perguntas sobre a clareza das instruções, a facilidade de uso do sistema e a percepção de precisão nos resultados. 
+        Também foram coletadas sugestões de melhorias e observações gerais sobre a experiência.
+    </p>
+    <h3>Análise dos Inputs Recebidos</h3>
+    <ul>
+        <li><strong>Clareza das Instruções:</strong> Todos os participantes avaliaram as instruções como claras e fáceis de seguir. Eles relataram que a interface do sistema era intuitiva e funcional.</li>
+        <li><strong>Facilidade de Uso:</strong> Cinco dos seis voluntários consideraram o sistema fácil de operar. Um participante relatou dificuldades ocasionais para posicionar corretamente a mão na ROI.</li>
+        <li><strong>Precisão do Sistema:</strong> Três voluntários relataram alta precisão na contagem dos dedos, enquanto os outros três mencionaram problemas intermitentes relacionados à interferência da luz ambiente e ao ruído na segmentação.</li>
+        <li><strong>Sugestões de Melhoria:</strong> Os voluntários sugeriram a inclusão de uma calibração automática da iluminação e um sistema mais robusto para lidar com diferentes tons de pele.</li>
+    </ul>
+    <h3>Desempenho dos Voluntários</h3>
+    <p>
+        Durante o experimento, o sistema apresentou uma taxa de sucesso de aproximadamente 80% na contagem de dedos. A maior parte dos erros foi causada por condições inadequadas de iluminação, 
+        que dificultaram a segmentação da mão. Os voluntários com tons de pele mais claros tiveram maior sucesso na detecção, enquanto aqueles com tons de pele mais escuros enfrentaram dificuldades ocasionais.
+    </p>
+    <p>
+        Em termos de facilidade de uso, os voluntários classificaram o sistema como satisfatório, com uma média de 4,2 em uma escala de 5. Embora o sistema tenha mostrado potencial em condições controladas, 
+        as limitações observadas indicam a necessidade de ajustes técnicos para melhorar sua robustez e confiabilidade. O desempenho dos voluntários pode ser classificado como muito satisfatório, dado que todos foram capazes de executar o programa e compreender o funcionamento de forma fluida e eficaz.
+    </p>
+    </div>
+	</div>
+	<div id="conclusoes" class="card">
+    <h2 class="section-title">Conclusões</h2>
+    <p>
+        O desenvolvimento deste Sistema de Processamento Visual (SPV) demonstrou o potencial da visão computacional para criar interfaces interativas e intuitivas. 
+        Apesar de desafios encontrados, como a interferência de luz ambiente e a dificuldade na segmentação de diferentes tons de pele, o sistema alcançou resultados satisfatórios, com uma taxa de sucesso de 80% na contagem de dedos em condições controladas.
+    </p>
+    <p>
+        Um dos principais aprendizados foi a importância de técnicas robustas de segmentação e calibração para lidar com cenários variáveis. 
+        Embora o sistema tenha cumprido seu objetivo principal, melhorias como a implementação de calibração automática de iluminação e algoritmos adaptativos para tons de pele são essenciais para aumentar sua confiabilidade em condições reais.
+    </p>
+    <p>
+        Durante o desenvolvimento, a escolha da linguagem C++ com OpenCV foi eficaz devido ao alto desempenho necessário para processamento em tempo real. 
+        No entanto, o uso de Python poderia ter simplificado a implementação e oferecido maior flexibilidade, principalmente para prototipagem. Bibliotecas como:
+    </p>
+    <ul>
+        <li><strong>MediaPipe (Google):</strong> Uma ferramenta poderosa para detecção de gestos, incluindo suporte para Libras e outras linguagens gestuais.</li>
+        <li><strong>TensorFlow e Keras:</strong> Para adicionar capacidades de aprendizado de máquina e melhorar a detecção em condições desafiadoras.</li>
+        <li><strong>OpenCV em Python:</strong> A mesma biblioteca usada, mas com maior facilidade de uso e comunidade ativa para suporte.</li>
+    </ul>
+    <p>
+        Por fim, o sistema desenvolvido pode ser adaptado para diferentes contextos, como controle de dispositivos, interações educacionais e ambientes estéreis, demonstrando sua versatilidade. 
+        As sugestões de melhorias indicadas pelos voluntários e as possibilidades de expansão do projeto destacam o potencial do SPV como uma solução prática e acessível para desafios contemporâneos.
+    </p>
+	</div>
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
