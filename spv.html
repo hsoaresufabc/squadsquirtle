@@ -308,9 +308,9 @@ int main() {
                 <li><strong>Filtragem de imagens:</strong> A função <code>GaussianBlur()</code> é utilizada para reduzir ruídos.</li>
                 <li><strong>Processamento de cores:</strong> A função <code>cvtColor()</code> converte a imagem para o espaço de cores HSV.</li>
                 <li><strong>Subtração de fundo:</strong> A função <code>inRange()</code> segmenta a mão com base nos tons de pele.</li>
+		<li><strong>Histograma e equalização:</strong> A equalização do canal de brilho ocorre através de <code>equalizeHist</code></li>
+		<li><strong>Localizaçaõ de pontos de destaque:</strong> Pontos de contorno são identificados por <code>convexHull</code> e defeitos de convexidade por <code>convexityDefects</code>.</li>
                 <li><strong>Detecção de objetos:</strong> Contornos são encontrados utilizando <code>findContours()</code>.</li>
-                <li><strong>Histograma e equalização:</strong> Não aplicado explicitamente neste código.</li>
-                <li><strong>Análise de movimento:</strong> Indiretamente considerada pela posição da ROI.</li>
             </ul>
         </div>
 	<div style="text-align: center; margin-top: 20px;">
