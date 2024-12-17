@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Fora do Ar</title>
+    <title>Parte 4: Elaboração do Laboratório Experimental do SPV (Lex)</title>
     <style>
-        /* Reset básico */
+       /* Reset básico */
         * {
             margin: 0;
             padding: 0;
@@ -156,16 +156,143 @@
     </header>
     <nav>
         <a href="index.html">Página Inicial</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#resultados">Resultados</a>
+		<a href="#analise">Análise dos Resultados</a>
+		<a href="#avaliacao">Avaliação dos usuários</a>
+        <a href="#consideracoes">Considerações Finais</a>
     </nav>
-
-    <div class="content">
-        <div class="card">
-            <img src="snorlax.jpg" alt="Snorlax bloqueando o caminho">
-            <h1>Ops! Parece que o Snorlax está bloqueando o caminho.</h1>
-            <p>Tente novamente mais tarde! Estamos trabalhando para resolver isso o mais rápido possível.</p>
-        </div>
+    <main>
+  <h2 style="text-align: center; margin-bottom: 20px;">Parte 5: Teste de Campo do SPV (TC)</h2>
+  <div id="objetivos" class="card">
+    <div class="card-header">
+      <h2 class="section-title">Objetivo do Teste</h2>
     </div>
+    <div class="card-body">
+      <p>
+        O objetivo foi avaliar o <strong>Sistema de Detecção de Gestos</strong> desenvolvido com base em processamento visual.
+        O sistema permite detectar e contar dedos levantados em uma área específica (ROI) e foi avaliado quanto à usabilidade,
+        clareza dos resultados e aplicação prática.
+      </p>
+    </div>
+  </div>
 
+  <div id="metodologia" class="card">
+    <div class="card-header">
+      <h2 class="section-title">Metodologia</h2>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Aplicação do experimento:</strong> Usuários convidados executaram o sistema no laboratório e responderam a um questionário online.</li>
+        <li><strong>Coleta de Dados:</strong> Respostas sobre usabilidade e sugestões de melhoria foram coletadas via Google Forms.</li>
+        <li><strong>Análise dos Resultados:</strong> Respostas tabuladas e analisadas para identificar o desempenho do sistema.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="resultados" class="card">
+    <div class="card-header">
+      <h2 class="section-title">Resultados Obtidos</h2>
+    </div>
+    <div class="card-body">
+      <h3>Pontuação Geral</h3>
+      <p>Nota média atribuída: <strong>5/5</strong>, indicando alta satisfação dos usuários.</p>
+      
+      <h3>Facilidade de Uso</h3>
+      <p>100% dos usuários entenderam o propósito do sistema e o executaram sem problemas.</p>
+      
+      <h3>Clareza dos Resultados</h3>
+      <p>Os resultados apresentados foram considerados <strong>claros e satisfatórios</strong>.</p>
+      
+      <h3>Dificuldades Encontradas</h3>
+      <ul>
+        <li>Posicionamento da mão na ROI</li>
+        <li>Ruído no ambiente</li>
+        <li>Iluminação inadequada</li>
+      </ul>
+      
+      <h3>Sugestões</h3>
+      <ul>
+        <li>Melhorar a estabilidade do sistema em ambientes com variações de luz.</li>
+        <li>Ajustar automaticamente a ROI ao posicionamento da mão.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="analise" class="card">
+    <div class="card-header">
+      <h2 class="section-title">Análise dos Resultados</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        O sistema apresentou excelente aceitação pelos usuários, com nota média de <strong>5/5</strong> e feedback positivo.
+      </p>
+      <p>
+        As dificuldades reportadas, como o impacto da iluminação e posicionamento da mão, indicam áreas de melhoria.
+        As sugestões dos usuários mostram o potencial de aplicação prática do sistema.
+      </p>
+    </div>
+	</div>
+<div class="card">
+  <div id="avaliacao" class="card-header">
+    <h2 class="section-title">Avaliação do Desempenho dos Usuários</h2>
+  </div>
+  <div class="card-body">
+    <p>
+      Durante o teste, os usuários apresentaram um desempenho satisfatório na execução do <strong>Sistema de Detecção de Gestos</strong>. 
+      A maioria conseguiu operar o sistema sem dificuldades significativas, compreendendo o objetivo e a funcionalidade apresentados.
+    </p>
+    <p>
+      A principal dificuldade técnica relatada foi o <strong>posicionamento da mão na Região de Interesse (ROI)</strong>. Esse desafio ocorreu 
+      porque o sistema exige que a mão permaneça estável dentro de um quadro delimitado para que a detecção e contagem dos dedos ocorram 
+      corretamente. Em ambientes com maior movimentação ou iluminação variável, essa exigência pode ser mais difícil de cumprir.
+    </p>
+    <p>
+      Apesar dessa limitação, a dificuldade foi contornada pela maioria dos usuários com a devida orientação, demonstrando boa adaptação 
+      ao sistema. Esse feedback reforça a necessidade de futuras melhorias, como ajustes automáticos da ROI ou maior tolerância a variações 
+      no posicionamento da mão.
+    </p>
+    <p>
+      No geral, o desempenho dos usuários foi excelente, confirmando a intuitividade do sistema e o sucesso no alcance dos objetivos 
+      didáticos propostos.
+    </p>
+  </div>
+</div>
+
+
+  <div id="consideracoes" class="card">
+    <div class="card-header">
+      <h2 class="section-title">Conclusões e Recomendações</h2>
+    </div>
+    <div class="card-body">
+    <p>
+      O <strong>Sistema de Detecção de Gestos</strong> foi bem-sucedido em seu propósito de ensinar conceitos de <strong>processamento visual</strong>
+      de maneira didática e acessível. O desempenho geral dos usuários foi excelente, com todos compreendendo e executando o sistema 
+      sem grandes dificuldades. O desempenho do sistema, apesar da alta nota atribuída pelos usuários, <strong>apresentou instabilidade devido à oscilação causada pela interferência da luz ambiente</strong>.
+    </p>
+    <p>
+      A principal dificuldade relatada durante o teste foi o <strong>posicionamento da mão na Região de Interesse (ROI)</strong>. Esse ponto 
+      pode ser atribuído à necessidade de manter a mão estável dentro do quadro delimitado para que o sistema funcione corretamente. 
+      Essa limitação técnica é compreensível, mas sugere oportunidades de melhoria.
+    </p>
+    <p>
+      Recomenda-se que futuras versões do sistema considerem:  
+    </p>
+    <ul>
+      <li>Implementar ajustes automáticos ou maior flexibilidade na detecção da ROI.</li>
+      <li>Reduzir a sensibilidade a pequenas variações no posicionamento da mão.</li>
+      <li>Melhorar a robustez do sistema em ambientes com iluminação variável ou ruído.</li>
+    </ul>
+    <p>
+      Em resumo, apesar das oscilações durante a execução, o sistema apresentou um desempenho satisfatório e foi bem aceito pelos usuários, comprovando sua eficácia tanto em termos 
+      didáticos quanto em potencial para aplicações práticas.
+    </p>
+  </div>
+  </div>
+	<div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>		
+    </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
     </footer>
