@@ -19,47 +19,70 @@
             line-height: 1.6;
         }
 
-        header {
-            background-color: #003366; /* Azul escuro */
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+        /* Estilo do Header */
+		header {
+			background: linear-gradient(135deg, #003366, #00509e); /* Gradiente azul */
+			color: white;
+			text-align: center;
+			padding: 20px 0;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+			position: relative;
+			border-bottom: 4px solid #007BFF; /* Linha destacada abaixo */
+		}
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
-        }
+		/* Título do site */
+		header h1 {
+			font-size: 2.5rem; /* Tamanho maior */
+			font-family: 'Pokemon', Arial, sans-serif; /* Mantém a identidade */
+			margin: 0;
+			letter-spacing: 1px; /* Espaçamento entre letras */
+		}
 
-        header p {
-            font-size: 1rem;
-        }
+		/* Subtítulo */
+		header p {
+			font-size: 1rem;
+			margin-top: 10px;
+			opacity: 0.9; /* Texto mais leve */
+		}
 
-        nav {
-            background-color: #00509e; /* Azul médio */
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+		/* Barra de navegação */
+		nav {
+			background-color: #00509e; /* Azul sólido */
+			display: flex;
+			justify-content: center;
+			padding: 10px 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+		/* Links de navegação */
+		nav a {
+			color: white;
+			text-decoration: none;
+			margin: 0 20px;
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.3s ease, transform 0.2s ease;
+		}
 
-        nav a:hover {
-            background-color: #003366;
-        }
+		/* Efeito hover nos links */
+		nav a:hover {
+			color: #FFD700; /* Dourado vibrante */
+			transform: scale(1.1); /* Leve aumento */
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			header h1 {
+				font-size: 2rem;
+			}
+			nav {
+				flex-direction: column;
+			}
+			nav a {
+				margin: 10px 0;
+			}
+		}
 
         main {
             max-width: 900px;
@@ -111,58 +134,315 @@
         footer a:hover {
             text-decoration: none;
         }
+		/* Grid moderno - 4x4 */
+		.work-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+			gap: 20px; /* Espaçamento entre os cards */
+			margin-top: 20px;
+		}
+
+		/* Cards interativos */
+		.work-item {
+			display: block;
+			background-color: #f8f9fa; /* Fundo cinza claro */
+			border: 1px solid #ddd; /* Borda sutil */
+			border-radius: 8px;
+			padding: 20px;
+			text-align: center;
+			text-decoration: none;
+			color: #003366; /* Azul escuro */
+			font-family: 'Arial', sans-serif;
+			transition: all 0.4s ease;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+		}
+
+		/* Títulos dentro do card */
+		.work-item h3 {
+			font-size: 1.2rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+			color: #00509e; /* Azul médio */
+			transition: color 0.4s ease; /* Transição suave */
+		}
+
+		/* Texto descritivo */
+		.work-item p {
+			font-size: 0.9rem;
+			line-height: 1.4;
+			color: #333; /* Cor padrão */
+			transition: color 0.4s ease; /* Transição suave */
+		}
+
+		/* Efeito degradê no hover */
+		.work-item:hover {
+			background: linear-gradient(135deg, #0073e6, #003366); /* Degradê azul */
+			color: #fff; /* Texto branco */
+			transform: translateY(-5px); /* Elevação suave */
+			box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+			border-color: #0073e6;
+		}
+
+		/* Alterar cor do título e descrição no hover */
+		.work-item:hover h3,
+		.work-item:hover p {
+			color: #fff; /* Texto branco */
+		}
+
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
     </style>
-</head>
-<body>
-    <header>
-        <h1>Squad Squirtle</h1>
-        <p>Processamento de Vídeo - Universidade Federal do ABC</p>
-    </header>
-    <nav>
-        <a href="#equipe">Equipe</a>
-        <a href="#introducao">Introdução</a>
-        <a href="#relatorios">Relatórios</a>
-        <a href="#trabalhos">Trabalhos</a>
-    </nav>
-    <main>
-        <div id="equipe" class="card">
-            <h2 class="section-title">Equipe</h2>
-            <p><strong>Membros:</strong> Christian Fuentes, Henrique Soares, Vitoria Angusso</p>
-        </div>
-        <div id="introducao" class="card">
-            <h2 class="section-title">Introdução</h2>
-            <p>
-                Este site foi desenvolvido como parte da matéria <strong>Processamento de Vídeo</strong>, ministrada pelo professor 
-                <strong>Celso Kurashima</strong> na <strong>Universidade Federal do ABC</strong>, durante o terceiro quadrimestre de 2024.
-            </p>
-        </div>
+	</head>
+	<body>
+		<header>
+			<img src="squadsquirtle.png" alt="Squad Squirtle Logo" style="height: 100px;">
+			<p>Processamento de Vídeo - Universidade Federal do ABC</p>
+		</header>
+		<nav>
+			<a href="#equipe">Equipe</a>
+			<a href="#introducao">Introdução</a>
+			<a href="#relatorios">Relatórios</a>
+			<a href="#trabalhos">Trabalhos</a>
+		</nav>
+		<main>
+		
+		<div id="introducao" class="card">
+				<h2 class="section-title">Introdução</h2>
+				<p>
+					Este site foi desenvolvido como parte da matéria <strong>Processamento de Vídeo</strong>, ministrada pelo professor 
+					<strong>Celso Kurashima</strong> na <strong>Universidade Federal do ABC</strong>, durante o terceiro quadrimestre de 2024.
+				</p>
+		</div>
+		
+		<div id="equipe" class="card">
+		<h2 class="section-title">Equipe</h2>
+
+		<div style="display: flex; justify-content: space-between;">
+			<!-- Carrossel de Christian Fuentes -->
+			<div style="text-align: center; width: 30%;">
+				<img id="img-christian" src="pokedex_christian.png" alt="Foto Christian" style="width: 100%; border-radius: 8px;">
+				<p><strong>Christian Fuentes</strong></p>
+			</div>
+
+			<!-- Carrossel de Henrique Soares -->
+			<div style="text-align: center; width: 30%;">
+				<img id="img-henrique" src="pokedex_henrique.png" alt="Foto Henrique" style="width: 100%; border-radius: 8px;">
+				<p><strong>Henrique Soares</strong></p>
+			</div>
+
+			<!-- Carrossel de Vitoria Angusso -->
+			<div style="text-align: center; width: 30%;">
+				<img id="img-vitoria" src="pokedex_vitoria.png" alt="Foto Vitoria" style="width: 100%; border-radius: 8px;">
+				<p><strong>Vitoria Angusso</strong></p>
+			</div>
+		</div>
+		</div>
+
+	<script>
+    // Lista de imagens
+    const imagesChristian = ["pokedex_christian.png", "pokedex_wartortle.png"];
+    const imagesHenrique = ["pokedex_henrique.png", "pokedex_blastoise.png"];
+    const imagesVitoria = ["pokedex_vitoria.png", "pokedex_squirtle.png"];
+
+    // Função para alternar imagens
+    function updateImage(imgElementId, images) {
+        let index = 0;
+        const imgElement = document.getElementById(imgElementId);
+
+        setInterval(() => {
+            index = (index + 1) % images.length; // Alterna entre as imagens
+            imgElement.src = images[index];
+        }, 3000); // Troca a cada 3 segundos
+    }
+
+    // Inicializa a troca das imagens
+    updateImage('img-christian', imagesChristian);
+    updateImage('img-henrique', imagesHenrique);
+    updateImage('img-vitoria', imagesVitoria);
+	</script>
+
         <div id="relatorios" class="card">
-            <h2 class="section-title">Relatórios</h2>
-            <ul>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab1.html">Lab 1: Captura de Imagem e Vídeo</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab2.html">Lab 2: Filtragem: "Sal e Pimenta"</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab3.html">Lab 3: Teoria de Cores</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab4.html">Lab 4: Histograma e Limiarização</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab5.html">Lab 5: Subtração de Fundo</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab6.html">Lab 6: Features</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab7.html">Lab 7: Detecção de Objetos</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lab8.html">Lab 8: Rastreamento de Objetos</a></li>
-            </ul>
+    <h2 class="section-title">Laboratórios</h2>
+    <div class="lab-grid">
+        <!-- Imagem 1 -->
+        <div class="lab-item">
+            <a href="lab1.html">
+                <img src="lab1_badge.png" alt="Lab 1">
+                <p>Lab 1: Captura de Imagem e Vídeo</p>
+            </a>
         </div>
+        <!-- Imagem 2 -->
+        <div class="lab-item">
+            <a href="lab2.html">
+                <img src="lab2_badge.png" alt="Lab 2">
+                <p>Lab 2: Filtragem - Sal e Pimenta</p>
+            </a>
+        </div>
+        <!-- Imagem 3 -->
+        <div class="lab-item">
+            <a href="lab3.html">
+                <img src="lab3_badge.png" alt="Lab 3">
+                <p>Lab 3: Teoria de Cores</p>
+            </a>
+        </div>
+        <!-- Imagem 4 -->
+        <div class="lab-item">
+            <a href="lab4.html">
+                <img src="lab4_badge.png" alt="Lab 4">
+                <p>Lab 4: Histograma e Limiarização</p>
+            </a>
+        </div>
+        <!-- Imagem 5 -->
+        <div class="lab-item">
+            <a href="lab5.html">
+                <img src="lab5_badge.png" alt="Lab 5">
+                <p>Lab 5: Subtração de Fundo</p>
+            </a>
+        </div>
+        <!-- Imagem 6 -->
+        <div class="lab-item">
+            <a href="lab6.html">
+                <img src="lab6_badge.png" alt="Lab 6">
+                <p>Lab 6: Features</p>
+            </a>
+        </div>
+        <!-- Imagem 7 -->
+        <div class="lab-item">
+            <a href="lab7.html">
+                <img src="lab7_badge.png" alt="Lab 7">
+                <p>Lab 7: Detecção de Objetos</p>
+            </a>
+        </div>
+        <!-- Imagem 8 -->
+        <div class="lab-item">
+            <a href="lab8.html">
+                <img src="lab8_badge.png" alt="Lab 8">
+                <p>Lab 8: Rastreamento de Objetos</p>
+            </a>
+        </div>
+    </div>
+	</div>
+
+	<style>
+		/* Grid principal */
+		.lab-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+			gap: 20px; /* Espaçamento entre as imagens */
+			justify-items: center;
+			margin-top: 20px;
+		}
+
+		/* Item individual */
+		.lab-item {
+			text-align: center;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			background-color: #fff;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		/* Efeito ao passar o mouse */
+		.lab-item:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Links sem decoração */
+		.lab-item a {
+			text-decoration: none;
+			color: inherit; /* Herda cor padrão */
+			display: block;
+		}
+
+		/* Imagens quadradas */
+		.lab-item img {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
+		}
+
+		/* Legendas */
+		.lab-item p {
+			font-size: 0.9rem;
+			font-weight: bold;
+			margin: 10px 0;
+			color: #003366;
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			.lab-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.lab-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
+	</style>
+
         <div id="trabalhos" class="card">
-            <h2 class="section-title">Trabalhos</h2>
-            <p><strong>Tema:</strong> Sistema de Reconhecimento de Gestos</p>
-            <ul>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/ca.html">Parte 1: Contexto e Cenário de Aplicação (CA)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/mf.html">Parte 2: Modelagem Funcional do Sistema de Processamento Visual (MF)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/spv.html">Parte 3: Desenvolvimento do Sistema de Processamento Visual (SPV)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/lex.html">Parte 4: Elaboração de Laboratório Experimental do SPV (LEx)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/tc.html">Parte 5: Teste de Campo do SPV (TC)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/rft.html">Parte 6: Elaboração do Relatório Final do Trabalho (RFT)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/dem.html">Parte 7: Elaboração de Apresentação – ppt, vídeos documentais, e demo final (DEM)</a></li>
-                <li><a href="https://hsoaresufabc.github.io/squadsquirtle/seminar.html">Parte 8: Apresentação no Seminário da Disciplina (SEMINAR)</a></li>
-            </ul>
-        </div>
+    <h2 class="section-title">Trabalhos</h2>
+    <div class="work-grid">
+        <!-- Card 1 -->
+        <a href="ca.html" class="work-item">
+            <h3>Parte 1</h3>
+            <p>Contexto e Cenário de Aplicação (CA)</p>
+        </a>
+        <!-- Card 2 -->
+        <a href="mf.html" class="work-item">
+            <h3>Parte 2</h3>
+            <p>Modelagem Funcional do Sistema de Processamento Visual (MF)</p>
+        </a>
+        <!-- Card 3 -->
+        <a href="spv.html" class="work-item">
+            <h3>Parte 3</h3>
+            <p>Desenvolvimento do Sistema de Processamento Visual (SPV)</p>
+        </a>
+        <!-- Card 4 -->
+        <a href="lex.html" class="work-item">
+            <h3>Parte 4</h3>
+            <p>Elaboração de Laboratório Experimental do SPV (LEx)</p>
+        </a>
+        <!-- Card 5 -->
+        <a href="tc.html" class="work-item">
+            <h3>Parte 5</h3>
+            <p>Teste de Campo do SPV (TC)</p>
+        </a>
+        <!-- Card 6 -->
+        <a href="rft.html" class="work-item">
+            <h3>Parte 6</h3>
+            <p>Elaboração do Relatório Final do Trabalho (RFT)</p>
+        </a>
+        <!-- Card 7 -->
+        <a href="dem.html" class="work-item">
+            <h3>Parte 7</h3>
+            <p>Elaboração de Apresentação e Demo Final (DEM)</p>
+        </a>
+        <!-- Card 8 -->
+        <a href="seminar.html" class="work-item">
+            <h3>Parte 8</h3>
+            <p>Apresentação no Seminário da Disciplina (SEMINAR)</p>
+        </a>
+    </div>
+</div>
+
     </main>
     <footer>
         <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
