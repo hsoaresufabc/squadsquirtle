@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 4: Histogramas e Limiarização</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #00509e;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        .imagem-exp {
+            border: 3px solid rgb(44, 30, 241);        /* Borda sólida preta */
+            border-radius: 5px;           /* Cantos arredondados */
+            border-style: groove;          /* Borda pontilhada */
+            border-color: blue;            /* Cor da borda */
+            width: 600px;         /* Largura fixa */
+            height: auto;         /* Altura ajustada proporcionalmente */
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#codigos">Códigos</a>
+        <a href="#aplicacoes">Aplicações</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 4</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                No Laboratório 04, estudamos técnicas de Histogramas e Limiarização. Iniciamos com a teoria, com base nos seguintes documentos:
+            </p>
+            <ul>
+                <li><strong>Equalização de Histograma:</strong> Tutorial OpenCV</li>
+                <li><strong>Cálculo de Histogramas:</strong> Tutorial OpenCV</li>
+                <li><strong>Operações Básicas de Limiarização:</strong> Tutorial OpenCV</li>
+            </ul>
+            <p>A seguir, resumimos os principais conceitos de cada tema:</p>
+            <h3><br>1. Equalização de Histograma</h3>
+            <p>
+                Técnica que melhora o contraste da imagem, redistribuindo os valores de intensidade dos pixels. O tutorial do OpenCV mostra como o método <code>cv::equalizeHist</code> é aplicado, com exemplos em Python, C++ e Java, focando em imagens em escala de cinza.
+            </p>
+            <h3><br>2. Cálculo de Histogramas</h3>
+            <p>
+                Método essencial para analisar a distribuição de intensidades dos pixels. Com a função <code>cv::calcHist</code>, é possível calcular histogramas de imagens monocromáticas e coloridas, usando máscaras para regiões específicas, oferecendo flexibilidade na análise.
+            </p>
+            <h3><br>3. Limiarização</h3>
+            <p>
+                Converte imagens em binárias com base em um valor de referência. O OpenCV descreve métodos como limiar simples, adaptativo e Otsu, úteis em tarefas como segmentação, análise de contornos e reconhecimento de formas.
+            </p>
+        </div>
+        <div id="codigos" class="card">
+            <h2 class="section-title">Códigos e Exemplos</h2>
+            <p>
+                Durante o laboratório, foram implementados códigos para cada uma das técnicas estudadas. Abaixo, apresentamos os trechos de código utilizados:
+            </p>
+            <h3><br>Código 1: Equalização de Histograma em Imagem Estática</h3>
+			<br>
+            <p>
+                Este código realiza a equalização de histograma para melhorar o contraste de uma imagem estática. O processo detalha as seguintes etapas:
+            </p>
+			<ul>
+                <ol><strong>1. Carregamento da Imagem:</strong> Usamos <code>imread</code> para carregar a imagem e verificamos se ela foi carregada corretamente.</ol>
+                <ol><strong>2. Conversão para escala de cinza:</strong> A função <code>cvtColor</code> converte a imagem colorida para tons de cinza, pois a equalização de histograma é aplicada em imagens monocromáticas.</ol>
+                <ol><strong>3. Equalização do histograma:</strong> Com <code>equalizeHist</code>, ajustamos o histograma da imagem para redistribuir as intensidades de pixel e melhorar o contraste.</ol>
+				<ol><strong>4. Exibição dos resultados: </strong> Usamos <code>imshow</code> para mostrar tanto a imagem original quanto a equalizada.</ol>
+            </ul>
+			<br>
+            <pre><code>##include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    CommandLineParser parser(argc, argv, "{@input | christian.JPG | input image}");
+    Mat src = imread(samples::findFile(parser.get<String>("@input")), IMREAD_COLOR);
+    if (src.empty())
+    {
+        cout << "Could not open or find the image!" << endl;
+        return -1;
+    }
+
+    cvtColor(src, src, COLOR_BGR2GRAY);
+    Mat dst;
+    equalizeHist(src, dst);
+
+    imshow("Source image", src);
+    imshow("Equalized Image", dst);
+
+    waitKey();
+    return 0;
+}
+</code></pre>
+
+<p>Logo abaixo, são exibidas a imagem original, sua transformação para escala de cinza e posteriormente com o processamento de equalização de histograma: </p>
+<li><strong>Foto original:</strong></li>
+            <center><img src="christian-lab4.JPG" alt="Christian" class="imagem-exp"></center>
+<br>
+
+<li><strong>Imagem em escala de cinza:</strong></li>
+<center><img src="christian_GreyScale-lab4.png" alt="Christian pb" class="imagem-exp"></center>
+
+<br>
+
+<li><strong>Imagem em escala de cinza e equalizada:</strong></li>
+<center><img src="christian_GreyScale_Equalized-lab4.png" alt="Christian pb" class="imagem-exp"></center>
+
+
+            <h3><br>Código 2: Equalização de Histograma em Vídeo (Webcam)</h3>
+			<br>
+            <p>
+                Este código realiza a equalização de histograma para melhorar o contraste de uma imagem estática. O processo detalha as seguintes etapas:
+            </p>
+			<ul>
+                <ol><strong>1. Abrindo a Webcam:</strong> Usamos <code>VideoCapture</code> para acessar a webcam e capturar frames.</ol>
+                <ol><strong>2. Conversão e Equalização:</strong> Cada frame é convertido para escala de cinza e, em seguida, o histograma é equalizado.</ol>
+                <ol><strong>3. Exibição:</strong> Exibe a imagem original e a equalizada em tempo real.</ol>
+				<ol><strong>4. Fechamento: </strong> O loop continua até que o usuário pressione uma tecla.<br></ol>
+            </ul>
+			<br>
+            <pre><code>#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    VideoCapture cap(0);
+    if (!cap.isOpened())
+    {
+        cout << "Erro ao abrir a webcam!" << endl;
+        return -1;
+    }
+
+    Mat frame, grayFrame, equalizedFrame;
+
+    while (true)
+    {
+        cap >> frame;
+        if (frame.empty())
+        {
+            cout << "Erro ao capturar o frame da webcam!" << endl;
+            break;
+        }
+
+        cvtColor(frame, grayFrame, COLOR_BGR2GRAY);
+        equalizeHist(grayFrame, equalizedFrame);
+
+        imshow("Webcam - Imagem Original em Tons de Cinza", grayFrame);
+        imshow("Webcam - Imagem Equalizada", equalizedFrame);
+
+        if (waitKey(30) >= 0)
+            break;
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Na imagem abaixo, têm-se como fica a saída do código exibido acima, mostrando em tempo real a saída da webcam, mostrando ao mesmo tempo sua versão em escala de cinza e sua versão equalizada: </p>
+<li><strong>Saída da Webcam em tempo real:</strong></li>
+            <center><img src="webcam-christian-lab4.png" alt="webcam" class="imagem-exp"></center>
+<br>
+        </div>
+        <div id="aplicacoes" class="card">
+            <h2 class="section-title">Aplicações no Mundo Real</h2>
+            <p>
+                O aprendizado adquirido no Laboratório 04 pode ser aplicado em diversas áreas do mundo real, como:
+            </p>
+			<ul>
+                <li><strong>Melhoria de Imagens Médicas:</strong> Equalização de histograma pode ser usada para realçar imagens de raios-X ou ressonâncias magnéticas, facilitando a visualização de detalhes sutis.</li>
+                <li><strong>Visão Computacional em Robótica:</strong> A limiarização e equalização são essenciais para segmentação e detecção de objetos, como em robôs que operam em ambientes dinâmicos.</li>
+                <li><strong>Análise de Imagens de Satélite:</strong> Melhorar o contraste de imagens aéreas para análise de dados geoespaciais e ambientais.</li>
+            </ul>
+			<p>
+				Essas técnicas são fundamentais em áreas que requerem análise e interpretação de imagens para obter melhores resultados.
+			</p>
+        </div>
+        <div id="conclusao" class="card">
+            <h2 class="section-title">Conclusão</h2>
+            <p>
+                O estudo realizado no Laboratório 04 proporcionou uma compreensão aprofundada das técnicas de equalização de histograma e limiarização, essenciais para o processamento de imagens. A equalização de histograma demonstrou ser eficaz na melhoria do contraste e no realce de detalhes visuais, enquanto a limiarização mostrou-se útil na segmentação e análise de imagens. A implementação prática desses conceitos, tanto em imagens estáticas quanto em vídeos, mostrou como as ferramentas do OpenCV podem ser aplicadas para transformar e melhorar a qualidade das imagens em diversos contextos.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>

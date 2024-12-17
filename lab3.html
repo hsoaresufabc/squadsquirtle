@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 3: Conversão de Cores e Detecção de Bordas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-family: 'Pokemon', 'Roboto', Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #00509e;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        .imagem-exp {
+            border: 3px solid rgb(44, 30, 241);        /* Borda sólida preta */
+            border-radius: 5px;           /* Cantos arredondados */
+            border-style: groove;          /* Borda pontilhada */
+            border-color: blue;            /* Cor da borda */
+            width: 600px;         /* Largura fixa */
+            height: auto;         /* Altura ajustada proporcionalmente */
+            margin: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Squad Squirtle</h1>
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+	<a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#conversoes">Conversões de Cores</a>
+        <a href="#segmentacao">Segmentação de Cor</a>
+        <a href="#canny">Detecção de Bordas</a>
+        <a href="#codigo">Código Completo</a>
+		<a href="#usecases">Casos de Uso Reais</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 3</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                No laboratório 3, estudamos as conversões de cores no OpenCV e aplicamos o algoritmo de detecção de bordas de Canny. O OpenCV oferece uma variedade de conversões de espaços de cor, que são essenciais para diversas tarefas em visão computacional. Cada conversão é útil para diferentes tipos de processamento de imagem, e entender essas transformações é fundamental para a manipulação e análise de imagens.
+            </p>
+        </div>
+        <div id="conversoes" class="card">
+            <h2 class="section-title">Conversões de Cores no OpenCV</h2>
+            <p>O OpenCV oferece suporte para diversos espaços de cor, sendo os mais comuns:</p>
+            <ul>
+                <li><strong>RGB e BGR:</strong> São usados principalmente para exibição de imagens. A diferença entre eles está na ordem dos canais de cor: no RGB, a ordem é (Vermelho, Verde, Azul), enquanto no BGR (usado por padrão pelo OpenCV), a ordem é (Azul, Verde, Vermelho).</li>
+                <li><strong>HSV:</strong> Este modelo é útil para tarefas de segmentação e rastreamento de objetos, pois separa a informação cromática da intensidade. O matiz (H) define a cor, a saturação (S) controla a pureza da cor, e o valor (V) reflete a luminosidade.</li>
+                <li><strong>YUV:</strong> Utilizado principalmente em compressão de vídeo, separa a imagem em componentes de luminosidade (Y) e cromaticidade (U e V). O OpenCV oferece suporte a formatos como YUV420, YV12, e I420.</li>
+                <li><strong>Lab</strong>O espaço de cor CIE Lab é baseado na percepção humana e é independente de dispositivos. Ele é amplamente utilizado em correção de cores e segmentação de imagens.</li>
+				<li><strong>Escala de Cinza (Grayscale):</strong> A conversão para escala de cinza remove a informação de cor e mantém apenas a intensidade, sendo comumente usada para simplificar o processamento de imagens.</li>
+            </ul>
+            <p>A função <code>cv::cvtColor()</code> é utilizada para realizar as conversões entre diferentes espaços de cor. Por exemplo, a conversão de BGR para RGB pode ser realizada da seguinte forma:</p>
+            <pre><code>cv::cvtColor(src, dst, cv::COLOR_BGR2RGB);
+cv::cvtColor(src, dst, cv::COLOR_BGR2HSV);</code></pre>
+			<p>Essas conversões são cruciais em várias tarefas de visão computacional, como segmentação de objetos e rastreamento de cores.</p>
+        </div>
+		        <div id="segmentacao" class="card">
+            <h2 class="section-title">Segmentação de Cor e Interatividade com Trackbars</h2>
+            <p>
+                A segmentação de cor foi realizada usando um intervalo definido pelo usuário no espaço HSV. O código abaixo exemplifica como isso é feito com a função <code>inRange()</code>, que seleciona pixels dentro de um intervalo de cor específico. 
+            </p>
+            <p>
+                A segmentação é interativa, permitindo ao usuário ajustar os limites de Matiz (H), Saturação (S) e Valor (V) por meio de barras deslizantes (<i>trackbars</i>):
+            </p>
+            <pre><code>createTrackbar("Low H", window_detection_name, &low_H, max_value_H, on_low_H_thresh_trackbar);
+createTrackbar("High H", window_detection_name, &high_H, max_value_H, on_high_H_thresh_trackbar);
+createTrackbar("Low S", window_detection_name, &low_S, max_value, on_low_S_thresh_trackbar);
+createTrackbar("High S", window_detection_name, &high_S, max_value, on_high_S_thresh_trackbar);
+createTrackbar("Low V", window_detection_name, &low_V, max_value, on_low_V_thresh_trackbar);
+createTrackbar("High V", window_detection_name, &high_V, max_value, on_high_V_thresh_trackbar);</code></pre>
+            <p>
+                Esses <i>trackbars</i> permitem ao usuário ajustar os limites inferiores e superiores de cada componente HSV, facilitando a visualização dos efeitos da segmentação. Logo abaixo, serão mostrados exemplos com objetos coloridos e sua configuração com os trackbars: 
+            </p>
+            <br>
+
+
+            <div>   <li><strong>Caderno Amarelo:</strong></li>
+                    <center><img src="imagem-objeto-amarelo-lab3.png" alt="Objeto amarelo" class="imagem-exp"></center>
+                    <br>
+                    <strong><center>Trackbars ajustados para a cor do caderno.</strong>
+                    <center><img src="Trackbar-amarelo-lab3.png" alt="Trackbar amarelo" class="imagem-exp"></center>
+                    <br><br>
+            </div>
+
+            <div>
+                    <li><strong>Prato Azul:</strong></li>
+                    <center><img src="imagem-objeto-azul-lab3.png" alt="Objeto azul" class="imagem-exp"></center>
+                    <br>
+                    <strong><center>Trackbars ajustados para a cor do prato.</strong>
+                    <center><img src="Trackbar-azul-lab3.png" alt="Trackbar azul" class="imagem-exp"></center>
+            </div> 
+
+            <div>
+                    <li><strong>Livro Laranja:</strong></li>
+                    <center><img src="imagem-objeto-laranja-lab3.png" alt="Objeto laranja" class="imagem-exp"></center>
+                    <br>
+                    <strong><center>Trackbars ajustados para a cor do livro.</strong>
+                    <center><img src="Trackbar-laranja-lab3.png" alt="Trackbar laranja" class="imagem-exp"></center>
+            </div>        
+                    
+      
+        </div>
+        <div id="canny" class="card">
+            <h2 class="section-title">Detecção de Bordas com o Algoritmo de Canny</h2>
+            <p>
+                Outro tema abordado foi a detecção de bordas, utilizando o algoritmo de Canny. Este algoritmo é amplamente utilizado para detectar bordas em imagens, passando por quatro etapas principais:
+            </p>
+            <ul>
+                <li>Suavização para redução de ruído.</li>
+                <li>Cálculo do gradiente para determinar áreas de variação rápida de intensidade.</li>
+                <li>Supressão de máximos não-máximos para eliminar falsos positivos.</li>
+                <li>Histerese com limiares para selecionar bordas fortes e fracas.</li>
+            </ul>
+            <p>
+                A função <code>cv::Canny()</code> é utilizada para implementar a detecção de bordas. O exemplo abaixo aplica o detector de bordas de Canny na imagem segmentada:
+            </p>
+            <pre><code>static void CannyThreshold(const Mat& input)
+{
+    Canny(input, detected_edges, 100, 200);
+}</code></pre>
+            <p>
+                O algoritmo captura um vídeo da webcam, converte cada frame de BGR para HSV, segmenta a cor azul e aplica a detecção de bordas de Canny na imagem segmentada. Abaixo, seram mostrados alguns exemplos utilizando objetos coloridos com os ajustes das trackbars.
+            </p>
+    <br>
+            <li><strong>Caderno Amarelo:</strong></li>
+            <center><img src="canny-imagem-objeto-amarelo-lab3.png" alt="Objeto amarelo" class="imagem-exp"></center>
+    <br>
+            <strong><center>Trackbars ajustados para a cor do caderno.</center></strong>
+            <center><img src="canny_amarelo_trackbar_lab3.png" alt="Trackbar amarelo" class="imagem-exp"></center>
+            <br><br>
+
+            <li><strong>Prato Azul:</strong></li>
+            <center><img src="canny-imagem-objeto-azul-lab3.png" alt="Objeto azul" class="imagem-exp"></center>
+    <br>
+            <strong><center>Trackbars ajustados para a cor do prato.</center></strong>
+            <center><img src="canny_azul_trackbar_lab3.png" alt="Trackbar azul" class="imagem-exp"></center>
+            <br><br>
+
+            <li><strong>Livro Laranja:</strong></li>
+            <center><img src="canny-imagem-objeto-laranja-lab3.png" alt="Objeto laranja" class="imagem-exp"></center>
+    <br>
+            <strong><center>Trackbars ajustados para a cor do livro.</center></strong>
+            <center><img src="canny_laranja_trackbar_lab3.png" alt="Trackbar laranja" class="imagem-exp"></center>
+            <br><br>
+        </div>
+		        <div id="codigo" class="card">
+            <h2 class="section-title">Código Completo</h2>
+            <p>
+                O código completo que foi desenvolvido durante o laboratório faz uso das funções descritas acima para capturar vídeo, segmentar objetos por cor e aplicar a detecção de bordas de Canny. Abaixo está o código completo:
+            </p>
+            <pre><code>#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/videoio.hpp"
+#include &lt;iostream&gt;
+
+using namespace cv;
+
+// Definições das variáveis e limites
+const int max_value_H = 360 / 2;
+const int max_value = 255;
+const String window_capture_name = "Video Capture";
+const String window_detection_name = "Object Detection";
+int low_H = 90, high_H = 120, low_S = 100, high_S = 255, low_V = 100, high_V = 255;
+
+Mat frame, frame_HSV, frame_threshold, detected_edges;
+
+static void CannyThreshold(const Mat& input)
+{
+    Canny(input, detected_edges, 100, 200);
+}
+
+int main(int argc, char* argv[])
+{
+    VideoCapture cap(argc > 1 ? atoi(argv[1]) : 0);
+    namedWindow(window_capture_name);
+    namedWindow(window_detection_name);
+
+    createTrackbar("Low H", window_detection_name, &low_H, max_value_H);
+    createTrackbar("High H", window_detection_name, &high_H, max_value_H);
+    createTrackbar("Low S", window_detection_name, &low_S, max_value);
+    createTrackbar("High S", window_detection_name, &high_S, max_value);
+    createTrackbar("Low V", window_detection_name, &low_V, max_value);
+    createTrackbar("High V", window_detection_name, &high_V, max_value);
+
+    while (true) {
+        cap >> frame;
+        if (frame.empty()) break;
+
+        cvtColor(frame, frame_HSV, COLOR_BGR2HSV);
+        inRange(frame_HSV, Scalar(low_H, low_S, low_V), Scalar(high_H, high_S, high_V), frame_threshold);
+        CannyThreshold(frame_threshold);
+
+        imshow(window_capture_name, frame);
+        imshow(window_detection_name, detected_edges);
+
+        char key = (char)waitKey(30);
+        if (key == 'q' || key == 27) break;
+    }
+
+    return 0;
+}</code></pre>
+        </div>
+		    <div id="usecases" class="card">
+            <h2 class="section-title">Casos de Uso Reais</h2>
+            <p>
+                As técnicas de conversão de cores e detecção de bordas possuem aplicações práticas em diversas áreas. Abaixo estão alguns casos de uso reais dessas ferramentas:
+            </p>
+            <ul>
+                <li>
+                    <strong>Rastreamento de Objetos:</strong> Em sistemas de vigilância, a conversão para o espaço de cor HSV facilita a identificação e o rastreamento de objetos com base em suas características de cor, independentemente das variações de iluminação.
+                </li>
+                <li>
+                    <strong>Processamento de Vídeo:</strong> A detecção de bordas é amplamente utilizada na compressão de vídeo, pois permite identificar áreas de interesse e reduzir informações redundantes.
+                </li>
+                <li>
+                    <strong>Reconhecimento de Imagens:</strong> O algoritmo de Canny pode ser aplicado em sistemas de reconhecimento de padrões, como OCR (reconhecimento óptico de caracteres) e identificação de formas geométricas.
+                </li>
+                <li>
+                    <strong>Diagnósticos Médicos:</strong> Em imagens de exames médicos, como tomografias e ressonâncias magnéticas, a detecção de bordas auxilia na identificação de estruturas anatômicas e anomalias.
+                </li>
+                <li>
+                    <strong>Automação Industrial:</strong> Na inspeção de qualidade, essas técnicas ajudam a detectar falhas em produtos com base em suas características visuais, como bordas ou áreas específicas de cor.
+                </li>
+            </ul>
+            <p>
+                Esses exemplos demonstram a importância das técnicas abordadas no laboratório, destacando seu potencial para resolver problemas do mundo real em diferentes domínios.
+            </p>
+        </div>
+        <div id="conclusao" class="card">
+            <h2 class="section-title">Conclusão</h2>
+            <p>
+                A conversão de cores e a detecção de bordas são fundamentais em muitos processos que envolvem processamento de imagens e análise visual. Através da manipulação eficiente dessas técnicas, é possível melhorar a interpretação e a utilidade das imagens em diversas áreas, desde o design gráfico até a análise médica e industrial.
+            </p>
+            <p>
+                Por exemplo:
+            </p>
+            <ul>
+                <li>
+                    <strong>Conversão de Cores:</strong> Aplicada em design gráfico, edição de fotos e sistemas de compressão de vídeo.
+                </li>
+                <li>
+                    <strong>Detecção de Bordas:</strong> Utilizada em visão computacional (OCR, automação industrial) e na análise de imagens médicas (radiologia, tomografia).
+                </li>
+            </ul>
+            <p>
+                Para mais detalhes sobre a implementação e exemplos práticos, consulte nosso repositório no GitHub.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
