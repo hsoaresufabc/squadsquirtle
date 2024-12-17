@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 6: Features</title>
+	<link rel="icon" type="image/png" href="icon.png">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        /* Estilo do Header */
+		header {
+			background: linear-gradient(135deg, #003366, #00509e); /* Gradiente azul */
+			color: white;
+			text-align: center;
+			padding: 20px 0;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+			position: relative;
+			border-bottom: 4px solid #007BFF; /* Linha destacada abaixo */
+		}
+
+		/* Título do site */
+		header h1 {
+			font-size: 2.5rem; /* Tamanho maior */
+			font-family: 'Pokemon', Arial, sans-serif; /* Mantém a identidade */
+			margin: 0;
+			letter-spacing: 1px; /* Espaçamento entre letras */
+		}
+
+		/* Subtítulo */
+		header p {
+			font-size: 1rem;
+			margin-top: 10px;
+			opacity: 0.9; /* Texto mais leve */
+		}
+
+		/* Barra de navegação */
+		nav {
+			background-color: #00509e; /* Azul sólido */
+			display: flex;
+			justify-content: center;
+			padding: 10px 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Links de navegação */
+		nav a {
+			color: white;
+			text-decoration: none;
+			margin: 0 20px;
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.3s ease, transform 0.2s ease;
+		}
+
+		/* Efeito hover nos links */
+		nav a:hover {
+			color: #FFD700; /* Dourado vibrante */
+			transform: scale(1.1); /* Leve aumento */
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			header h1 {
+				font-size: 2rem;
+			}
+			nav {
+				flex-direction: column;
+			}
+			nav a {
+				margin: 10px 0;
+			}
+		}
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        .imagem-exp {
+            border: 3px solid rgb(44, 30, 241);        /* Borda sólida preta */
+            border-radius: 5px;           /* Cantos arredondados */
+            border-style: groove;          /* Borda pontilhada */
+            border-color: blue;            /* Cor da borda */
+            width: 600px;         /* Largura fixa */
+            height: auto;         /* Altura ajustada proporcionalmente */
+            margin: 10px;
+        }
+
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="squadsquirtle.png" alt="Squad Squirtle Logo" style="height: 100px;">
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#features">Features</a>
+        <a href="#implementacao">Implementação no OpenCV</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#codigo">Código Completo</a>
+        <a href="#cenarios">Cenários de Aplicação</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 6</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                No laboratório 6, estudamos a detecção de features no OpenCV e adaptamos o código de detecção de features fornecido nos tutoriais para testar a detecção de características em fotos anteriormente capturadas e também aplicamos o algoritmo para o video da webcam em tempo real. A detecção e descrição de features (características) em imagens é um aspecto fundamental da visão computacional, permitindo que algoritmos identifiquem e analisem padrões em imagens. O OpenCV (Open Source Computer Vision Library) oferece diversas ferramentas e algoritmos para realizar essas tarefas.
+            </p>
+        </div>
+        <div id="features" class="card">
+            <h2 class="section-title"> Detecção, descrição e correspondência de Features</h2>
+            <p>Features são padrões únicos em uma imagem que podem ser facilmente detectados e rastreados. Exemplos comuns incluem cantos, bordas e blobs. Os cantos são considerados características particularmente boas porque, ao serem movidos, eles apresentam variações significativas em sua aparência, facilitando sua identificação em diferentes imagens. Abaixo estão listadas as etapas do processo de detecção de features:</p>
+            <ul>
+                <li><strong>Detecção de Canto:</strong> O primeiro passo na detecção de features é identificar os pontos de interesse na imagem. Um dos métodos mais utilizados para isso é o algoritmo de Harris Corner Detection, que calcula a variação da intensidade da imagem em torno de um ponto. Se a variação for alta em várias direções, esse ponto é considerado um canto.</li>
+                <li><strong>Seleção de Features:</strong> Após a detecção inicial, é comum aplicar um filtro para selecionar as melhores features. O método Good Features to Track permite selecionar os pontos mais relevantes, baseando-se na intensidade do canto e na distribuição espacial das features. Este método é útil para rastreamento em vídeos.</li>
+            </ul>
+            <p>Uma vez que as features são detectadas, o próximo passo é descrevê-las para facilitar a comparação entre diferentes imagens. Isso envolve criar um vetor que resume as características da região ao redor de cada feature detectada.</p>
+            <ul>
+                <li><strong>Descrição com SIFT/SURF:</strong> Métodos como SIFT (Scale-Invariant Feature Transform) e SURF (Speeded Up Robust Features) são amplamente utilizados para descrever features. Eles geram descritores que são invariantes a escala e rotação, permitindo que as features sejam reconhecidas mesmo quando a imagem é alterada. O SIFT, por exemplo, extrai características únicas de cada ponto detectado e cria um vetor que pode ser usado para comparação.</li>
+                <li><strong>Utilizando o ORB:</strong> O algoritmo ORB (Oriented FAST and Rotated BRIEF) combina a detecção rápida de cantos com uma descrição eficiente, sendo uma alternativa mais leve ao SIFT e SURF. Ele é particularmente útil em aplicações em tempo real devido à sua eficiência computacional.</li>
+            </ul>
+            <p>Após a detecção e descrição das features, o próximo passo é encontrar correspondências entre elas em diferentes imagens:</p>
+            <ul>
+                <li><strong>Matching:</strong> O OpenCV fornece funções como <code>cv2.BFMatcher</code> (Brute Force Matcher) ou <code>cv2.FlannBasedMatcher</code> para comparar os descritores das features entre duas imagens. Esses métodos ajudam a identificar quais features correspondem entre si através da comparação dos vetores descritivos. A correspondência pode ser feita utilizando critérios como a distância euclidiana entre os descritores ou técnicas mais avançadas como o uso do algoritmo KNN (K-Nearest Neighbors).</li>
+            </ul>
+        </div>
+		        <div id="implementacao" class="card">
+            <h2 class="section-title">Implementação no OpenCV</h2>
+            <p>
+                No OpenCV, o algoritmo <code>cv::BackgroundSubtractorMOG2</code> é frequentemente utilizado para realizar a subtração de fundo. No arquivo <code>bg_sub.cpp</code> foi implementada essa técnica.
+            </p>
+            <p><strong>Estrutura do Código:</strong></p>
+            <p>
+                O código pode ser dividido nas seguintes partes principais: 
+            </p>
+        <br>
+
+        <li><strong>Inclusão das Bibliotecas Necessárias:</strong></li>
+        <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;vector&gt;</code></pre>
+        <br>
+
+        <li><strong>Inicialização do Capturador de Vídeo:</strong> O vídeo pode ser carregado a partir de um arquivo ou da câmera:</li>
+        <pre><code>cv::VideoCapture cap("video.mp4");</code></pre>
+        <br>
+
+        <li><strong>Leitura do Primeiro Quadro:</strong> O primeiro quadro do vídeo é lido e convertido para escala de cinza, pois a detecção de características geralmente é feita em imagens em escala de cinza:</li>
+        <pre><code>cv::Mat frame, gray;
+cap &gt;&gt; frame;
+cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);</code></pre>
+        <br>
+        
+        <li><strong>Detecção de "Boas Características":</strong> A função <code>cv::goodFeaturesToTrack</code> é utilizada para detectar os pontos de interesse (boas características) no quadro:</li>
+        <pre><code>std::vector&lt;cv::Point2f&gt; corners;
+cv::goodFeaturesToTrack(gray, corners, maxCorners, qualityLevel, minDistance);</code></pre>
+        <br>
+        
+        <ul>
+            <strong>Parâmetros:</strong>
+            <br>
+            <br>
+            <li><i><strong>'gray':</i></strong> Imagem em escala de cinza onde as características serão detectadas.</li>
+            <li><i><strong>'corners':</i></strong> Vetor onde os pontos detectados serão armazenados.</li>
+            <li><i><strong>'maxCorners':</i></strong> Número máximo de cantos a serem detectados.</li>
+            <li><i><strong>'qualityLevel':</i></strong> Proporção mínima que um canto deve ter em relação ao canto mais forte.</li>
+            <li><i><strong>'minDistance':</i></strong> Distância mínima entre os cantos detectados.</li>
+        </ul>
+        <br>
+
+        <li><strong>Desenho dos Cantos Detectados:</strong> Após a detecção, os pontos encontrados são desenhados na imagem original para visualização:</li>
+        <pre><code>
+for (size_t i = 0; i &lt; corners.size(); i++) {
+    cv::circle(frame, corners[i], 5, cv::Scalar(0, 255, 0), -1);
+}
+</code></pre>
+
+        <li><strong>Exibição do Resultado:</strong> O quadro com os pontos destacados é exibido em uma janela:</li>
+        <pre><code>
+cv::imshow(&quot;Good Features to Track&quot;, frame);
+</code></pre>
+<br>
+
+        <li><strong>Loop e Finalização:</strong>O código geralmente inclui um loop que continua até que uma tecla seja pressionada e finaliza a captura corretamente.</li>
+
+
+
+
+
+
+
+        </div>
+
+        
+        <div id="resultados" class="card">
+            <h2 class="section-title">Resultados</h2>
+            <p>
+                Primeiramente, foram utilizadas imagens previamente capturadas de um integrante do grupo, aplicando o algoritmo de detecção de features, com 50 corners e 100 corners:  
+            </p>
+    <br>
+         
+            <li><strong>Imagem original:</strong></li>
+            <br>
+            <center><img src="christian.JPG" alt="Foto Christian" class="imagem-exp"></center>
+    <br>
+            <li><strong>Imagem processada com detecção de 50 corners:</strong></li>
+            <br>
+            <center><img src="output_Christian_50corners_lab6.png" alt="Foto Christian 50" class="imagem-exp"></center>    
+    <br>
+            <li><strong>Imagem processada com detecção de 100 corners:</strong></li>
+            <br>
+            <center><img src="output_Christian_100corners_lab6.png" alt="Foto Christian 50" class="imagem-exp"></center>
+            <br>
+            <p> O algoritmo de detecção de features também foi aplicado para a saída da webcam em tempo real, utilizando duas situações distintas. A primeira situação é um vídeo aparecendo os integrantes do grupo e o cenário ao redor. Abaixo, temos o vídeo original e o vídeo processado com a detecção de características:</p>
+
+            <li><strong>Vídeo original:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="teste1_lab6.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+            <br>
+
+            <li><strong>Vídeo processado com 100 features:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="teste1_processado_lab6.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+            <br>
+
+            <p>O segundo cenário é utilizando uma folha de caderno quadriculada para verificar o desempenho de detecção de features em um fundo com muitos cantos e bordas. Abaixo temos os vídeos original e o vídeo processado com detecção de features:</p>
+<br>
+
+            <li><strong>Vídeo original da folha quadriculada:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="xadrez_lab6.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+<br>
+            <li><strong>Vídeo com detecção de features para a folha quadriculada:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="xadrez_processado_lab6.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+
+            <div id="codigo" class="card">
+                <h2 class="section-title">Código Completo</h2>
+                <p>
+                    O código completo que foi desenvolvido durante o laboratório faz uso das funções descritas acima para capturar vídeo e fazer a detecção de feature utilizando o algoritmo <code>goodFeaturesToTrack.cpp</code>. Abaixo está o código completo:
+                </p>
+                <pre><code>
+<pre><code>
+#include &quot;opencv2/imgcodecs.hpp&quot;
+#include &quot;opencv2/highgui.hpp&quot;
+#include &quot;opencv2/imgproc.hpp&quot;
+#include &quot;opencv2/videoio.hpp&quot;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+/// Global variables
+Mat src, src_gray;
+int maxCorners = 23;
+int maxTrackbar = 100;
+
+RNG rng(12345);
+const char* source_window = &quot;Original Video&quot;;
+const char* processed_window = &quot;Processed Video&quot;;
+
+/// Function header
+void goodFeaturesToTrack_Demo(Mat&amp; frame, Mat&amp; output, int maxCorners);
+
+/**
+ * @function main
+ */
+int main(int argc, char** argv) {
+    // Open webcam
+    VideoCapture cap(0);
+    if (!cap.isOpened()) {
+        cout &lt;&lt; &quot;Error: Could not open the webcam!&quot; &lt;&lt; endl;
+        return -1;
+    }
+
+    // Get the frame dimensions
+    int frame_width = static_cast&lt;int&gt;(cap.get(CAP_PROP_FRAME_WIDTH));
+    int frame_height = static_cast&lt;int&gt;(cap.get(CAP_PROP_FRAME_HEIGHT));
+    Size frame_size(frame_width, frame_height);
+
+    // Define video writers
+    VideoWriter original_writer(&quot;original_output.avi&quot;, VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, frame_size, true);
+    VideoWriter processed_writer(&quot;processed_output.avi&quot;, VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, frame_size, true);
+
+    if (!original_writer.isOpened() || !processed_writer.isOpened()) {
+        cout &lt;&lt; &quot;Error: Could not open the video writers!&quot; &lt;&lt; endl;
+        return -1;
+    }
+
+    namedWindow(source_window);
+    namedWindow(processed_window);
+
+    // Create Trackbar to set the number of corners
+    createTrackbar(&quot;Max corners:&quot;, processed_window, &amp;maxCorners, maxTrackbar);
+
+    while (true) {
+        Mat frame, processed_frame;
+        cap &gt;&gt; frame; // Capture a new frame
+        if (frame.empty()) {
+            cout &lt;&lt; &quot;Error: Empty frame captured!&quot; &lt;&lt; endl;
+            break;
+        }
+
+        // Convert frame to grayscale
+        cvtColor(frame, src_gray, COLOR_BGR2GRAY);
+
+        // Apply corner detection
+        goodFeaturesToTrack_Demo(frame, processed_frame, maxCorners);
+
+        // Show the frames
+        imshow(source_window, frame);
+        imshow(processed_window, processed_frame);
+
+        // Write the frames to video files
+        original_writer.write(frame);
+        processed_writer.write(processed_frame);
+
+        // Exit on key press
+        if (waitKey(10) &gt;= 0) {
+            break;
+        }
+    }
+
+    cap.release();
+    original_writer.release();
+    processed_writer.release();
+    destroyAllWindows();
+    return 0;
+}
+
+/**
+ * @function goodFeaturesToTrack_Demo
+ * @brief Apply Shi-Tomasi corner detector
+ */
+void goodFeaturesToTrack_Demo(Mat&amp; frame, Mat&amp; output, int maxCorners) {
+    maxCorners = MAX(maxCorners, 1);
+    vector&lt;Point2f&gt; corners;
+    double qualityLevel = 0.01;
+    double minDistance = 10;
+    int blockSize = 3, gradientSize = 3;
+    bool useHarrisDetector = false;
+    double k = 0.04;
+
+    // Copy the source image
+    output = frame.clone();
+
+    // Apply corner detection
+    goodFeaturesToTrack(src_gray, corners, maxCorners, qualityLevel, minDistance, Mat(), blockSize, gradientSize, useHarrisDetector, k);
+
+    // Draw corners detected
+    int radius = 4;
+    for (size_t i = 0; i &lt; corners.size(); i++) {
+        circle(output, corners[i], radius, Scalar(rng.uniform(0, 255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED);
+    }
+}
+</code></pre>
+
+</code></pre>
+
+
+
+
+
+
+
+        </div>
+		    <div id="cenarios" class="card">
+            <h2 class="section-title">Cenários Reais de Aplicação</h2>
+            <p>
+                A detecção de features com OpenCV tem diversas aplicações práticas em cenários do mundo real. Abaixo estão alguns exemplos:
+            </p>
+            <ul>
+                <li>
+                    <strong>Reconhecimento Facial:</strong> A detecção de pontos faciais é amplamente utilizada em sistemas de reconhecimento facial. Algoritmos como Active Appearance Model (AAM) e Local Binary Features (LBF) são empregados para identificar e mapear características faciais, permitindo o reconhecimento em sistemas de segurança, controle de acesso e redes sociais.
+                </li>
+                <li>
+                    <strong> Veículos Autônomos:</strong> Em veículos autônomos, a detecção de features é crucial para a navegação e reconhecimento de objetos. Sensores e câmeras utilizam técnicas de visão computacional para identificar outros veículos, pedestres e sinais de trânsito, permitindo que o carro tome decisões informadas em tempo real.
+                </li>
+                <li>
+                    <strong> Inspeção de Qualidade:</strong> Na indústria, a visão computacional é utilizada para inspeção de qualidade em linhas de produção. O OpenCV pode detectar defeitos em produtos, medir dimensões e verificar a conformidade com padrões estabelecidos. Isso é feito através da análise de contornos e características dos objetos inspecionados.
+                </li>
+                <li>
+                    <strong> Realidade Aumentada:</strong> Aplicações de realidade aumentada utilizam a detecção de features para sobrepor informações digitais no mundo real. O OpenCV ajuda a identificar superfícies planas ou objetos específicos nos quais elementos virtuais podem ser projetados, criando experiências interativas para os usuários.
+                </li>
+                <li>
+                    <strong>Análise de Imagens Médicas:</strong> Na área da saúde, a detecção de features é aplicada na análise de imagens médicas, como tomografias e ressonâncias magnéticas. Algoritmos podem detectar anomalias ou características específicas que ajudam médicos no diagnóstico e tratamento de doenças.
+                </li>
+                <li>
+                    <strong>Rastreamento de Objetos:</strong> Em aplicações de segurança e vigilância, a detecção e rastreamento de objetos são fundamentais. O OpenCV pode ser utilizado para monitorar movimentos em vídeos, identificando comportamentos suspeitos ou rastreando pessoas em ambientes públicos.
+                </li>
+                <li>
+                    <strong> Interação Homem-máquina:</strong> Sistemas que utilizam gestos como forma de interação também se beneficiam da detecção de features. O OpenCV pode identificar movimentos das mãos ou expressões faciais, permitindo que usuários controlem dispositivos através de gestos.
+                </li>
+            </ul>
+            <p>
+                Esses exemplos demonstram a importância das técnicas abordadas no laboratório, destacando seu potencial para resolver problemas do mundo real em diferentes domínios.
+            </p>
+        </div>
+        <div id="conclusao" class="card">
+            <h2 class="section-title">Conclusão</h2>
+            <p>
+                O processo de detecção e descrição de features utilizando OpenCV envolve uma série de etapas interconectadas que permitem a análise eficiente de imagens. Desde a identificação inicial dos pontos de interesse até a correspondência dessas características entre diferentes imagens, cada etapa desempenha um papel crucial na visão computacional moderna. A biblioteca OpenCV fornece uma gama robusta de ferramentas para implementar esses processos, tornando-a uma escolha popular entre desenvolvedores e pesquisadores na área.
+            </p>
+            <br>
+            <p>
+                Para mais detalhes sobre a implementação e exemplos práticos, consulte nosso repositório no GitHub.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
