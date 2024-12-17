@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Final do Trabalho (RFT)</title>
     <style>
-/* Reset básico */
+ /* Reset básico */
         * {
             margin: 0;
             padding: 0;
@@ -106,55 +106,19 @@
             color: #003366;
         }
 
-		/* Responsividade para telas menores */
-		@media (max-width: 768px) {
-			.work-grid {
-				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
-			}
-		}
+        p, ul {
+            margin-bottom: 15px;
+        }
 
-		@media (max-width: 480px) {
-			.work-grid {
-				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
-			}
-		}
-		ul {
-    padding-left: 20px;
-	margin-top: 10px; /* Espaçamento entre o parágrafo e os bullets */
-    margin-bottom: 20px;
-    list-style-type: disc; /* Estilo do bullet (pode ser 'circle', 'square', etc.) */
-	}
+        ul {
+            padding-left: 20px;
+        }
 
-	ul li {
-    margin-bottom: 10px; /* Espaçamento entre itens */
-    line-height: 1.5; /* Melhora a legibilidade */
-	}
-	p {
-    margin-bottom: 15px; /* Adiciona espaçamento abaixo dos parágrafos */
-	}
-	.card {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
+        ul li {
+            margin-bottom: 8px;
+        }
 
-.card .inner-card {
-    background: #f9f9f9;
-    border-radius: 6px;
-    padding: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-}
-p {
-    text-align: justify;
-}
-header p {
-    margin: 0;
-    text-align: center; /* Garante a centralização do texto no <p> */
-}
-	    footer {
+        footer {
             background-color: #003366; /* Azul escuro */
             color: white;
             text-align: center;
@@ -171,6 +135,18 @@ header p {
             text-decoration: none;
         }
 
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
     </style>
 </head>
 <body>
