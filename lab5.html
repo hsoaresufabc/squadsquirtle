@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 3: Conversão de Cores e Detecção de Bordas</title>
+	<link rel="icon" type="image/png" href="icon.png">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        /* Estilo do Header */
+		header {
+			background: linear-gradient(135deg, #003366, #00509e); /* Gradiente azul */
+			color: white;
+			text-align: center;
+			padding: 20px 0;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+			position: relative;
+			border-bottom: 4px solid #007BFF; /* Linha destacada abaixo */
+		}
+
+		/* Título do site */
+		header h1 {
+			font-size: 2.5rem; /* Tamanho maior */
+			font-family: 'Pokemon', Arial, sans-serif; /* Mantém a identidade */
+			margin: 0;
+			letter-spacing: 1px; /* Espaçamento entre letras */
+		}
+
+		/* Subtítulo */
+		header p {
+			font-size: 1rem;
+			margin-top: 10px;
+			opacity: 0.9; /* Texto mais leve */
+		}
+
+		/* Barra de navegação */
+		nav {
+			background-color: #00509e; /* Azul sólido */
+			display: flex;
+			justify-content: center;
+			padding: 10px 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Links de navegação */
+		nav a {
+			color: white;
+			text-decoration: none;
+			margin: 0 20px;
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.3s ease, transform 0.2s ease;
+		}
+
+		/* Efeito hover nos links */
+		nav a:hover {
+			color: #FFD700; /* Dourado vibrante */
+			transform: scale(1.1); /* Leve aumento */
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			header h1 {
+				font-size: 2rem;
+			}
+			nav {
+				flex-direction: column;
+			}
+			nav a {
+				margin: 10px 0;
+			}
+		}
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="squadsquirtle.png" alt="Squad Squirtle Logo" style="height: 100px;">
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#modelagem">Modelagem do fundo</a>
+        <a href="#implementacao">Implementação no OpenCV</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#codigo">Código Completo</a>
+        <a href="#cenarios">Cenários de Aplicação</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 5</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                No laboratório 5, estudamos a subtração de fundo no OpenCV e adaptamos o código de subtração de fundo fornecido nos tutoriais para remover o fundo de vídeos anteriormente gravados e também removendo o fundo da video da webcam em tempo real. O processo de subtração de fundo é uma técnica fundamental em visão computacional, utilizada para detectar objetos em movimento em vídeos. O OpenCV oferece diversas implementações para essa técnica, sendo a mais comum o uso de algoritmos como MOG2 e KNN.
+            </p>
+        </div>
+        <div id="modelagem" class="card">
+            <h2 class="section-title"> Modelagem do Fundo</h2>
+            <p>A subtração de fundo envolve duas etapas principais:</p>
+            <ul><br>
+                <li><strong>Inicialização do Modelo de Fundo:</strong> Um modelo inicial do fundo é criado a partir dos primeiros quadros do vídeo ou sequência de imagens. Esse modelo pode ser uma média dos pixels ao longo do tempo ou uma representação mais complexa que leva em conta a variação dos pixels.</li>
+                <li><strong>Atualização do Modelo:</strong> À medida que novos quadros são processados, o modelo de fundo é atualizado para se adaptar a mudanças na cena, como iluminação ou objetos estáticos que aparecem e desaparecem.</li>
+                <li><strong>Detecção de Sombras:</strong> O MOG2 também possui a capacidade de detectar sombras, que são marcadas na máscara resultante. Isso é importante para evitar que sombras sejam interpretadas como objetos em movimento.</li>
+
+            </ul>
+            <p>No código <code>bg_sub.cpp</code> fornecido, a função responsável pela modelagem de fundo é:</p>
+                <pre><code>pBackSub->apply(frame, fgMask);</code></pre>
+            <br>
+			    <p>Os parâmetros da função <code>apply</code> são os seguintes:</p>
+            <br>
+        <ul>
+            <li><strong>frame:</strong> É o quadro atual do vídeo que está sendo processado. O algoritmo utiliza este quadro para comparar com o modelo de fundo.</li>
+            <li><strong>fgMask:</strong> É a máscara de primeiro plano gerada pelo algoritmo, que destaca os objetos em movimento detectados no quadro.</li>
+        </ul>    
+        </div>
+		        <div id="implementacao" class="card">
+            <h2 class="section-title">Implementação no OpenCV</h2>
+            <p>
+                No OpenCV, o algoritmo <code>cv::BackgroundSubtractorMOG2</code> é frequentemente utilizado para realizar a subtração de fundo. No arquivo <code>bg_sub.cpp</code> foi implementada essa técnica.
+            </p>
+        <br>
+            <p><strong>Estrutura do Código:</strong></p>
+            <p>
+                O código pode ser dividido nas seguintes partes principais: 
+            </p>
+        <br>
+
+        <li><strong>Inclusão das Bibliotecas Necessárias:</strong></li>
+        <pre><code>#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;opencv2/bgsegm.hpp&gt;</code></pre>
+        <br>
+
+        <li><strong>Inicialização do Capturador de Vídeo:</strong> O vídeo pode ser carregado a partir de um arquivo ou da câmera:</li>
+        <pre><code>cv::VideoCapture cap("vtest.avi");</code></pre>
+        <br>
+
+        <li><strong>Criação do Objeto de Subtração de Fundo:</strong> Um objeto MOG2 é criado para processar os quadros:</li>
+        <pre><code>cv::Ptr&lt;cv::BackgroundSubtractor&gt; pBackSub = cv::createBackgroundSubtractorMOG2();</code></pre>
+        <br>
+        
+        <li><strong>Processamento dos Quadros::</strong> Dentro de um loop, cada quadro é lido e processado:</li>
+        <pre><code>while (true) {
+            cv::Mat frame;
+            cap >> frame; // Captura um novo quadro
+            if (frame.empty()) break;
+        
+            cv::Mat fgMask;
+            pBackSub->apply(frame, fgMask); // Aplica a subtração de fundo
+        }</code></pre>
+        <br>
+
+        <li><strong>Exibição dos Resultados:</strong> Os resultados, incluindo a máscara do primeiro plano (foreground mask), são exibidos em janelas separadas:</li>
+        <pre><code>cv::imshow("Frame", frame);
+cv::imshow("FG Mask", fgMask);</code></pre>
+        <br>      
+        </div>
+
+        
+        <div id="resultados" class="card">
+            <h2 class="section-title">Resultados</h2>
+            <p>
+                Primeiramente, foram utilizados vídeos previamente gravados de objetos passando rapidamente e lentamente em frente a câmera. Para cada um dos vídeos foi aplicado o código de remoção de fundo comentado acima. Os vídeos serão mostrados logo abaixo:  
+            </p>
+    <br>
+         
+            <li><strong>Vídeo com objeto lento sem processamento:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="objeto-lento-lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+    <br>
+
+            <li><strong>Vídeo com objeto lento e com fundo removido:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="objeto-lento-fundo-removido-lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+<br>
+
+            <li><strong>Vídeo com objeto rápido sem processamento:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="objeto-rapido-lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+<br>
+
+            <li><strong>Vídeo com objeto rápido e com fundo removido:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="objeto-rapido-fundo-removido-lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+<br>
+            
+            <p>
+                Após fazer os experimentos com os vídeos previamente gravados, foi feito o mesmo experimento utilizando diretamente a webcam, gravando tanto sua saída sem processamento quanto com seu fundo removido. Abaixo estão exibidos os dois vídeos com um integrante do grupo utilizando roupa colorida:
+            </p>
+
+<br>
+
+            <li><strong>Vídeo original da integrante do grupo:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="output_original_lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+<br>
+            <li><strong>Vídeo com fundo removido da integrante do grupo:</strong></li>
+            <br>
+            <center><video width="640" height="480" controls>
+            <source src="output_processed_lab5.mp4" type="video/mp4">
+            Seu navegador não suporta o formato de vídeo.
+            </video></center>
+
+            <div id="codigo" class="card">
+                <h2 class="section-title">Código Completo</h2>
+                <p>
+                    O código completo que foi desenvolvido durante o laboratório faz uso das funções descritas acima para capturar vídeo, segmentar objetos por cor e aplicar a detecção de bordas de Canny. Abaixo está o código completo:
+                </p>
+                <pre><code>
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;opencv2/imgcodecs.hpp&gt;
+#include &lt;opencv2/imgproc.hpp&gt;
+#include &lt;opencv2/videoio.hpp&gt;
+#include &lt;opencv2/highgui.hpp&gt;
+#include &lt;opencv2/video.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+const char* params
+    = "{ help h         |           | Print usage }"
+      "{ algo           | MOG2      | Background subtraction method (KNN, MOG2) }"
+      "{ output         | output.avi | Path to save the processed video }";
+
+int main(int argc, char* argv[])
+{
+    CommandLineParser parser(argc, argv, params);
+    parser.about("This program shows how to use background subtraction methods provided by OpenCV.");
+    if (parser.has("help")) {
+        parser.printMessage();
+        return 0;
+    }
+
+    // Escolher o método de subtração de fundo (MOG2 ou KNN)
+    Ptr&lt;BackgroundSubtractor&gt; pBackSub;
+    if (parser.get&lt;String&gt;("algo") == "MOG2") {
+        // Criar o modelo de subtração de fundo MOG2 com parâmetros ajustados
+        pBackSub = createBackgroundSubtractorMOG2(500, 16, true);  // Ajustes: 500 Gaussianas e 16 para o limiar
+    } else {
+        pBackSub = createBackgroundSubtractorKNN();
+    }
+
+    // Abrir a webcam como fonte de vídeo
+    VideoCapture capture(0);
+    if (!capture.isOpened()) {
+        cerr &lt;&lt; "Unable to open the webcam." &lt;&lt; endl;
+        return 0;
+    }
+
+    // Obter propriedades do vídeo
+    int frame_width = static_cast&lt;int&gt;(capture.get(CAP_PROP_FRAME_WIDTH));
+    int frame_height = static_cast&lt;int&gt;(capture.get(CAP_PROP_FRAME_HEIGHT));
+    int fps = 20; // Defina o FPS para gravação
+
+    // Configurar o VideoWriter para salvar o vídeo processado
+    VideoWriter outputVideo;
+    outputVideo.open(parser.get&lt;String&gt;("output"), VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, Size(frame_width, frame_height), false);
+    if (!outputVideo.isOpened()) {
+        cerr &lt;&lt; "Could not open the output video file for write: " &lt;&lt; parser.get&lt;String&gt;("output") &lt;&lt; endl;
+        return -1;
+    }
+
+    Mat frame, fgMask, fgMaskCleaned;
+    while (true) {
+        capture &gt;&gt; frame;
+        if (frame.empty())
+            break;
+
+        // Atualizar o modelo de fundo e gerar a máscara de fundo (movimento)
+        pBackSub-&gt;apply(frame, fgMask);
+
+        // Reduzir a agressividade da dilatação e erosão
+        dilate(fgMask, fgMaskCleaned, Mat(), Point(-1, -1), 2);  // Dilatação mais moderada
+        erode(fgMaskCleaned, fgMaskCleaned, Mat(), Point(-1, -1), 1);  // Erosão mais leve
+
+        // Suavizar a máscara para uma transição mais suave entre o fundo e o objeto em movimento
+        GaussianBlur(fgMaskCleaned, fgMaskCleaned, Size(5, 5), 0);  // Suavização com filtro Gaussiano
+
+        // Limitar a intensidade da máscara de movimento para melhorar a clareza
+        threshold(fgMaskCleaned, fgMaskCleaned, 128, 255, THRESH_BINARY);  // Aplique limiar para garantir que a máscara fique bem definida
+
+        // Mostrar o número do frame
+        rectangle(frame, Point(10, 2), Point(100, 20), Scalar(255, 255, 255), -1);
+        stringstream ss;
+        ss &lt;&lt; capture.get(CAP_PROP_POS_FRAMES);
+        putText(frame, ss.str(), Point(15, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0));
+
+        // Mostrar as imagens do frame original e da máscara de fundo
+        imshow("Frame", frame);
+        imshow("FG Mask", fgMaskCleaned);
+
+        // Escrever o frame processado no arquivo de saída
+        outputVideo.write(fgMaskCleaned);
+
+        // Sair ao pressionar 'q' ou ESC
+        int keyboard = waitKey(30);
+        if (keyboard == 'q' || keyboard == 27)
+            break;
+    }
+
+    // Liberar recursos
+    capture.release();
+    outputVideo.release();
+
+    return 0;
+}
+</code></pre>
+
+
+
+
+
+
+
+        </div>
+		    <div id="cenarios" class="card">
+            <h2 class="section-title">Cenários Reais de Aplicação</h2>
+            <p>
+                A subtração de fundo é amplamente utilizada em diversas aplicações do mundo real, especialmente em áreas relacionadas à segurança, monitoramento e análise de tráfego. Abaixo estão alguns exemplos práticos de como essa técnica é aplicada:
+            </p>
+            <ul>
+                <li>
+                    <strong>Vigilância e Segurança:</strong> Sistemas de vigilância utilizam a subtração de fundo para detectar movimentos em áreas monitoradas. Isso permite que os operadores sejam alertados sobre atividades suspeitas, como intrusões em propriedades.  Em ambientes públicos, a subtração de fundo ajuda a identificar comportamentos anômalos ou potencialmente perigosos, como aglomerações ou movimentos rápidos.
+                </li>
+                <li>
+                    <strong>Tráfego e Mobilidade:</strong> Em sistemas de controle de tráfego, a subtração de fundo é utilizada para contar e classificar veículos em estradas. Isso ajuda na análise do fluxo de tráfego e na otimização de semáforos. em áreas urbanas podem usar essa técnica para monitorar o movimento de pedestres, ajudando a melhorar a segurança nas ruas e a planejar melhor as infraestruturas.
+                </li>
+                <li>
+                    <strong> Interação Homem-Máquina:</strong> Sistemas que permitem o controle por gestos utilizam a subtração de fundo para identificar e rastrear as mãos ou o corpo do usuário, transformando movimentos físicos em comandos digitais..
+                </li>
+                <li>
+                    <strong>Análise de Vídeos:</strong> Em pesquisas científicas, a subtração de fundo é usada para analisar o comportamento animal ou humano em vídeos gravados, permitindo estudos detalhados sobre interações sociais ou padrões de movimento. Em eventos esportivos ou apresentações, essa técnica pode ser utilizada para destacar ações específicas, como gols ou movimentos importantes durante uma performance.
+                </li>
+                <li>
+                    <strong>Agricultura e Monitoramento Ambiental:</strong> A subtração de fundo pode ser aplicada para monitorar o crescimento das plantas ao longo do tempo, detectando mudanças que podem indicar pragas ou doenças.
+                </li>
+            </ul>
+            <p>
+                Esses exemplos demonstram a importância das técnicas abordadas no laboratório, destacando seu potencial para resolver problemas do mundo real em diferentes domínios.
+            </p>
+        </div>
+        <div id="conclusao" class="card">
+            <h2 class="section-title">Conclusão</h2>
+            <p>
+                        A subtração de fundo é uma técnica poderosa para aplicações em vigilância, análise de movimento e interação homem-máquina. O OpenCV facilita sua implementação através de APIs bem definidas e algoritmos robustos como MOG2 e KNN, permitindo que desenvolvedores integrem facilmente essa funcionalidade em seus projetos. O nosso grupo obteve resultados interessantes com uma boa performance em relação a baixa iluminação e qualidade da webcam.
+            </p>
+            <br>
+            <p>
+                Para mais detalhes sobre a implementação e exemplos práticos, consulte nosso repositório no GitHub.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
