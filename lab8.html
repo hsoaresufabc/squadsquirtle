@@ -157,13 +157,13 @@
     </header>
     <nav>
         <a href="index.html">Página Inicial</a>
-	<a href="#introducao">Introdução</a>
-	<a href="#objetivos">Objetivos</a>
-        <a href="#configuracao">Configuração do Ambiente</a>
-        <a href="#processamento">Processamento Básico</a>
-        <a href="#obterfotosvideos">Obtenção de Fotos e Vídeos</a>
-	<a href="#codigos">Códigos Utilizados</a>
+	    <a href="#introducao">Introdução</a>
+	    <a href="#tipos">Tipos de algoritmo de rastreamento</a>
+        <a href="#conceitos">Conceitos fundamentais</a>
+        <a href="#comparacao">Comparação entre Detecção e Rastreamento</a>
+	    <a href="#resultados">Resultados</a>
         <a href="#conclusao">Conclusão</a>
+        <a href="#explicacaocodigo">Explicação do código</a>
     </nav>
     <main>
         <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 8</h2>
@@ -179,7 +179,7 @@
 		</p>
 
 		</div>
-	    		<div id="objetivos" class="card">
+	    		<div id="tipos" class="card">
 		<h2 class="section-title">Tipos de Algoritmos de Rastreamento</h2>
 		<p>
 			Existem diversos algoritmos disponíveis no OpenCV para o rastreamento de objetos, 
@@ -203,7 +203,7 @@
 		</p>
 
 		</div>
-        <div id="configuracao" class="card">
+        <div id="conceitos" class="card">
 		<h2 class="section-title">Conceitos Fundamentais</h2>
 		<p>
 			O rastreamento pode ser entendido através de dois modelos principais:
@@ -220,7 +220,7 @@
 
 		</div>
 
-        <div id="processamento-basico" class="card">
+        <div id="comparacao" class="card">
 
     <h2 class="section-title">Comparação entre Detecção e Rastreamento</h2>
     <p>
@@ -258,7 +258,7 @@
             <strong>Integração de Conhecimentos:</strong>Integrar conceitos de visão computacional com programação prática, desenvolvendo um entendimento abrangente das aplicações de rastreamento de objetos em diferentes contextos.</li>
     </ul>
 	</div>
-	<div id="obterfotosvideos" class="card">
+	<div id="resultados" class="card">
     <h2 class="section-title">Resultados</h2>
     <p>
         Nos vídeos mostrados abaixo, podemos ver o resultado de aplicação do método KCF(Kernelized Correlation Filter) para rastreamento objetos, exibindo o vídeo sem processamento e processado ao seu lado: "<video.avi><output_video.avi>"
@@ -305,7 +305,7 @@
     </div>
 
 
-	<div id="codigos" class="card">
+	<div id="conclusao" class="card">
     <h2 class="section-title">Conclusão</h2>
     <p>
         A análise da saída do vídeo gerado pelo algoritmo KCF revela tanto os pontos 
@@ -316,6 +316,12 @@
         para explorar técnicas mais avançadas e desenvolver soluções mais robustas em aplicações 
         reais de visão computacional.
     </p>
+	</div>
+
+
+	<div id="explicacaocodigo" class="card">
+    <h2 class="section-title">Explicação Código</h2>
+
     <p>Exemplo de código:</p>
     <pre><code>
         #include "opencv2/imgcodecs.hpp"
@@ -432,12 +438,8 @@ void initializeTracker(Mat frame)
 }
 </pre>
 </code>
-    </p>
-	</div>
+<br>
 
-
-	<div id="leitura-sequencias-imagens" class="card">
-    <h2 class="section-title">Explicação Código</h2>
     <p>O programa apresentado é um código em C++ que utiliza a biblioteca OpenCV para capturar imagens da webcam, permitir a seleção de uma região de interesse (ROI) e realizar o rastreamento dessa região em tempo real usando o algoritmo KCF (Kernelized Correlation Filter). A seguir, está uma explicação detalhada sobre seus componentes e funcionamento.
     
     </p>
@@ -460,9 +462,7 @@ void initializeTracker(Mat frame)
     </div>
 
     </body>
-    </html>
-    ``
-    
+    </html>    
 </body>
 </html>
 <div style="text-align: center; margin-top: 20px;">
