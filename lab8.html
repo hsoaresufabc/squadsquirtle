@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 8: Rastreamento de Objetos</title>
+	<link rel="icon" type="image/png" href="icon.png">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        /* Estilo do Header */
+		header {
+			background: linear-gradient(135deg, #003366, #00509e); /* Gradiente azul */
+			color: white;
+			text-align: center;
+			padding: 20px 0;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+			position: relative;
+			border-bottom: 4px solid #007BFF; /* Linha destacada abaixo */
+		}
+
+		/* Título do site */
+		header h1 {
+			font-size: 2.5rem; /* Tamanho maior */
+			font-family: 'Pokemon', Arial, sans-serif; /* Mantém a identidade */
+			margin: 0;
+			letter-spacing: 1px; /* Espaçamento entre letras */
+		}
+
+		/* Subtítulo */
+		header p {
+			font-size: 1rem;
+			margin-top: 10px;
+			opacity: 0.9; /* Texto mais leve */
+		}
+
+		/* Barra de navegação */
+		nav {
+			background-color: #00509e; /* Azul sólido */
+			display: flex;
+			justify-content: center;
+			padding: 10px 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Links de navegação */
+		nav a {
+			color: white;
+			text-decoration: none;
+			margin: 0 20px;
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.3s ease, transform 0.2s ease;
+		}
+
+		/* Efeito hover nos links */
+		nav a:hover {
+			color: #FFD700; /* Dourado vibrante */
+			transform: scale(1.1); /* Leve aumento */
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			header h1 {
+				font-size: 2rem;
+			}
+			nav {
+				flex-direction: column;
+			}
+			nav a {
+				margin: 10px 0;
+			}
+		}
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="squadsquirtle.png" alt="Squad Squirtle Logo" style="height: 100px;">
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+	<a href="#introducao">Introdução</a>
+	<a href="#objetivos">Objetivos</a>
+        <a href="#configuracao">Configuração do Ambiente</a>
+        <a href="#processamento">Processamento Básico</a>
+        <a href="#obterfotosvideos">Obtenção de Fotos e Vídeos</a>
+	<a href="#codigos">Códigos Utilizados</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 8</h2>
+
+        <div id="introducao" class="card">
+		<h2 class="section-title">Introdução</h2>
+		<p>
+            O rastreamento de objetos é uma área crucial em visão computacional, permitindo a localização contínua 
+            de um objeto em sequências de vídeo. As técnicas de rastreamento podem ser categorizadas em diferentes 
+            algoritmos, cada um com suas características e aplicações.
+            A seguir, são apresentadas as principais técnicas e conceitos envolvidos no rastreamento de objetos, 
+            com base nas referências consultadas.
+		</p>
+
+		</div>
+	    		<div id="objetivos" class="card">
+		<h2 class="section-title">Tipos de Algoritmos de Rastreamento</h2>
+		<p>
+			Existem diversos algoritmos disponíveis no OpenCV para o rastreamento de objetos, 
+            cada um com suas vantagens e desvantagens. Os principais algoritmos incluem:
+		</p>
+		<ul>
+
+			<li>BOOSTING</li>
+			<li>MIL (Multiple Instance Learning)</li>
+			<li>KCF (Kernelized Correlation Filters)</li>
+			<li>TLD (Tracking-Learning-Detection)</li>
+			<li>MEDIANFLOW</li>
+			<li>GOTURN (Deep Learning-based)</li>
+			<li>MOSSE (Minimum Output Sum of Squared Error)</li>
+            <li>CSRT (Discriminative Correlation Filter with Channel and Spatial Reliability)</li>
+		</ul>
+		<p>
+            Esses algoritmos variam em termos de robustez, velocidade e capacidade de lidar com 
+            oclusões e mudanças na aparência do objeto.
+
+		</p>
+
+		</div>
+        <div id="configuracao" class="card">
+		<h2 class="section-title">Conceitos Fundamentais</h2>
+		<p>
+			O rastreamento pode ser entendido através de dois modelos principais:
+		</p>
+		<ul>
+            <li>Modelo de Movimento: Este modelo prevê a localização do objeto com base na sua posição 
+                e velocidade nas frames anteriores.Ele fornece uma estimativa aproximada da nova posição
+                do objeto</li>
+            <li>Modelo de Aparência: Este modelo utiliza informações visuais do objeto para refinar 
+                a previsão feita pelo modelo de movimento. Um classificador é frequentemente usado 
+                para determinar se uma região da imagem contém o objeto ou não, ajustando a estimativa 
+                da localização.</li>
+		</ul>
+
+		</div>
+
+        <div id="processamento-basico" class="card">
+
+    <h2 class="section-title">Comparação entre Detecção e Rastreamento</h2>
+    <p>
+        O rastreamento é geralmente mais eficiente do que a detecção, pois utiliza informações já 
+        conhecidas sobre a aparência e a posição do objeto nos frames anteriores. Isso permite que 
+        os algoritmos de rastreamento realizem buscas menores ao redor da localização prevista, 
+        tornando o processo mais rápido. No entanto, se um objeto for ocluído ou se mover rapidamente, 
+        o rastreador pode perder o alvo, necessitando da reintrodução de um algoritmo de detecção para 
+        corrigir possíveis desvios
+
+    </p>
+    <h3>Objetivos</h3>
+    <p>
+        Os objetivos deste relatório são estudar a aplicar algoritmos sobre rastreamento de objetos utilizando a biblioteca OpenCV. A seguir, estão os principais objetivos estabelecidos para a atividade:
+    </p>
+
+    <ul>
+        <li>
+            <strong>Compreensao teórica:</strong>
+            Estudar os conceitos fundamentais do rastreamento de objetos através dos tutoriais selecionados, que abordam diferentes algoritmos e técnicas disponíveis no OpenCV. Isso inclui a familiarização com métodos como BOOSTING, KCF, CSRT e GOTURN, entre outros.
+            </li>
+        <li>
+            <strong>Desenvolvimento de Programas em C++:</strong>
+            <li>Experimento 1: Criar um programa em C++ que leia vídeos previamente gravados pelos membros da equipe. O programa deve implementar um algoritmo de rastreamento de objetos que permita a seleção manual da Região de Interesse (ROI) e exiba o resultado na tela. Além disso, o programa deve salvar os vídeos resultantes do rastreamento.
+                </li>
+            <li>Experimento 2: Modificar o programa anterior para que ele utilize uma webcam para capturar imagens ao vivo. O novo programa deve exibir em tempo real a imagem da webcam juntamente com o resultado do rastreamento do objeto selecionado, além de salvar o vídeo resultante.
+            </li>
+        </li>
+        <li>
+            <strong>Aplicação Prática das Teorias Estudadas:</strong>Aplicar os conhecimentos teóricos adquiridos na prática, desenvolvendo habilidades de programação e implementação de algoritmos de rastreamento em cenários reais, tanto em vídeos gravados quanto em transmissões ao vivo.
+        </li>
+        <li>
+            <strong>Análise e Reflexão:</strong>Promover uma reflexão crítica sobre os resultados obtidos nos experimentos, discutindo as dificuldades enfrentadas, a eficácia dos algoritmos escolhidos e possíveis melhorias nas implementações.</li>
+        <li>
+            <strong>Integração de Conhecimentos:</strong>Integrar conceitos de visão computacional com programação prática, desenvolvendo um entendimento abrangente das aplicações de rastreamento de objetos em diferentes contextos.</li>
+    </ul>
+	</div>
+	<div id="obterfotosvideos" class="card">
+    <h2 class="section-title">Resultados</h2>
+    <p>
+        Nos vídeos mostrados abaixo, podemos ver o resultado de aplicação do método KCF(Kernelized Correlation Filter) para rastreamento objetos, exibindo o vídeo sem processamento e processado ao seu lado: "<video.avi><output_video.avi>"
+    </p>
+    <p>
+        A análise da saída do vídeo gerado pelo algoritmo KCF (Kernelized Correlation Filters) 
+        para rastreamento de objetos mostrou um desempenho robusto na maioria das situações, 
+        com o retângulo azul delimitando o objeto sendo mantido com precisão durante movimentos suaves 
+        e em condições de iluminação estável. 
+        A qualidade visual do vídeo foi satisfatória, apresentando uma taxa de quadros adequada (30 fps) 
+        que garantiu transições suaves. 
+    </p>
+    <p>
+        No entanto, o rastreador enfrentou dificuldades em cenários de movimento rápido e obstruções temporárias, resultando em falhas na atualização da posição do objeto.
+    </p>  
+	</div>
+
+	<div id="leitura-sequencias-imagens" class="card">
+        <h2 class="section-title">Vídeo</h2>
+        <style>
+            .video-container {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+            }
+            video {
+                border: 2px solid #000;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="video-container">
+            <center><video width="640" height="480" controls>
+                <source src="output_video_lab8.mp4" type="video/mp4">
+                Seu navegador não suporta o formato de vídeo.
+                </video></center>
+
+        </div>
+        <p>
+            
+        </p>
+        <p>O vídeo acima demonstra o rastreamento de objeto, antes de inicializar o vídeo, definimos que o rastreio seria a estampa do celular.</p>
+    </div>
+
+
+	<div id="codigos" class="card">
+    <h2 class="section-title">Conclusão</h2>
+    <p>
+        A análise da saída do vídeo gerado pelo algoritmo KCF revela tanto os pontos 
+        fortes quanto as limitações dessa abordagem para rastreamento de objetos. 
+        Embora tenha mostrado um desempenho satisfatório em diversas condições, as dificuldades 
+        enfrentadas em situações desafiadoras indicam áreas potenciais para melhorias futuras. 
+        A experiência prática adquirida ao implementar este algoritmo oferece uma base sólida 
+        para explorar técnicas mais avançadas e desenvolver soluções mais robustas em aplicações 
+        reais de visão computacional.
+    </p>
+    <p>Exemplo de código:</p>
+    <pre><code>
+        #include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/tracking.hpp"
+#include "opencv2/videoio.hpp"
+#include <iostream>
+
+using namespace std;
+using namespace cv;
+
+/// Global variables
+Mat src;
+
+int maxCorners = 23;
+int maxTrackbar = 100;
+
+RNG rng(12345);
+const char* source_window = "Image";
+
+// Video capture and writer
+VideoCapture cap(0); // Abrindo a webcam (índice 0)
+VideoWriter writer;  // Para gravar o vídeo processado
+
+Rect roi;  // Região de interesse para rastreamento
+Ptr<Tracker> tracker = TrackerKCF::create();  // Criação do tracker KCF
+
+/// Function headers
+void initializeTracker(Mat frame);
+
+int main(int argc, char** argv)
+{
+    // Verifica se a webcam foi aberta corretamente
+    if (!cap.isOpened()) {
+        cout << "Could not open or find the webcam!" << endl;
+        return -1;
+    }
+
+    // Cria uma janela para exibir os resultados
+    namedWindow(source_window);
+
+    // Criar a variável de vídeo para salvar o arquivo de saída
+    int frame_width = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH)); // largura do quadro
+    int frame_height = static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT)); // altura do quadro
+    writer.open("output_video.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, Size(frame_width, frame_height), true);
+
+    if (!writer.isOpened()) {
+        cout << "Could not open the video writer!" << endl;
+        return -1;
+    }
+
+    // Captura o primeiro quadro da webcam
+    cap >> src;
+    if (src.empty()) {
+        cout << "Could not capture frame!" << endl;
+        return -1;
+    }
+
+    // Permite ao usuário selecionar a região de interesse (ROI) para rastreamento
+    initializeTracker(src);
+
+    while (true) {
+        // Captura o próximo quadro da webcam
+        cap >> src;
+
+        // Verifica se o quadro foi capturado corretamente
+        if (src.empty()) {
+            cout << "Erro ao capturar o quadro!" << endl;
+            break;
+        }
+
+        // Atualiza o rastreamento
+        bool isTracking = tracker->update(src, roi);
+
+        // Se o tracker conseguir atualizar com sucesso, desenha o retângulo da região rastreada
+        if (isTracking) {
+            rectangle(src, roi, Scalar(255, 0, 0), 2, 1); // Quadrado azul
+        } else {
+            putText(src, "Tracking failed", Point(20, 50), FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+        }
+
+        // Exibe o quadro com o rastreamento
+        imshow(source_window, src);
+
+        // Salva o quadro processado no arquivo de vídeo
+        writer.write(src);
+
+        // Sai se a tecla 'ESC' for pressionada
+        if (waitKey(1) == 27) {
+            break;
+        }
+    }
+
+    // Libera os recursos
+    cap.release();
+    writer.release();
+    destroyAllWindows();
+
+    return 0;
+}
+
+void initializeTracker(Mat frame)
+{
+    // Permite ao usuário selecionar a região de interesse (ROI)
+    roi = selectROI("tracker", frame);
+
+    // Sai se a ROI não for selecionada
+    if (roi.width == 0 || roi.height == 0)
+        exit(0);
+
+    // Inicializa o tracker com o primeiro quadro e a ROI selecionada
+    tracker->init(frame, roi);
+}
+</pre>
+</code>
+    </p>
+	</div>
+
+
+	<div id="leitura-sequencias-imagens" class="card">
+    <h2 class="section-title">Explicação Código</h2>
+    <p>O programa apresentado é um código em C++ que utiliza a biblioteca OpenCV para capturar imagens da webcam, permitir a seleção de uma região de interesse (ROI) e realizar o rastreamento dessa região em tempo real usando o algoritmo KCF (Kernelized Correlation Filter). A seguir, está uma explicação detalhada sobre seus componentes e funcionamento.
+    
+    </p>
+    <p>    Inicialmente, o programa importa as bibliotecas necessárias da OpenCV, que fornecem funcionalidades para captura de vídeo, manipulação de imagens e implementação do rastreamento. Ele também define variáveis globais importantes, como o objeto responsável por capturar vídeo da webcam (cap), o gravador de vídeo (writer) que salvará os quadros processados, e o rastreador KCF, que acompanha a posição do objeto ao longo dos quadros.
+    </p>    
+    <p>    Na etapa de inicialização, o programa verifica se a webcam foi aberta corretamente. Caso contrário, exibe uma mensagem de erro e encerra. Em seguida, configura o gravador de vídeo para salvar os quadros processados em um arquivo no formato AVI. A resolução do vídeo é obtida automaticamente para garantir a compatibilidade com a captura.
+    </p>
+    <p>
+        O primeiro quadro da webcam é capturado e exibido para o usuário, que seleciona manualmente a região de interesse (ROI) na imagem. Essa ROI define a área a ser rastreada pelo algoritmo nos quadros seguintes. O rastreador KCF é inicializado com a ROI selecionada e começa a acompanhar o movimento do objeto em tempo real.
+    </p>    
+       <p>    O loop principal do programa realiza continuamente a captura de novos quadros da webcam. O rastreador atualiza a localização da ROI com base na previsão feita a partir do quadro anterior. O programa desenha um retângulo em torno da ROI rastreada no quadro processado e exibe o resultado. Caso o rastreador não consiga localizar a ROI, uma mensagem de erro é exibida na tela, indicando que o rastreamento falhou. Cada quadro processado é salvo no arquivo de vídeo configurado anteriormente.
+    </p> 
+       <p>    O programa permanece em execução até que o usuário pressione a tecla "ESC". Quando isso ocorre, o programa libera todos os recursos utilizados, como a webcam e o gravador de vídeo, encerrando a execução de forma limpa.
+    </p>
+       <p>    O algoritmo KCF utilizado é eficiente para rastreamento de objetos em tempo real. Ele utiliza filtros correlativos para prever a localização do objeto com base na ROI inicial, oferecendo um bom equilíbrio entre velocidade e precisão. No entanto, ele pode apresentar limitações em situações onde o objeto rastreado sofre oclusões ou mudanças bruscas em sua aparência. O programa, como um todo, demonstra uma aplicação prática do rastreamento de objetos utilizando técnicas de visão computacional em OpenCV.
+    </p>
+
+    Para mais detalhes sobre a implementação e exemplos práticos, consulte nosso repositório no GitHub.
+
+    </div>
+
+    </body>
+    </html>
+    ``
+    
+</body>
+</html>
+<div style="text-align: center; margin-top: 20px;">
+    <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+</div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
