@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório 7: Detecção de Objetos</title>
+	<link rel="icon" type="image/png" href="icon.png">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #003366; /* Azul escuro */
+            line-height: 1.6;
+        }
+
+        /* Estilo do Header */
+		header {
+			background: linear-gradient(135deg, #003366, #00509e); /* Gradiente azul */
+			color: white;
+			text-align: center;
+			padding: 20px 0;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+			position: relative;
+			border-bottom: 4px solid #007BFF; /* Linha destacada abaixo */
+		}
+
+		/* Título do site */
+		header h1 {
+			font-size: 2.5rem; /* Tamanho maior */
+			font-family: 'Pokemon', Arial, sans-serif; /* Mantém a identidade */
+			margin: 0;
+			letter-spacing: 1px; /* Espaçamento entre letras */
+		}
+
+		/* Subtítulo */
+		header p {
+			font-size: 1rem;
+			margin-top: 10px;
+			opacity: 0.9; /* Texto mais leve */
+		}
+
+		/* Barra de navegação */
+		nav {
+			background-color: #00509e; /* Azul sólido */
+			display: flex;
+			justify-content: center;
+			padding: 10px 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Links de navegação */
+		nav a {
+			color: white;
+			text-decoration: none;
+			margin: 0 20px;
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.3s ease, transform 0.2s ease;
+		}
+
+		/* Efeito hover nos links */
+		nav a:hover {
+			color: #FFD700; /* Dourado vibrante */
+			transform: scale(1.1); /* Leve aumento */
+		}
+
+		/* Responsividade */
+		@media (max-width: 768px) {
+			header h1 {
+				font-size: 2rem;
+			}
+			nav {
+				flex-direction: column;
+			}
+			nav a {
+				margin: 10px 0;
+			}
+		}
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00509e;
+            display: inline-block;
+            color: #003366;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        .imagem-exp {
+            border: 3px solid rgb(44, 30, 241);        /* Borda sólida preta */
+            border-radius: 5px;           /* Cantos arredondados */
+            border-style: groove;          /* Borda pontilhada */
+            border-color: blue;            /* Cor da borda */
+            width: 600px;         /* Largura fixa */
+            height: auto;         /* Altura ajustada proporcionalmente */
+            margin: 10px;
+        }
+
+		/* Responsividade para telas menores */
+		@media (max-width: 768px) {
+			.work-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.work-grid {
+				grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+			}
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="squadsquirtle.png" alt="Squad Squirtle Logo" style="height: 100px;">
+        <p> Processamento de Vídeo - Universidade Federal do ABC</p>
+    </header>
+    <nav>
+        <a href="index.html">Página Inicial</a>
+        <a href="#introducao">Introdução</a>
+        <a href="#deteccao">Detecção de Objetos</a>
+        <a href="#implementacao">Implementação no OpenCV</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#codigo">Código Completo</a>
+        <a href="#cenarios">Cenários de Aplicação</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Relatório do Laboratório 7</h2>
+        <div id="introducao" class="card">
+            <h2 class="section-title">Introdução</h2>
+            <p>
+                No laboratório 7, estudamos a detecção de objetos com OpenCV e adaptamos o código de detecção com classificadores em cascata fornecido nos tutoriais para testar a detecção de características (como rostos e olhos) em fotos capturada através da webcam. A detecção de objetos é uma das áreas da visão computacional, permitindo que máquinas identifiquem e localizem objetos em imagens e vídeos. Essa tecnologia tem aplicações variadas, desde segurança e vigilância até sistemas de assistência em veículos autônomos e interações em tempo real com usuários. Entre os métodos mais populares para detecção de objetos, destaca-se o uso de classificadores em cascata, que combina eficiência e precisão na identificação de padrões visuais.
+                
+            </p>
+        </div>
+        <div id="deteccao" class="card">
+            <h2 class="section-title"> Detecção de objetos</h2>
+            <p>A detecção de objetos é uma técnica essencial em visão computacional, permitindo identificar e rastrear elementos específicos em imagens ou vídeos. Aplicações práticas incluem segurança, vigilância, agricultura de precisão, saúde e transporte. No monitoramento de quedas de idosos, por exemplo, algoritmos de subtração de fundo são otimizados para condições de baixa iluminação, garantindo alertas rápidos. Na agricultura, técnicas de aprendizado profundo combinadas com índices como NDVI identificam ervas daninhas, aumentando a eficiência na gestão de cultivos. Em transportes, a subtração de fundo auxilia na detecção e rastreamento de aeronaves em vídeos de satélite, mesmo em cenários complexos. Além disso, essa abordagem é amplamente utilizada em sistemas de controle de tráfego, análise esportiva e automação industrial. Avanços recentes integram subtração de fundo com redes neurais profundas, melhorando a precisão em cenários dinâmicos e desafiadores. A combinação de técnicas de aprendizado de máquina com sensores multiespectrais expande as possibilidades, como na classificação de vegetações e inspeção de infraestrutura.</p>
+        </div>
+		<div id="implementacao" class="card">
+            <h2 class="section-title">Implementação no OpenCV</h2>
+            <p>A OpenCV (Open Source Computer Vision Library) é uma das bibliotecas mais populares para visão computacional, amplamente utilizada para tarefas como detecção de objetos. Ela fornece ferramentas robustas para processar imagens e vídeos, identificar padrões e realizar análises em tempo real.
+
+                <lu>
+                    <li><strong>Subtração de Fundo</strong> Usada para segmentar objetos em movimento de um fundo estático. Algoritmos como MOG2 e KNN, implementados na OpenCV, são ideais para detectar mudanças em cenas de vídeo em tempo real, como pessoas ou veículos em movimento.
+                    </li>
+                    <li><strong>Algoritmos de Contorno e Segmentação:</strong>A Métodos como findContours permitem identificar a borda de objetos detectados, sendo úteis para distinguir formas e tamanhos.</li>
+                    <li><strong>Redes Neurais:</strong> A OpenCV suporta frameworks como TensorFlow e PyTorch para implementar modelos pré-treinados, como YOLO (You Only Look Once), que são otimizados para detecção rápida e precisa.</li>
+                    <li><strong>Processamento de Cor e Gradiente:</strong> Transformações como escala de cinza e histogramas de gradiente orientado (HOG) ajudam a destacar características que tornam a detecção mais robusta.</li>
+                    <li><strong>Detecção de Pontos-Chave e Rastreamento:</strong> Algoritmos como ORB, SIFT e SURF, disponíveis na OpenCV, são usados para rastrear objetos em movimento ou identificar características únicas.</li>
+                </lu>
+                <p>
+
+                </p>
+                Na detecção de objetos, a OpenCV oferece suporte a diversas técnicas fundamentais, incluindo:
+                Por ser eficiente, de código aberto e com suporte a hardware acelerado, a OpenCV é amplamente utilizada em aplicações reais, como vigilância, robótica, inspeção industrial e sistemas autônomos. A biblioteca combina flexibilidade com performance, tornando-a uma ferramenta indispensável para pesquisadores e desenvolvedores.</p>
+            
+        </div>
+
+        
+        <div id="resultados" class="card">
+            <h2 class="section-title">Resultados</h2>
+            <p>
+                Para realizar os experimentos, foram utilizadas imagens capturadas de dois integrantes do grupo através da webcam, aplicando o algoritmo de detecção de objetos, utlizando dois classificadores diferentes para o rosto. Abaixo serão exbidas as imagens produzidas no experimento:  
+            </p>
+    <br>
+         
+            <li><strong>Foto frontal utilizando o classificador <code>haarcascade_frontalface_alt</code> jutamente com o <code>classificador haarcascade_eye_tree_eyeglasses</code>:</strong></li>
+            <br>
+            <center><img src="Detecção de rosto e olhos - Frontal_ALT_lab7.png" alt="ALT1" class="imagem-exp"></center>
+    <br>
+
+            <li><strong>Foto frontal utilizando o classificador <code>haarcascade_frontalface_alt2</code> jutamente com o <code>classificador haarcascade_eye_tree_eyeglasses</code>:</strong></li>
+            <br>
+            <center><img src="Detecção de rosto e olhos - Frontal_ALT2_lab7.png" alt="ALT2" class="imagem-exp"></center>
+            <br>
+
+            <p>Foi possível observar que para ambos os classificadores <code>haarcascade_frontalface_alt</code> e <code>haarcascade_frontalface_alt2</code> o rosto dos integrantes foi identificado corretamente.</p>
+            <br>
+            <p>A detecção do rosto foi possível de ser feita até mesmo com o rosto levemente inclinado (sem estar de frente para a webcam):</p>
+            <li><strong>Foto frontal utilizando o classificador <code>haarcascade_frontalface_alt2</code> jutamente com o <code>classificador haarcascade_eye_tree_eyeglasses</code>:</strong></li>
+            <br>
+            <center><img src="sem_e_com_processamento_lab7.png" alt="de_perfil" class="imagem-exp"></center>
+
+    </div>
+
+            <div id="codigo" class="card">
+                <h2 class="section-title">Código Completo</h2>
+                <p>
+                    O código completo que foi desenvolvido durante o laboratório faz uso das funções descritas acima para fazer a detecção de obejetos (no caso rosto e olhos) e capturar imagens utilizando o algoritmo <code>objectDetection.cpp</code>. Abaixo está o código completo:
+                </p>
+                <pre><code>
+#include &quot;opencv2/objdetect.hpp&quot;
+#include &quot;opencv2/highgui.hpp&quot;
+#include &quot;opencv2/imgproc.hpp&quot;
+#include &quot;opencv2/videoio.hpp&quot;
+#include &lt;iostream&gt;
+
+using namespace std;
+using namespace cv;
+
+/** Function Headers */
+void detectAndDisplay(Mat frame, Mat &amp;processed_frame);
+
+/** Global variables */
+CascadeClassifier face_cascade;
+CascadeClassifier eyes_cascade;
+
+/** @function main */
+int main(int argc, const char** argv)
+{
+    CommandLineParser parser(argc, argv,
+                    &quot;{help h||}&quot;
+                             &quot;{face_cascade|/home/ufabc/Documentos/Christian/LAB7/haarcascade_frontalface_alt2.xml|Path to face cascade.}&quot;
+                             &quot;{eyes_cascade|/home/ufabc/Documentos/Christian/LAB7/haarcascade_eye_tree_eyeglasses.xml|Path to eyes cascade.}&quot;
+                             &quot;{camera|0|Camera device number.}&quot;);
+
+    parser.about(&quot;\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in a video stream.\n&quot;
+                 &quot;You can use Haar or LBP features.\n\n&quot;);
+    parser.printMessage();
+
+    String face_cascade_name = samples::findFile(parser.get&lt;String&gt;(&quot;face_cascade&quot;));
+    String eyes_cascade_name = samples::findFile(parser.get&lt;String&gt;(&quot;eyes_cascade&quot;));
+
+    //-- 1. Load the cascades
+    if (!face_cascade.load(face_cascade_name))
+    {
+        cout &lt;&lt; &quot;--(!)Error loading face cascade\n&quot;;
+        return -1;
+    };
+    if (!eyes_cascade.load(eyes_cascade_name))
+    {
+        cout &lt;&lt; &quot;--(!)Error loading eyes cascade\n&quot;;
+        return -1;
+    };
+
+    int camera_device = parser.get&lt;int&gt;(&quot;camera&quot;);
+    VideoCapture capture;
+    //-- 2. Read the video stream
+    capture.open(camera_device);
+    if (!capture.isOpened())
+    {
+        cout &lt;&lt; &quot;--(!)Error opening video capture\n&quot;;
+        return -1;
+    }
+
+    Mat frame, processed_frame;
+    while (capture.read(frame))
+    {
+        if (frame.empty())
+        {
+            cout &lt;&lt; &quot;--(!) No captured frame -- Break!\n&quot;;
+            break;
+        }
+
+        //-- 3. Apply the classifier to the frame
+        detectAndDisplay(frame, processed_frame);
+
+        //-- Combine original and processed frames side by side
+        Mat combined_frame;
+        hconcat(frame, processed_frame, combined_frame);
+
+        //-- Display combined output
+        imshow(&quot;Original and Processed Frames&quot;, combined_frame);
+
+        if (waitKey(10) == 27)
+        {
+            break; // escape
+        }
+    }
+    return 0;
+}
+
+/** @function detectAndDisplay */
+void detectAndDisplay(Mat frame, Mat &amp;processed_frame)
+{
+    // Create a copy of the frame for processing
+    processed_frame = frame.clone();
+
+    Mat frame_gray;
+    cvtColor(processed_frame, frame_gray, COLOR_BGR2GRAY);
+    equalizeHist(frame_gray, frame_gray);
+
+    //-- Detect faces
+    std::vector&lt;Rect&gt; faces;
+    face_cascade.detectMultiScale(frame_gray, faces);
+
+    for (size_t i = 0; i &lt; faces.size(); i++)
+    {
+        Point center(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2);
+        ellipse(processed_frame, center, Size(faces[i].width / 2, faces[i].height / 2), 0, 0, 360, Scalar(255, 0, 255), 4);
+
+        Mat faceROI = frame_gray(faces[i]);
+
+        //-- In each face, detect eyes
+        std::vector&lt;Rect&gt; eyes;
+        eyes_cascade.detectMultiScale(faceROI, eyes);
+
+        for (size_t j = 0; j &lt; eyes.size(); j++)
+        {
+            Point eye_center(faces[i].x + eyes[j].x + eyes[j].width / 2, faces[i].y + eyes[j].y + eyes[j].height / 2);
+            int radius = cvRound((eyes[j].width + eyes[j].height) * 0.25);
+            circle(processed_frame, eye_center, radius, Scalar(255, 0, 0), 4);
+        }
+    }
+}
+</code></pre>
+
+
+
+
+
+
+
+
+        </div>
+		    <div id="cenarios" class="card">
+            <h2 class="section-title">Cenários Reais de Aplicação</h2>
+            <p>
+                A detecção de objetos com OpenCV tem diversas aplicações práticas em cenários do mundo real. Abaixo estão alguns exemplos:
+            </p>
+            <ul>
+                <li>
+                    <strong>Detecção de Rostos:</strong> tilizada em sistemas de segurança para identificar indivíduos em ambientes públicos ou privados. Câmeras equipadas com algoritmos de reconhecimento facial podem alertar sobre a presença de pessoas não autorizadas.
+                </li>
+                <li>
+                    <strong> Monitoramento de Tráfego:</strong> OpenCV é empregado para rastrear veículos em tempo real, ajudando na análise do fluxo de tráfego e na identificação de congestionamentos. Isso é essencial para a gestão eficiente do tráfego urbano.
+                </li>
+                <li>
+                    <strong> Veículos Autônomos: </strong> Em carros autônomos, a detecção de objetos é crucial para identificar pedestres, outros veículos e obstáculos na estrada, garantindo a segurança durante a condução.
+                </li>
+                <li>
+                    <strong> Análise de Imagens Médicas:</strong> O OpenCV é utilizado para detectar e classificar doenças em imagens médicas, como tomografias e raios-X. Isso ajuda médicos a diagnosticar condições com maior precisão. Sistemas automatizados podem identificar anomalias em exames médicos, como tumores ou fraturas, facilitando o trabalho dos profissionais da saúde
+                </li>
+                <li>
+                    <strong>Agricultura:</strong> A tecnologia pode ser usada para detectar ervas daninhas, monitorar o crescimento das plantas e otimizar o uso de recursos como água e fertilizantes. Isso melhora a eficiência agrícola e reduz custos operacionais. Esta técnica pode ser aplicada na separação e classificação automática de frutas e vegetais com base em características visuais, como cor e tamanho
+                </li>
+                <li>
+                    <strong>Reconhecimento Facial:</strong> : O reconhecimento facial é amplamente utilizado em smartphones para desbloqueio seguro e autenticação do usuário. Esse método oferece uma camada adicional de segurança. Em grandes eventos, sistemas equipados com OpenCV podem ser usados para identificar participantes ou controlar o acesso ao evento através do reconhecimento facial
+                </li>
+            </ul>
+            <p>
+                Esses exemplos demonstram a importância das técnicas abordadas no laboratório, destacando seu potencial para resolver problemas do mundo real em diferentes domínios.
+            </p>
+        </div>
+        <div id="conclusao" class="card">
+            <h2 class="section-title">Conclusão</h2>
+            <p>
+                A detecção de objetos com OpenCV usando classificadores em cascata baseados em características Haar é uma técnica poderosa e eficiente. A combinação do treinamento adequado com a seleção inteligente de características e a estrutura em cascata permite que essa abordagem funcione bem em tempo real para diversas aplicações de visão computacional.
+            </p>
+            <br>
+            <p>
+                Para mais detalhes sobre a implementação e exemplos práticos, consulte nosso repositório no GitHub.
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; background-color: #00509e; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; transition: background-color 0.3s ease;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Squad Squirtle | <a href="https://github.com/hsoaresufabc/squadsquirtle" target="_blank">GitHub Repo</a></p>
+    </footer>
+</body>
+</html>
+
