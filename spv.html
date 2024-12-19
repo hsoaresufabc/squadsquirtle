@@ -392,7 +392,7 @@ int main() {
 			<li><strong>Contagem de Dedos:</strong> A função <code>contarDedos()</code> analisa os defeitos de convexidade da mão (como os espaços entre os dedos) para determinar quantos dedos estão levantados.</li>
 		</ul>
 		<p>
-			O sistema utiliza conceitos fundamentais de processamento de imagem, como filtragem, segmentação de cor e análise geométrica, para alcançar resultados precisos. Além disso, o retângulo da ROI facilita o controle da área de análise e melhora a eficiência do processamento.
+			A partir da detecção de gestos, o SPV evoluiu seu foco para a aplicação em controle de acesso, utilizando a contagem de dedos ou gestos específicos como forma de autenticação. O sistema utiliza conceitos fundamentais de processamento de imagem, como filtragem, segmentação de cor e análise geométrica, para alcançar resultados precisos. Além disso, o retângulo da ROI facilita o controle da área de análise e melhora a eficiência do processamento.
 		</p>
 		</div>
 
@@ -403,7 +403,7 @@ int main() {
                 <li><strong>Processamento de cores:</strong> A função <code>cvtColor()</code> converte a imagem para o espaço de cores HSV.</li>
                 <li><strong>Subtração de fundo:</strong> A função <code>inRange()</code> segmenta a mão com base nos tons de pele.</li>
 		<li><strong>Histograma e equalização:</strong> A equalização do canal de brilho ocorre através de <code>equalizeHist</code></li>
-		<li><strong>Localizaçaõ de pontos de destaque:</strong> Pontos de contorno são identificados por <code>convexHull</code> e defeitos de convexidade por <code>convexityDefects</code>.</li>
+		<li><strong>Localização de pontos de destaque:</strong> Pontos de contorno são identificados por <code>convexHull</code> e defeitos de convexidade por <code>convexityDefects</code>.</li>
                 <li><strong>Detecção de objetos:</strong> Contornos são encontrados utilizando <code>findContours()</code>.</li>
             </ul>
         </div>
