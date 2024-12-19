@@ -161,16 +161,187 @@
 	<h2 style="text-align: center; margin-bottom: 20px;">Parte 7:  Elaboração de Apresentação, Videos, e Demo final. (DEMO)</h2>
     <div class="content">
         <div class="card">
+		<h2>Apresentação em formato .PDF</h2><br>
             <embed src="Squad-Squirtle.pdf" type="application/pdf" width="100%" height="600px" />
         </div>
 	<div class="card">
-        <h2>DEMO: Execução do SPV realizada durante o Teste de Campo</h2>
-        <iframe 
+        <h2>DEMO: Execução do SPV realizada durante o Teste de Campo</h2><br>
+        <center></center><iframe 
             src="https://youtube.com/embed/MDoxnMeMT1I" 
             height="400px" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
-        </iframe>
+        </iframe></center>
+    	</div>
+	<div class="card">
+        <h2>DEMO Alternativa: Execução do SPV aprimorado utilizando Python + MediaPipe para criar um sistema de autenticação por reconhecimento de gestos</h2><br>
+        <center><video width="640" height="480" controls>
+	<source src="ac.mp4" type="video/mp4">
+	Seu navegador não suporta o formato de vídeo.
+	</video></center>
+    	</div>
+	
+	<div class="card">
+        <h2>SPV aprimorado utilizando Python + MediaPipe para criar um sistema de autenticação por reconhecimento de gestos</h2><br>
+	</p>
+    <p>Código Python:</p>
+		# DEPENDÊNCIAS:
+# 1. Python 3.x (Certifique-se de ter Python 3.6 ou superior instalado)
+# 2. OpenCV para Python
+#    Instalar com: pip install opencv-python
+# 3. MediaPipe para Python
+#    Instalar com: pip install mediapipe
+# 4. Biblioteca padrão do Python (datetime, os, time, etc.)
+#
+# COMANDOS PARA INSTALAÇÃO:
+# pip install opencv-python mediapipe
+#
+# OBSERVAÇÃO:
+# - Certifique-se de que sua webcam está funcional para usar como entrada de vídeo.
+# - O código salvará um arquivo de vídeo no formato AVI (compatível com o codec XVID).
+# - Testado com Python 3.8 e OpenCV 4.5.
+
+	import os
+import cv2
+import mediapipe as mp
+from datetime import datetime
+
+# Suprimir avisos do TensorFlow e Abseil
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+# Inicializar MediaPipe Hands
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
+
+# Senha para autenticação
+PASSWORD = "1234"  # A senha correta
+WILDCARD = "*"     # Para mascarar a senha digitada
+
+def count_fingers(hand_landmarks):
+    # Lista de landmarks das pontas dos dedos (polegar, indicador, médio, anelar e mínimo)
+    finger_tips = [4, 8, 12, 16, 20]
+    finger_states = []
+
+    # Verificar se o dedo está levantado
+    for tip_id in finger_tips[1:]:  # Ignorar o polegar por enquanto
+        if hand_landmarks.landmark[tip_id].y < hand_landmarks.landmark[tip_id - 2].y:
+            finger_states.append(1)  # Dedo levantado
+        else:
+            finger_states.append(0)  # Dedo abaixado
+
+    # Verificar o polegar separadamente
+    if hand_landmarks.landmark[4].x > hand_landmarks.landmark[3].x:
+        finger_states.insert(0, 1)  # Polegar levantado
+    else:
+        finger_states.insert(0, 0)  # Polegar abaixado
+
+    return sum(finger_states)
+
+def main():
+    cap = cv2.VideoCapture(1)  # Usar webcam como entrada
+
+    # Configurar gravação de vídeo
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS)) or 30  # Definir FPS padrão se não for detectado
+
+    # Nome do arquivo de vídeo com timestamp
+    output_filename = f"access_control_{datetime.now().strftime('%Y%m%d_%H%M%S')}.avi"
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(output_filename, fourcc, fps, (frame_width, frame_height))
+
+    # Inicializar MediaPipe Hands
+    with mp_hands.Hands(
+        static_image_mode=False,
+        max_num_hands=1,
+        min_detection_confidence=0.5,
+        min_tracking_confidence=0.5
+    ) as hands:
+        input_password = ""
+        is_reading = False  # Flag para verificar se a leitura está ativa
+
+        print("Pressione 'k' para começar a digitar a senha, 'c' para limpar, 'q' para sair.")
+
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                print("Erro: Não foi possível ler o quadro da webcam.")
+                break
+
+            # Espelhar o quadro horizontalmente para efeito de espelho
+            frame = cv2.flip(frame, 1)
+            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            # Processar o quadro e detectar mãos
+            results = hands.process(rgb_frame)
+
+            # Desenhar landmarks da mão e contar os dedos
+            if results.multi_hand_landmarks:
+                for hand_landmarks in results.multi_hand_landmarks:
+                    mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                    if is_reading:
+                        # Contar dedos e adicionar à entrada da senha
+                        fingers_up = count_fingers(hand_landmarks)
+                        input_password += str(fingers_up)
+                        is_reading = False  # Parar a leitura até 'k' ser pressionado novamente
+
+            # Exibir instruções e feedback
+            masked_password = WILDCARD * len(input_password)
+            cv2.putText(frame, f"Senha: {masked_password}", (10, 50), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+            cv2.putText(frame, "Pressione 'k' para inserir, 'c' para limpar, 'q' para sair", (10, 450),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 1)
+
+            # Validar automaticamente após 4 dígitos
+            if len(input_password) == len(PASSWORD):
+                if input_password == PASSWORD:
+                    print("Acesso Permitido.")
+                    cv2.putText(frame, "Acesso Permitido.", (10, 100), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                    for _ in range(int(fps * 3)):  # Mostrar mensagem por ~3 segundos
+                        out.write(frame)
+                        cv2.imshow("Controle de Acesso", frame)
+                        if cv2.waitKey(1) & 0xFF == ord('q'):
+                            break
+                    break  # Encerrar o programa após acesso permitido
+                else:
+                    print("Acesso negado.")
+                    cv2.putText(frame, "Acesso negado.", (10, 100), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                    for _ in range(int(fps * 3)):  # Mostrar mensagem por ~3 segundos
+                        out.write(frame)
+                        cv2.imshow("Controle de Acesso", frame)
+                        if cv2.waitKey(1) & 0xFF == ord('q'):
+                            break
+                    input_password = ""  # Redefinir entrada da senha para tentar novamente
+
+            # Mostrar o quadro
+            cv2.imshow("Controle de Acesso", frame)
+            out.write(frame)  # Gravar o quadro no arquivo de vídeo
+
+            # Gerenciar eventos de teclas
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break  # Sair do programa
+            elif key == ord('k'):
+                is_reading = True  # Permitir a leitura do próximo dígito
+            elif key == ord('c'):
+                print("Entrada limpa.")
+                input_password = ""  # Limpar a senha
+
+        cap.release()
+        out.release()
+        cv2.destroyAllWindows()
+        print(f"Video salvo como: {output_filename}")
+
+if __name__ == "__main__":
+    main()	
+    <pre><code>
+	    
+</pre>
+</code>
+<p>
     	</div>
     </div>
 
