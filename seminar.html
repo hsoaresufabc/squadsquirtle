@@ -92,12 +92,20 @@
         }
 
         .card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Centraliza o card */
+    max-width: 600px; /* Define um tamanho máximo */
+    text-align: center; /* Centraliza o conteúdo, incluindo a imagem */
+}
+
+.card img {
+    max-width: 100%; /* Faz a imagem se ajustar ao tamanho do card */
+    height: auto; /* Mantém a proporção da imagem */
+    margin-bottom: 15px; /* Espaço abaixo da imagem */
+}
 
         .section-title {
             font-size: 1.5rem;
