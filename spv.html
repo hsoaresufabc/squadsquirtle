@@ -177,110 +177,188 @@
 
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace cv;
 using namespace std;
 
-// Função auxiliar para contar dedos
-int contarDedos(const vector<Vec4i>& defeitos, const vector<Point>& contorno) {
-    int quantidadeDedos = 0;
+// Senha e constantes
+const string PASSWORD = "1234"; // Senha correta
+const char WILDCARD = '*';      // Máscara para a senha
+const Rect HAND_REGION(200, 100, 200, 200); // Região de interesse (ROI)
+const double MIN_CONTOUR_AREA = 1000.0;     // Área mínima para considerar um contorno válido
 
-    for (const auto& defeito : defeitos) {
-        Point ptInicio = contorno[defeito[0]];
-        Point ptFim = contorno[defeito[1]];
-        Point ptDistante = contorno[defeito[2]];
+// Função para contar os dedos usando convexidade
+int countFingers(const vector<Vec4i>& defects, const vector<Point>& contour) {
+    int fingerCount = 0;
 
-        // Usa geometria de triângulo para contar os dedos
-        double a = norm(ptInicio - ptDistante);
-        double b = norm(ptFim - ptDistante);
-        double c = norm(ptInicio - ptFim);
-        double angulo = acos((a * a + b * b - c * c) / (2 * a * b));
+    for (const auto& defect : defects) {
+        Point ptStart = contour[defect[0]];
+        Point ptEnd = contour[defect[1]];
+        Point ptFar = contour[defect[2]];
 
-        if (angulo < CV_PI / 2 && a > 50 && b > 50) {
-            quantidadeDedos++;
+        // Geometria do triângulo para contar os dedos
+        double a = norm(ptStart - ptFar);
+        double b = norm(ptEnd - ptFar);
+        double c = norm(ptStart - ptEnd);
+        double angle = acos((a * a + b * b - c * c) / (2 * a * b));
+
+        // Contar dedos baseando-se no ângulo e distância
+        if (angle < CV_PI / 2 && a > 50 && b > 50) {
+            fingerCount++;
         }
     }
-    return quantidadeDedos;
+    return fingerCount;
+}
+
+// Função para remover o fundo e isolar a mão
+Mat removeBackground(const Mat& roi) {
+    Mat hsv, mask, gray, brightnessMask, combinedMask;
+
+    // Converter a ROI para o espaço de cores HSV
+    cvtColor(roi, hsv, COLOR_BGR2HSV);
+
+    // Definir intervalo de cores para a pele e aplicar limiarização
+    inRange(hsv, Scalar(0, 30, 60), Scalar(20, 150, 255), mask);
+
+    // Adicionar limiarização baseada em intensidade para eliminar sombras
+    cvtColor(roi, gray, COLOR_BGR2GRAY);
+    threshold(gray, brightnessMask, 200, 255, THRESH_BINARY_INV);
+
+    // Combinar as máscaras (pele + brilho)
+    bitwise_and(mask, brightnessMask, combinedMask);
+
+    // Suavizar a máscara combinada
+    GaussianBlur(combinedMask, combinedMask, Size(5, 5), 0);
+
+    // Operações morfológicas para limpar a máscara
+    Mat kernel = getStructuringElement(MORPH_ELLIPSE, Size(5, 5));
+    morphologyEx(combinedMask, combinedMask, MORPH_CLOSE, kernel);
+    morphologyEx(combinedMask, combinedMask, MORPH_OPEN, kernel);
+
+    return combinedMask;
 }
 
 int main() {
-    VideoCapture cap(0); // Abre a câmera padrão
+    VideoCapture cap(0); // Abrir a câmera padrão
     if (!cap.isOpened()) {
         cerr << "Erro: Não foi possível acessar a câmera" << endl;
         return -1;
     }
 
-    Mat frame, hsv, mask, gray, roi;
-    Rect regiaoMao(200, 100, 200, 200); // Define a região quadrada para a mão
+    // Inicializar variáveis
+    Mat frame, roi, mask;
+    string inputPassword = "";
+    bool isReading = false;
 
-    namedWindow("Gesture Detection - Squad Squirtle - Detecção de Gestos", WINDOW_AUTOSIZE);
+    // Instruções para o usuário
+    cout << "Pressione 'k' para inserir, 'c' para limpar, 'q' para sair." << endl;
 
     while (true) {
         cap >> frame;
         if (frame.empty()) break;
 
-        // Desenha a região quadrada no quadro
-        rectangle(frame, regiaoMao, Scalar(255, 0, 0), 2);
+        // Desenhar a região quadrada no quadro
+        rectangle(frame, HAND_REGION, Scalar(255, 0, 0), 2);
 
-        // Extrai a região de interesse (ROI)
-        roi = frame(regiaoMao);
+        // Extrair a região de interesse (ROI)
+        roi = frame(HAND_REGION);
 
-        // Converte ROI para HSV e filtra a cor da pele
-        cvtColor(roi, hsv, COLOR_BGR2HSV);
-        inRange(hsv, Scalar(0, 30, 60), Scalar(20, 150, 255), mask);
+        // Remover o fundo da ROI
+        mask = removeBackground(roi);
 
-        // Suaviza e processa a máscara
-        GaussianBlur(mask, mask, Size(5, 5), 0);
+        // Encontrar contornos na máscara
+        vector<vector<Point>> contours;
+        vector<Vec4i> hierarchy;
+        findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 
-        // Encontra os contornos na máscara
-        vector<vector<Point>> contornos;
-        vector<Vec4i> hierarquia;
-        findContours(mask, contornos, hierarquia, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-        // Identifica o maior contorno
-        int maiorIndice = -1;
-        double maiorArea = 0;
-        for (int i = 0; i < contornos.size(); i++) {
-            double area = contourArea(contornos[i]);
-            if (area > maiorArea) {
-                maiorArea = area;
-                maiorIndice = i;
+        // Identificar o maior contorno com base na área
+        int largestIndex = -1;
+        double maxArea = 0;
+        for (int i = 0; i < contours.size(); i++) {
+            double area = contourArea(contours[i]);
+            if (area > maxArea && area > MIN_CONTOUR_AREA) {
+                maxArea = area;
+                largestIndex = i;
             }
         }
 
-        if (maiorIndice != -1) {
-            vector<Point> pontosConvexos;
-            vector<int> indicesConvexos;
-            vector<Vec4i> defeitos;
+        if (largestIndex != -1) {
+            vector<Point> hullPoints;
+            vector<int> hullIndices;
+            vector<Vec4i> defects;
 
-            // Envoltória convexa e defeitos de convexidade
-            convexHull(contornos[maiorIndice], pontosConvexos);
-            convexHull(contornos[maiorIndice], indicesConvexos);
-            if (indicesConvexos.size() > 3) {
-                convexityDefects(contornos[maiorIndice], indicesConvexos, defeitos);
+            // Encontrar o contorno convexo e os defeitos de convexidade
+            convexHull(contours[largestIndex], hullPoints);
+            convexHull(contours[largestIndex], hullIndices);
+            if (hullIndices.size() > 3) {
+                convexityDefects(contours[largestIndex], hullIndices, defects);
             }
 
-            // Desenha contornos e envoltória no ROI
-            drawContours(roi, contornos, maiorIndice, Scalar(0, 255, 0), 2);
-            polylines(roi, pontosConvexos, true, Scalar(255, 0, 0), 2);
+            // Desenhar os contornos e o contorno convexo na ROI
+            drawContours(roi, contours, largestIndex, Scalar(0, 255, 0), 2);
+            polylines(roi, hullPoints, true, Scalar(255, 0, 0), 2);
 
-            // Conta os dedos
-            int quantidadeDedos = contarDedos(defeitos, contornos[maiorIndice]);
-            putText(frame, "Dedos: " + to_string(quantidadeDedos), Point(10, 50),
+            // Contar os dedos
+            int fingerCount = countFingers(defects, contours[largestIndex]);
+
+            // Se estivermos lendo a entrada, adicionar o número de dedos à senha
+            if (isReading) {
+                inputPassword += to_string(fingerCount);
+                isReading = false;
+            }
+
+            // Exibir o número de dedos no quadro
+            putText(frame, "Dedos: " + to_string(fingerCount), Point(10, 50),
                     FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 2);
         }
 
-        imshow("Gesture Detection - Squad Squirtle - Detecção de Gestos", frame);
-        imshow("Gesture Detection - Squad Squirtle - Região da Mão", mask);
+        // Mostrar o progresso da senha com '*'
+        string maskedPassword(inputPassword.length(), WILDCARD);
+        putText(frame, "Senha: " + maskedPassword, Point(10, 100),
+                FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 255, 0), 2);
 
-        // Encerra ao pressionar a tecla 'q'
-        if (waitKey(30) == 'q') break;
+        // Exibir instruções
+        putText(frame, "Pressione 'k' para inserir, 'c' para limpar, 'q' para sair", Point(10, frame.rows - 20),
+                FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+
+        // Validar a senha quando alcançar o comprimento correto
+        if (inputPassword.length() == PASSWORD.length()) {
+            if (inputPassword == PASSWORD) {
+                putText(frame, "Acesso Permitido!", Point(10, 150),
+                        FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 255, 0), 2);
+                imshow("Detecção de Gestos - Squad Squirtle", frame);
+                waitKey(3000); // Esperar 3 segundos
+                break;
+            } else {
+                putText(frame, "Falha na Autenticacao!", Point(10, 150),
+                        FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+                inputPassword = ""; // Reiniciar a senha
+                imshow("Detecção de Gestos - Squad Squirtle", frame);
+                waitKey(3000); // Esperar 3 segundos
+            }
+        }
+
+        // Exibir as janelas
+        imshow("Detecção de Gestos - Squad Squirtle", frame);
+        imshow("Região da Mão", mask);
+
+        // Gerenciar eventos de tecla
+        char key = waitKey(30);
+        if (key == 'q') break;          // Sair do programa
+        if (key == 'k') isReading = true; // Começar a ler a entrada
+        if (key == 'c') {
+            inputPassword = ""; // Limpar a senha
+            cout << "Senha limpa." << endl;
+        }
     }
 
     cap.release();
     destroyAllWindows();
     return 0;
 }
+
             </code></pre>
         </div>
         <div id="descricao" class="card">
